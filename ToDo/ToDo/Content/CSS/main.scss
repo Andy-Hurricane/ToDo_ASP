@@ -1,0 +1,54 @@
+﻿@import "variables";
+
+body {
+
+    
+
+    footer {
+        p {
+            margin-top: $footer-margin-top;
+            font-size: $footer-font-size;
+            font-weight: bolder;
+            text-align: center;
+        }
+    }
+}
+
+.icon-cont {
+    padding: 0.5rem;
+    height: $panel-height;
+}
+
+.icon {
+    font-size: $icon-height;
+}
+
+.disabled {
+    color: aliceblue;
+}
+
+.plus {
+    color: forestgreen;
+}
+
+.remove {
+    color: crimson;
+}
+
+.eject {
+    color: darkred;
+}
+
+.edit, .list, .tile, .export {
+    color: dodgerblue;
+}
+
+.panel {
+    height: $panel-height;
+}
+
+.tasks {
+}
+
+.app {
+}
