@@ -40,7 +40,12 @@ namespace ToDo.Areas.ToDo.Models.Tasks {
             if (false) {
                 // połączenie z bazą danych
             }
-            return new List<Task>();
+            _tasks = new List<Task> {
+                new Task {
+                    Topic = "test"
+                }
+            };
+            return  _tasks;
         }
 
         bool IListOfTasks.Add(Task task)
