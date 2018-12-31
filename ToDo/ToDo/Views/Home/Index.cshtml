@@ -1,6 +1,6 @@
 ﻿
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <!DOCTYPE html>
@@ -12,8 +12,6 @@
 </head>
 <body>
     <div> 
-        <a asp-area="ToDo" asp-controller="ToDo" asp-action="Index">Lista ToDo</a>
-        <a asp-page="Test">Test</a>
         @Html.ActionLink("ToDo", "Index", new { area = "ToDo", controller = "ToDo" })
     </div>
 </body>
