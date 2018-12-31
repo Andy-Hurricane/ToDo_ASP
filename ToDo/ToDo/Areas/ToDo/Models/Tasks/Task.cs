@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace ToDo.Models.Tasks
+namespace ToDo.Areas.ToDo.Models.Tasks
 {
     /// <summary>
     /// Klasa reprezentująca zadanie.

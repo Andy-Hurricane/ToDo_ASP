@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ToDo.Models.Tasks
+namespace ToDo.Areas.ToDo.Models.Tasks
 {
     /// <summary>
     /// Obsługa listy zadań.

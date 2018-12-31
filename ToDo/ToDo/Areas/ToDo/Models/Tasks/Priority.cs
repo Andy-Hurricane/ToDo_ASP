@@ -1,4 +1,4 @@
-﻿namespace ToDo.Models.Tasks
+﻿namespace ToDo.Areas.ToDo.Models.Tasks
 {
     /// <summary>
     /// Dostępne priorytety zadań.
