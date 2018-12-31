@@ -1,0 +1,20 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Zadania</title>
+</head>
+<body>
+    <div> 
+        <a asp-area="ToDo" asp-controller="ToDo" asp-action="Index">Lista ToDo</a>
+        <a asp-page="Test">Test</a>
+        @Html.ActionLink("ToDo", "Index", new { area = "ToDo", controller = "ToDo" })
+    </div>
+</body>
+</html>
