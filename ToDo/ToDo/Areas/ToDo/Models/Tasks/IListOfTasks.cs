@@ -54,5 +54,11 @@ namespace ToDo.Areas.ToDo.Models.Tasks
         /// </summary>
         /// <returns>Lista z zadaniami.</returns>
         List<Task> GetList();
+
+        /// <summary>
+        /// Czyści listę zadań.
+        /// </summary>
+        /// <returns></returns>
+        bool Clear();
     }
 }

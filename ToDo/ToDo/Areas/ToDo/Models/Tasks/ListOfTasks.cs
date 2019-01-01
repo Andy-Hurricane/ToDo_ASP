@@ -131,5 +131,12 @@ namespace ToDo.Areas.ToDo.Models.Tasks {
         {
             return _tasks;
         }
+
+        bool IListOfTasks.Clear()
+        {
+            _tasks.Clear();
+
+            return true;
+        }
     }
 }
