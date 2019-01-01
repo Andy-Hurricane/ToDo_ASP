@@ -31,29 +31,24 @@ body {
     font-size: $icon-height;
 }
 
-.disabled {
-    color: aliceblue;
+.small-icon {
+    font-size: $small-icon-height;
+    padding: 0 0.7rem;
 }
 
-.plus {
-    color: forestgreen;
-}
-
-.remove {
-    color: crimson;
-}
-
-.eject {
-    color: darkred;
-}
-
-.edit, .list, .tile, .export {
-    color: dodgerblue;
-}
 
 .panel {
     height: $panel-height;
 }
+
+.fa-rotate-45 {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
 
 .tasks {
 }

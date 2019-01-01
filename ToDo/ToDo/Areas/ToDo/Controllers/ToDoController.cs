@@ -88,6 +88,7 @@ namespace ToDo.Areas.ToDo.Controllers
         }
 
         public ActionResult Exit() {
+            Tasks.Clear();
             return View("Exit");
         }
 

@@ -16,20 +16,16 @@
 .icon {
   font-size: 6rem; }
 
-.disabled {
-  color: aliceblue; }
-
-.plus {
-  color: forestgreen; }
-
-.remove {
-  color: crimson; }
-
-.eject {
-  color: darkred; }
-
-.edit, .list, .tile, .export {
-  color: dodgerblue; }
+.small-icon {
+  font-size: 3rem;
+  padding: 0 0.7rem; }
 
 .panel {
   height: 7rem; }
+
+.fa-rotate-45 {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg); }

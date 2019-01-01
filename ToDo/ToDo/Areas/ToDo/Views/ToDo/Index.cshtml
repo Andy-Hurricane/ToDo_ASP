@@ -12,10 +12,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Topic)
+            @Html.DisplayNameFor(model => model.Action)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Action)
+            @Html.DisplayNameFor(model => model.Topic)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Start)
@@ -24,46 +24,78 @@
             @Html.DisplayNameFor(model => model.End)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.ActualStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActualPriority)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Progress)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FilePath)
         </th>
         <th></th>
     </tr>
 
     @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Topic)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Action)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Start)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.End)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Progress)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FilePath)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-            </td>
-        </tr>
-    }
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Action)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Topic)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Start)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.End)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActualStatus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActualPriority)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Progress)
+        </td>
+        <td>
+            <input type="checkbox" id="selected_@Html.DisplayFor(modelItem => item.ID)">
+            <i class="fab fa-wpforms text-primary small-icon"></i>
+            <i class="fas fa-angle-up text-primary small-icon"></i>
+            <i class="fas fa-angle-down text-primary small-icon"></i>
+            <i class="fas fa-plus fa-rotate-45 text-danger small-icon"></i>
+        </td>
+        <!--
+        <td>
+        <input type="button" value="Szczegoly" id="detail_@Html.DisplayFor(modelItem => item.ID)" />
 
-</table>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+        </td>
+    -->
+    </tr>
+        }
+
+    </table>
+
+    <div class="row">
+        <div class="text-right">
+            <p>
+                Elementów na stronie
+                <select class="btn">
+                    <option value="1">1</option>
+                </select>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="text-center">
+            <input type="button" value="Poprzedni" class="btn btn-primary" />
+            <select class="btn">
+                <option value="1">1</option>
+            </select> 
+            <input type="button" value="Następny" class="btn btn-primary" />
+        </div>
+    </div>
