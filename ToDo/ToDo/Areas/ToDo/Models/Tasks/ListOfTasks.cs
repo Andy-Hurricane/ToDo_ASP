@@ -138,5 +138,10 @@ namespace ToDo.Areas.ToDo.Models.Tasks {
 
             return true;
         }
+
+        int IListOfTasks.AllElements()
+        {
+            return _tasks.Count;
+        }
     }
 }

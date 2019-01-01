@@ -17,8 +17,8 @@ namespace ToDo.Areas.ToDo.Controllers
         // GET: ToDo/ToDo
         public ActionResult Index()
         {
-            ViewData["Tasks"] = GetOrderedList();
-            ViewData["ViewConfig"] = ViewConfig;
+            PrepareViewData();
+
             return View();
         }
 
@@ -34,10 +34,9 @@ namespace ToDo.Areas.ToDo.Controllers
                 Description = "test"
             };
 
-            Tasks.Add(tmp);
+            PrepareViewData();
 
-            ViewData["Tasks"] = GetOrderedList();
-            ViewData["ViewConfig"] = ViewConfig;
+            Tasks.Add(tmp);
             return View( "Index" );
         }
 
@@ -101,11 +100,35 @@ namespace ToDo.Areas.ToDo.Controllers
             return View("Exit");
         }
 
+        [NonAction]
+        public void PrepareViewData()
+        {
+
+            ViewData["Tasks"] = GetOrderedList();
+            ViewData["ViewConfig"] = ViewConfig;
+            ViewData["AvailableSites"] =
+                Convert.ToInt32(
+                    Math.Floor(
+                        Convert.ToDecimal(
+                            Tasks.AllElements() / ViewConfig.ActualPerSite
+                            )
+                        )
+                    );
+        }
+
         [NonAction] 
         public IEnumerable<Task> GetOrderedList() {
-            return from tasks in Tasks.GetList()
+            return (from tasks in Tasks.GetList()
                    orderby tasks.ID
-                   select tasks;
+                   select tasks).Skip( ViewConfig.SkipPages() ).Take(ViewConfig.BaseElementPerSite);
+        }
+
+        [HttpPost]
+        public ActionResult ElementsPerSite(string perSite)
+        {
+            int newValue = Convert.ToInt32(perSite);
+            ViewConfig.ActualPerSite = newValue;
+            return Index();
         }
     }
 }

@@ -107,8 +107,34 @@ function OpenModalWindow(windowName, id) {
     $(`#modal .ui-dialog-titlebar`).css(`display`, `none`);
 }
 
-$('#addOpenModal').click(() => {
-    console.log('aaaa');
-});
+console.log($(`#viewPerSite`));
 
-console.log('test end');
+function ChangeElementsPerSite(test) {
+    console.log('?!?!?!');
+    console.log(test);
+    const data = { perSite: $(`#viewPerSite`).val() };
+    AjaxPost(test, data);
+};
+
+function ChangeActualSite() {
+    console.log("zmieniam stronę.")
+};
+
+function AjaxPost(location, data) {
+    console.log('Jestem?');
+    $.ajax({
+        url: location,
+        type: 'POST',
+        dataType: 'json',
+        data: JSON.stringify(data),
+        success: function (mydata) {
+            console.log('Wysłało?');
+            // history.pushState('', 'New URL: ' + href, href); // This Code lets you to change url howyouwant
+        },
+        error: function (test) {
+            console.log(test.responseText);
+        }
+    });
+    console.log('Yh...');
+    return false;
+}

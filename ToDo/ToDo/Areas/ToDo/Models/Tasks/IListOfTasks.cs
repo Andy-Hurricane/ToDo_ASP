@@ -60,5 +60,11 @@ namespace ToDo.Areas.ToDo.Models.Tasks
         /// </summary>
         /// <returns></returns>
         bool Clear();
+
+        /// <summary>
+        /// Zwraca ilość wszystkich zadań.
+        /// </summary>
+        /// <returns></returns>
+        int AllElements();
     }
 }

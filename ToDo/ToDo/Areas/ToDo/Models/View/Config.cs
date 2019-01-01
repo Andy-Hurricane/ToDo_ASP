@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using ToDo.Areas.ToDo.Models.Tasks;
 
 namespace ToDo.Areas.ToDo.Models.View
 {
@@ -15,6 +16,7 @@ namespace ToDo.Areas.ToDo.Models.View
         private Config() {
             this.ActualSite = 1;
             this.BaseElementPerSite = 10;
+            this.ActualPerSite = 10;
         }
 
         public static Config GetInstance()
@@ -31,5 +33,15 @@ namespace ToDo.Areas.ToDo.Models.View
         /// </summary>
         public int ActualSite { get; set; }
 
+        /// <summary>
+        /// Aktualna ilość zadań na stronę.
+        /// </summary>
+        public int ActualPerSite { get; set; } = 10;
+
+        public int SkipPages()
+        {
+            return (ActualSite - 1) * ActualPerSite;
+        }
+        
     }
 }
