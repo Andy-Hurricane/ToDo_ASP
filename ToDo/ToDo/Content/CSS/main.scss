@@ -34,6 +34,13 @@ body {
     @include clicakble();
 }
 
+.icon-export {
+    font-size: $icon-height;
+    margin: $icon-export-margin;
+
+    @include clicakble();
+}
+
 .small-icon {
     font-size: $small-icon-height;
     padding: 0 0.7rem;

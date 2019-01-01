@@ -18,7 +18,10 @@ function OpenModalWindow(windowName, id) {
             height: 300,
             height: 100,
             draggable: true,
-            position: defaultPosition
+            position: defaultPosition,
+            open: function (event, ui) {
+                $('#modal').css('overflow', 'hidden');
+            }
         },
         'Edit': {
             autoOpen: false,
@@ -27,7 +30,10 @@ function OpenModalWindow(windowName, id) {
             width: 300,
             height: 100,
             draggable: true,
-            position: defaultPosition
+            position: defaultPosition,
+            open: function (event, ui) {
+                $('#modal').css('overflow', 'hidden');
+            }
         },
         'Description': {
             autoOpen: false,
@@ -36,7 +42,10 @@ function OpenModalWindow(windowName, id) {
             width: 300,
             height: 100,
             draggable: true,
-            position: defaultPosition
+            position: defaultPosition,
+            open: function (event, ui) {
+                $('#modal').css('overflow', 'hidden');
+            }
         },
         'List': {
             autoOpen: false,
@@ -45,7 +54,10 @@ function OpenModalWindow(windowName, id) {
             width: 300,
             height: 100,
             draggable: true,
-            position: defaultPosition
+            position: defaultPosition,
+            open: function (event, ui) {
+                $('#modal').css('overflow', 'hidden');
+            }
         },
         'Tile': {
             autoOpen: false,
@@ -54,7 +66,10 @@ function OpenModalWindow(windowName, id) {
             width: 300,
             height: 100,
             draggable: true,
-            position: defaultPosition
+            position: defaultPosition,
+            open: function (event, ui) {
+                $('#modal').css('overflow', 'hidden');
+            }
         },
         'Export': {
             autoOpen: false,
@@ -66,13 +81,16 @@ function OpenModalWindow(windowName, id) {
             show: 'slide',
             minWidth: Utilities.ParseToRem(7.5),
             width: Utilities.ParseToRem(7.5),
-            height: Utilities.ParseToRem(25.5),
+            height: Utilities.ParseToRem(35.5),
             draggable: false,
             position: {
                 of: $('#export_btn'),
                 my: 'center bottom',
                 at: 'center top',
                 collision: 'flip'
+            },
+            open: function (event, ui) {
+                $('#modal').css('overflow', 'hidden');
             }
         }
     }

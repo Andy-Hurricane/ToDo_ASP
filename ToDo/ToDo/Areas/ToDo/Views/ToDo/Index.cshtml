@@ -1,4 +1,11 @@
-﻿@model IEnumerable<ToDo.Areas.ToDo.Models.Tasks.Task>
+﻿@{
+    IEnumerable<ToDo.Areas.ToDo.Models.Tasks.Task> tasks = ViewData["Tasks"] as IEnumerable<ToDo.Areas.ToDo.Models.Tasks.Task>;
+    ToDo.Areas.ToDo.Models.View.Config config = ViewData["ViewConfig"] as ToDo.Areas.ToDo.Models.View.Config;
+ 
+    int maxSites = Convert.ToInt32(
+        Math.Floor(
+            Convert.ToDouble(@tasks.Count()) / config.BaseElementPerSite) );
+}
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,85 +13,93 @@
 
 @{Html.RenderPartial("/Areas/ToDo/Views/Shared/_PanelView.cshtml");}
 
+@maxSites;
+@tasks.Count();
+@config.BaseElementPerSite;
+
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Action)
+            Czynność
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Topic)
+            Temat
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Start)
+            Data rozpoczęcia
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.End)
+            Data zakończenia
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ActualStatus)
+            Status
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ActualPriority)
+            Priorytet
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Progress)
+            % zakończenia
         </th>
         <th></th>
     </tr>
 
-    @foreach (var item in Model) {
+    @foreach (var task in tasks) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Action)
+                @task.Action
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Topic)
+                @task.Topic
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Start)
+                @task.Start
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.End)
+                @task.End
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ActualStatus)
+                @task.ActualStatus
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ActualPriority)
+                @task.ActualPriority
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Progress)
+                @task.Progress
             </td>
             <td>
-                <input type="checkbox" id="selected_@Html.DisplayFor(modelItem => item.ID)">
-                <i class="fab fa-wpforms text-primary small-icon"  onclick="OpenModalWindow('Description', @Html.DisplayFor(modelItem => item.ID))"></i>
+                <input type="checkbox" id="selected_@task.ID">
+                <i class="fab fa-wpforms text-primary small-icon" onclick="OpenModalWindow('Description', @task.ID)"></i>
                 <i class="fas fa-angle-up text-primary small-icon"></i>
                 <i class="fas fa-angle-down text-primary small-icon"></i>
                 <i class="fas fa-plus fa-rotate-45 text-danger small-icon"></i>
             </td>
             <!--
                 <td>
-                <input type="button" value="Szczegoly" id="detail_@Html.DisplayFor(modelItem => item.ID)" />
+                <input type="button" value="Szczegoly" id="detail_at Html.DisplayFor(modelItem => item.ID)" />
 
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                    at Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                    at Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                    at Html.ActionLink("Delete", "Delete", new { id = item.ID })
                 </td>
             -->
         </tr>
     }
 
 </table>
-
 <div class="row">
     <div class="text-right">
         <p>
             Elementów na stronie
-            <select class="btn">
-                <option value="1">1</option>
+            <select class="btn" id="viewPerSite">
+                @for (var iterator = 1; iterator <= 5; iterator++) {
+                    int value = iterator * Convert.ToInt32(config.BaseElementPerSite);
+
+                    <option value="@value">@value</option>
+                }
+
             </select>
         </p>
     </div>
@@ -94,7 +109,14 @@
     <div class="text-center">
         <input type="button" value="Poprzedni" class="btn btn-primary" />
         <select class="btn">
-            <option value="1">1</option>
+            @for (var iterator = 1; iterator <= maxSites; iterator++) {
+                if (iterator == config.ActualSite) {
+                    <option value="@iterator" selected="selected">@iterator</option>
+                }
+                if (iterator != config.ActualSite) {
+                    <option value="@iterator">@iterator</option>
+                }
+            }
         </select>
         <input type="button" value="Następny" class="btn btn-primary" />
     </div>

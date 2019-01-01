@@ -1,18 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ToDo.Areas.ToDo.Models.Tasks;
+using ToDo.Areas.ToDo.Models.View;
 
 namespace ToDo.Areas.ToDo.Controllers
 {
     public class ToDoController : Controller {
         IListOfTasks Tasks = ListOfTasks.GetInstance();
+        Config ViewConfig = Config.GetInstance();
+
 
         // GET: ToDo/ToDo
-        public ActionResult Index() {
-            return View( GetOrderedList() );
+        public ActionResult Index()
+        {
+            ViewData["Tasks"] = GetOrderedList();
+            ViewData["ViewConfig"] = ViewConfig;
+            return View();
         }
 
         // GET: ToDo/ToDo/Details/5
@@ -29,7 +36,9 @@ namespace ToDo.Areas.ToDo.Controllers
 
             Tasks.Add(tmp);
 
-            return View( "Index", GetOrderedList() );
+            ViewData["Tasks"] = GetOrderedList();
+            ViewData["ViewConfig"] = ViewConfig;
+            return View( "Index" );
         }
 
         // POST: ToDo/ToDo/Create
@@ -91,7 +100,6 @@ namespace ToDo.Areas.ToDo.Controllers
             Tasks.Clear();
             return View("Exit");
         }
-
 
         [NonAction] 
         public IEnumerable<Task> GetOrderedList() {
