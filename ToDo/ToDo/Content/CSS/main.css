@@ -4,6 +4,11 @@
   font-weight: bolder;
   text-align: center; }
 
+.link-with-icon {
+  font-size: 3rem; }
+  .link-with-icon i {
+    padding-right: 1.5rem; }
+
 .icon-cont {
   padding: 0.5rem;
   height: 7rem; }

@@ -14,6 +14,14 @@ body {
     }
 }
 
+.link-with-icon {
+    font-size: $link-with-icon-font-size;
+
+    i {
+        padding-right: $link-padding-between-image-and-text;
+    }
+}
+
 .icon-cont {
     padding: 0.5rem;
     height: $panel-height;

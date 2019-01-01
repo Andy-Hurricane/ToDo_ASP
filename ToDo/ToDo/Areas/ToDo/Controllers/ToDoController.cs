@@ -87,6 +87,11 @@ namespace ToDo.Areas.ToDo.Controllers
             }
         }
 
+        public ActionResult Exit() {
+            return View("Exit");
+        }
+
+
         [NonAction] 
         public IEnumerable<Task> GetOrderedList() {
             return from tasks in Tasks.GetList()
