@@ -3,17 +3,17 @@
     <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12 panel tasks">
         <div class="row">
             <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-1 col-sm-2 col-xs-offset-1 col-xs-2 text-center">
-                <p class="icon-cont">
+                <p class="icon-cont" onclick="OpenModalWindow('Add')">
                     <i class="fas fa-plus icon text-success"></i>
                 </p>
             </div>
             <div class="col-lg-offset-2 col-lg-2 col-md-offset-2 col-md-2 col-sm-offset-2 col-sm-2 col-xs-offset-2 col-xs-2">
-                <p class="icon-cont">
+                <p class="icon-cont"  onclick="OpenModalWindow('Edit')">
                     <i class="fas fa-edit icon text-primary"></i>
                 </p>
             </div>
             <div class="col-lg-offset-2 col-lg-2 col-md-offset-2 col-md-2 col-sm-offset-2 col-sm-2 col-xs-offset-2 col-xs-2">
-                <p class="icon-cont">
+                <p class="icon-cont" onclick="OpenModalWindow('Export')" id="export_btn">
                     <i class="fas fa-file-export icon text-primary"></i>
                 </p>
             </div>
@@ -21,12 +21,12 @@
     </div>
     <div class="col-lg-offset-2 col-lg-5 col-md-offset-2 col-md-5 col-sm-6 col-xs-12 panel app">
         <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-1 col-sm-2 col-xs-offset-1 col-xs-2">
-            <p class="icon-cont">
+            <p class="icon-cont"  onclick="OpenModalWindow('List')">
                 <i class="fas fa-list icon text-primary"></i>
             </p>
         </div>
         <div class="col-lg-offset-2 col-lg-2 col-md-offset-2 col-md-2 col-sm-offset-2 col-sm-2 col-xs-offset-2 col-xs-2">
-            <p class="icon-cont">
+            <p class="icon-cont"  onclick="OpenModalWindow('Tile')">
                 <i class="fas fa-th-large icon text-primary"></i>
             </p>
         </div>
@@ -37,5 +37,26 @@
                 </a>
             </p>
         </div>
+    </div>
+</div>
+
+<div id="modal" style="display: none">
+    <div class="row Add-modal">
+        @{Html.RenderPartial("/Areas/ToDo/Views/Shared/_FormView.cshtml");}
+    </div>
+    <div class="row Edit-modal">
+        @{Html.RenderPartial("/Areas/ToDo/Views/Shared/_FormView.cshtml");}
+    </div>
+    <div class="row Description-modal">
+        @{Html.RenderPartial("/Areas/ToDo/Views/Shared/_DescriptionView.cshtml");}
+    </div>
+    <div class="row List-modal">
+        @{Html.RenderPartial("/Areas/ToDo/Views/Shared/_ListingView.cshtml");}
+    </div>
+    <div class="row Tile-modal">
+        @{Html.RenderPartial("/Areas/ToDo/Views/Shared/_ListingView.cshtml");}
+    </div>
+    <div class="row Export-modal">
+        @{Html.RenderPartial("/Areas/ToDo/Views/Shared/_ExportView.cshtml");}
     </div>
 </div>

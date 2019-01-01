@@ -1,0 +1,5 @@
+﻿@mixin clicakble() {
+    &:hover {
+        cursor: pointer;
+    }
+}
