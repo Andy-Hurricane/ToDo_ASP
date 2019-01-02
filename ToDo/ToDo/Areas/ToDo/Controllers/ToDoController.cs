@@ -14,7 +14,7 @@ namespace ToDo.Areas.ToDo.Controllers
         IListOfTasks Tasks = ListOfTasks.GetInstance();
         Config ViewConfig = Config.GetInstance();
 
-
+        static int tmpTest = 1;
         // GET: ToDo/ToDo
         public ActionResult Index()
         {
@@ -31,10 +31,12 @@ namespace ToDo.Areas.ToDo.Controllers
         // GET: ToDo/ToDo/Create
         public ActionResult Create() {
             Task tmp = new Task {
-                Topic = "Zadanie",
+                Topic = "Zadanie" + tmpTest, 
                 Description = "test"
             };
             Tasks.Add(tmp);
+
+            tmpTest++;
 
             PrepareViewData();
 
@@ -147,12 +149,18 @@ namespace ToDo.Areas.ToDo.Controllers
         [HttpPost]
         public JsonResult NextInList(string element)
         {
-            throw new NotImplementedException();
+            int actualId = Convert.ToInt32(element);
+            Tasks.SwapNext(actualId);
+
+            return Json("OK");
         }
         [HttpPost]
         public JsonResult PreviousInList(string element)
         {
-            throw new NotImplementedException();
+            int actualId = Convert.ToInt32(element);
+            Tasks.SwapPrevious(actualId);
+
+            return Json("OK");
         }
     }
 }

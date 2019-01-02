@@ -147,5 +147,36 @@ namespace ToDo.Areas.ToDo.Models.Tasks {
         {
             return _tasks.Count;
         }
+
+        bool IListOfTasks.SwapNext(int actualId)
+        {
+            int tmp;
+            Task actual = _tasks.OrderBy(task => task.ID).Find(task => task.ID == actualId);
+            Task next = _tasks.OrderBy(task => task.ID).SkipWhile(task => task != actual).Skip(1).FirstOrDefault();
+            tmp = next.ID;
+            next.ID = actual.ID;
+            actual.ID = tmp;
+            
+            // TODO: zrób sobie sprawdzeniem czy aby przypadkiem nie są daufltem - jeśli chociaż jeden jest defaultem, to wtedy false
+            return true;
+
+        }
+        
+        bool IListOfTasks.SwapPrevious(int actualId)
+        {
+            int tmp;
+
+            Task actual = _tasks.OrderBy(task => task.ID).Find(task => task.ID == actualId);
+            Task previous = _tasks.OrderBy(task => task.ID).SkipWhile(task => task != actual).Skip(-1).FirstOrDefault();
+
+            tmp = previous.ID;
+            previous.ID = actual.ID;
+            actual.ID = tmp;
+
+            _tasks.OrderBy(task => task.ID);
+
+            // TODO: zrób sobie sprawdzeniem czy aby przypadkiem nie są daufltem - jeśli chociaż jeden jest defaultem, to wtedy false
+            return true;
+        }
     }
 }

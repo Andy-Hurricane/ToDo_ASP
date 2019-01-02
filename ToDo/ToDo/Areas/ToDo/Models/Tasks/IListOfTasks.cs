@@ -58,13 +58,27 @@ namespace ToDo.Areas.ToDo.Models.Tasks
         /// <summary>
         /// Czyści listę zadań.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Wartość logiczna dla powodzenia akcji.</returns>
         bool Clear();
 
         /// <summary>
         /// Zwraca ilość wszystkich zadań.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Ilość wszystkich zadań.</returns>
         int AllElements();
+
+        /// <summary>
+        /// Podmienia miejscami wybrany element z następnym.
+        /// </summary>
+        /// <param name="actualId">Id wybranego elementu.</param>
+        /// <returns>Wartość logiczna dla powodzenia akcji.</returns>
+        bool SwapNext(int actualId);
+
+        /// <summary>
+        /// Podmienia miejscami wybrany element z poprzednim.
+        /// </summary>
+        /// <param name="actualId">Id wybranego elementu.</param>
+        /// <returns>Wartość logiczna dla powodzenia akcji.</returns>
+        bool SwapPrevious(int actualId);
     }
 }

@@ -124,11 +124,13 @@ function NextSite(location) {
     AjaxPost(location, position);
 };
 
-function PreviousInList(location) {
-    console.warn("Nie zaimplementowano");
+function PreviousInList(location, id) {
+    console.log (`Przesuwam ${id} o 1 w górę`)
+    AjaxPost(location, id);
 }
-function NextInList(location) {
-    console.warn("Nie zaimplementowano");
+function NextInList(location, id) {
+    console.log(`Przesuwam ${id} o 1 w dół`)
+    AjaxPost(location, id);
 }
 
 

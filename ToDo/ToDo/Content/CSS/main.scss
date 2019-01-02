@@ -34,6 +34,10 @@ body {
     @include clicakble();
 }
 
+.icon-disable {
+    font-size: $icon-height;
+}
+
 .icon-export {
     font-size: $icon-height;
     margin: $icon-export-margin;
@@ -44,6 +48,14 @@ body {
 .small-icon {
     font-size: $small-icon-height;
     padding: 0 0.7rem;
+
+    @include clicakble();
+}
+
+.small-icon-disabled {
+    font-size: $small-icon-height;
+    padding: 0 0.7rem;
+    color: lightslategray;
 }
 
 
