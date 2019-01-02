@@ -34,10 +34,10 @@ namespace ToDo.Areas.ToDo.Controllers
                 Topic = "Zadanie",
                 Description = "test"
             };
+            Tasks.Add(tmp);
 
             PrepareViewData();
 
-            Tasks.Add(tmp);
             return View( "Index" );
         }
 
@@ -111,7 +111,7 @@ namespace ToDo.Areas.ToDo.Controllers
                 Convert.ToInt32(
                     Math.Floor(
                         Convert.ToDecimal(
-                            Tasks.AllElements() / ViewConfig.ActualPerSite
+                            (Tasks.AllElements() - 1) / ViewConfig.ActualPerSite
                             )
                         )
                     );
