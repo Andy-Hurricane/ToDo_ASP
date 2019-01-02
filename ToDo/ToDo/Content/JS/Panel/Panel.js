@@ -124,6 +124,15 @@ function NextSite(location) {
     AjaxPost(location, position);
 };
 
+function PreviousInList(location) {
+    console.warn("Nie zaimplementowano");
+}
+function NextInList(location) {
+    console.warn("Nie zaimplementowano");
+}
+
+
+
 function AjaxPost(location, data) {
     $.ajax({
         type: 'POST',

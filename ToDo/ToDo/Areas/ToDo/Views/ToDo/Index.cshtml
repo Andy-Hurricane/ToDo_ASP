@@ -69,9 +69,9 @@
             <td>
                 <input type="checkbox" id="selected_@task.ID">
                 <i class="fab fa-wpforms text-primary small-icon" onclick="OpenModalWindow('Description', @task.ID)"></i>
-                <i class="fas fa-angle-up text-primary small-icon"></i>
-                <i class="fas fa-angle-down text-primary small-icon"></i>
-                <i class="fas fa-plus fa-rotate-45 text-danger small-icon"></i>
+                <i class="fas fa-angle-up text-primary small-icon" onclick="PreviousInList('@Url.Action("PreviousInList")')" ></i></a>
+                <i class="fas fa-angle-down text-primary small-icon" onclick="NextInList('@Url.Action("NextInList")')" ></i></a>
+                <a href="@Url.Action(" Delete", new { id=task.ID })" class="link-with-icon"><i class="fas fa-plus fa-rotate-45 text-danger small-icon"></i></a>
             </td>
             <!--
                 <td>

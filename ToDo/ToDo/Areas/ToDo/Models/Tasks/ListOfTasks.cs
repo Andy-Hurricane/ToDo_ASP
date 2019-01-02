@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace ToDo.Areas.ToDo.Models.Tasks {
     /// <summary>
@@ -14,6 +15,7 @@ namespace ToDo.Areas.ToDo.Models.Tasks {
         /// </summary>
         private List<Task> _tasks { get; set; }
 
+        // TODO - jak będzie połączenie z bazą danych, to wtedy nie będzie 1, tylko ostatnie ID z bazy danych.
         private static int ID = 1;
 
         /// <summary>
@@ -68,9 +70,9 @@ namespace ToDo.Areas.ToDo.Models.Tasks {
             bool result = true;
 
             try {
-                task.ID = ID;
-                ID++;
-                _tasks.Remove(task);
+                _tasks = (from Task t in _tasks
+                          where t != task
+                          select t).ToList<Task>();
             } catch {
                 result = false;
             }
@@ -83,7 +85,9 @@ namespace ToDo.Areas.ToDo.Models.Tasks {
             bool result = true;
 
             try {
-                _tasks.RemoveAt(id);
+                _tasks = (from Task t in _tasks
+                         where t.ID != id
+                         select t).ToList<Task>();
             } catch {
                 result = false;
             }

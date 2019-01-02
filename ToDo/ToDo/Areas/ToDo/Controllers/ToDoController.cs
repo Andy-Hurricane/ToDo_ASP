@@ -77,8 +77,12 @@ namespace ToDo.Areas.ToDo.Controllers
         }
 
         // GET: ToDo/ToDo/Delete/5
-        public ActionResult Delete(int id) {
-            return View();
+        public ActionResult Delete(int id)
+        {
+            Tasks.Remove(id);
+            PrepareViewData();
+
+            return View("Index");
         }
 
         // POST: ToDo/ToDo/Delete/5
@@ -138,6 +142,17 @@ namespace ToDo.Areas.ToDo.Controllers
             ViewConfig.ActualSite = Convert.ToInt32(element);
 
             return Json("OK");
+        }
+
+        [HttpPost]
+        public JsonResult NextInList(string element)
+        {
+            throw new NotImplementedException();
+        }
+        [HttpPost]
+        public JsonResult PreviousInList(string element)
+        {
+            throw new NotImplementedException();
         }
     }
 }
