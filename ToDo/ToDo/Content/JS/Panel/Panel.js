@@ -107,34 +107,35 @@ function OpenModalWindow(windowName, id) {
     $(`#modal .ui-dialog-titlebar`).css(`display`, `none`);
 }
 
-console.log($(`#viewPerSite`));
 
-function ChangeElementsPerSite(test) {
-    console.log('?!?!?!');
-    console.log(test);
-    const data = { perSite: $(`#viewPerSite`).val() };
-    AjaxPost(test, data);
+function ChangeElementsPerSite(location) {    
+    AjaxPost(location, $(`#viewPerSite`).val());
 };
 
-function ChangeActualSite() {
-    console.log("zmieniam stronę.")
+function ChangeActualSite(location) {
+    AjaxPost(location, $(`#actualSite`).val());
+};
+function PreviousSite(location) {
+    const position = parseInt($(`#actualSite`).val()) - 1;
+    AjaxPost(location, position);
+};
+function NextSite(location) {
+    const position = parseInt($(`#actualSite`).val()) + 1;
+    AjaxPost(location, position);
 };
 
 function AjaxPost(location, data) {
-    console.log('Jestem?');
     $.ajax({
-        url: location,
         type: 'POST',
-        dataType: 'json',
-        data: JSON.stringify(data),
-        success: function (mydata) {
-            console.log('Wysłało?');
-            // history.pushState('', 'New URL: ' + href, href); // This Code lets you to change url howyouwant
-        },
-        error: function (test) {
-            console.log(test.responseText);
-        }
+        url: location,
+        data: { element: data },
+        dataType: "json"
+    }).done(function (response) {
+        if (response == "OK")
+            window.location.reload(true);
+    }).fail(function (response) {
+        console.log('błąd...');
+        console.log(response.responseText);
     });
-    console.log('Yh...');
     return false;
 }

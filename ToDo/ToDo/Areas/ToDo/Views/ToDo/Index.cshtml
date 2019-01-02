@@ -12,6 +12,7 @@
 
 @AvailableSites;
 @config.BaseElementPerSite;
+@config.ActualPerSite;
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -94,8 +95,7 @@
                     int value = iterator * Convert.ToInt32(config.BaseElementPerSite);
                     if (value == config.ActualPerSite) {
                         <option value="@value" selected="selected">@value</option>
-                    }
-                    if (value != config.ActualPerSite) {
+                    } else {
                         <option value="@value">@value</option>
                     }
                 }
@@ -107,17 +107,25 @@
 
 <div class="row">
     <div class="text-center">
-        <input type="button" value="Poprzedni" class="btn btn-primary" />
-        <select class="btn" id="actualSite" onchange="ChangeActualSite()">
-            @for (var iterator = 1; iterator <= AvailableSites+1; iterator++) {
+        @if (config.ActualSite == 1) {
+            <input type="button" value="Poprzedni" class="btn btn-primary" disabled />
+        } else {
+            <input type="button" value="Poprzedni" class="btn btn-primary" onclick="PreviousSite('@Url.Action("ActualSite")')" />
+        }
+        <select class="btn" id="actualSite" onchange="ChangeActualSite('@Url.Action("ActualSite")')">
+            @for (var iterator = 1; iterator <= AvailableSites + 1; iterator++) {
                 if (iterator == config.ActualSite) {
                     <option value="@iterator" selected="selected">@iterator</option>
-                }
-                if (iterator != config.ActualSite) {
+                } else {
                     <option value="@iterator">@iterator</option>
                 }
             }
         </select>
-        <input type="button" value="Następny" class="btn btn-primary" />
+
+        @if (config.ActualSite == AvailableSites + 1) {
+            <input type="button" value="Następny" class="btn btn-primary" disabled />
+        } else {
+            <input type="button" value="Następny" class="btn btn-primary" onclick="NextSite('@Url.Action("ActualSite")')"  />
+        }
     </div>
 </div>

@@ -16,7 +16,7 @@ namespace ToDo.Areas.ToDo.Models.View
         private Config() {
             this.ActualSite = 1;
             this.BaseElementPerSite = 10;
-            this.ActualPerSite = 10;
+            this.ActualPerSite = this.BaseElementPerSite;
         }
 
         public static Config GetInstance()
@@ -36,7 +36,7 @@ namespace ToDo.Areas.ToDo.Models.View
         /// <summary>
         /// Aktualna ilość zadań na stronę.
         /// </summary>
-        public int ActualPerSite { get; set; } = 10;
+        public int ActualPerSite { get; set; }
 
         public int SkipPages()
         {

@@ -4,6 +4,7 @@ using System.Dynamic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using ToDo.Areas.ToDo.Models.Tasks;
 using ToDo.Areas.ToDo.Models.View;
 
@@ -120,15 +121,23 @@ namespace ToDo.Areas.ToDo.Controllers
         public IEnumerable<Task> GetOrderedList() {
             return (from tasks in Tasks.GetList()
                    orderby tasks.ID
-                   select tasks).Skip( ViewConfig.SkipPages() ).Take(ViewConfig.BaseElementPerSite);
+                   select tasks).Skip( ViewConfig.SkipPages() ).Take(ViewConfig.ActualPerSite);
         }
 
         [HttpPost]
-        public ActionResult ElementsPerSite(string perSite)
+        public JsonResult ElementsPerSite(string element)
         {
-            int newValue = Convert.ToInt32(perSite);
-            ViewConfig.ActualPerSite = newValue;
-            return Index();
+            ViewConfig.ActualPerSite = Convert.ToInt32(element);
+
+            return Json("OK");
+        }
+
+        [HttpPost]
+        public JsonResult ActualSite(string element)
+        {
+            ViewConfig.ActualSite = Convert.ToInt32(element);
+
+            return Json("OK");
         }
     }
 }
