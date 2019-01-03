@@ -125,17 +125,20 @@ function NextSite(location) {
 };
 
 function PreviousInList(location, id) {
-    console.log (`Przesuwam ${id} o 1 w górę`)
     AjaxPost(location, id);
 }
 function NextInList(location, id) {
-    console.log(`Przesuwam ${id} o 1 w dół`)
+    AjaxPost(location, id);
+}
+
+function Delete(location, id) {
     AjaxPost(location, id);
 }
 
 
 
 function AjaxPost(location, data) {
+    console.log(data);
     $.ajax({
         type: 'POST',
         url: location,

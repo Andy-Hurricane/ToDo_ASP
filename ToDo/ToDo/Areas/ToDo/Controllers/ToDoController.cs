@@ -77,29 +77,17 @@ namespace ToDo.Areas.ToDo.Controllers
                 return View();
             }
         }
-
-        // GET: ToDo/ToDo/Delete/5
-        public ActionResult Delete(int id)
-        {
-            Tasks.Remove(id);
-            PrepareViewData();
-
-            return View("Index");
-        }
-
+        
         // POST: ToDo/ToDo/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection) {
+        public JsonResult Delete(string element) {
+            int selectedId = Convert.ToInt32(element);
 
-            try
-            {
-                // TODO: Add delete logic here
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            Tasks.Remove(selectedId);
+            PrepareViewData();
+            
+            
+            return Json( "OK" );
         }
 
         public ActionResult Exit() {
@@ -152,7 +140,7 @@ namespace ToDo.Areas.ToDo.Controllers
             int actualId = Convert.ToInt32(element);
             Tasks.SwapNext(actualId);
 
-            return Json("OK");
+            return Json( "OK" );
         }
         [HttpPost]
         public JsonResult PreviousInList(string element)

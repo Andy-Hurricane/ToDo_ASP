@@ -150,33 +150,33 @@ namespace ToDo.Areas.ToDo.Models.Tasks {
 
         bool IListOfTasks.SwapNext(int actualId)
         {
-            int tmp;
-            Task actual = _tasks.OrderBy(task => task.ID).Find(task => task.ID == actualId);
-            Task next = _tasks.OrderBy(task => task.ID).SkipWhile(task => task != actual).Skip(1).FirstOrDefault();
-            tmp = next.ID;
-            next.ID = actual.ID;
-            actual.ID = tmp;
+            Task actual = OrderedByID().First(task => task.ID == actualId);
+            Task next = OrderedByID().SkipWhile(task => task.ID != actualId).Skip(1).First();
+
+            int actualID = actual.ID;
+            int nextID = next.ID;
+
+            next.ID = actualID;
+            actual.ID = nextID;
             
             // TODO: zrób sobie sprawdzeniem czy aby przypadkiem nie są daufltem - jeśli chociaż jeden jest defaultem, to wtedy false
             return true;
-
         }
         
         bool IListOfTasks.SwapPrevious(int actualId)
         {
-            int tmp;
+            Task actual = OrderedByID().First(task => task.ID == actualId);
+            Task previous = OrderedByID().TakeWhile((task => task.ID != actualId)).Last(); ;
 
-            Task actual = _tasks.OrderBy(task => task.ID).Find(task => task.ID == actualId);
-            Task previous = _tasks.OrderBy(task => task.ID).SkipWhile(task => task != actual).Skip(-1).FirstOrDefault();
+            int actualID = actual.ID;
+            int previousID = previous.ID;
 
-            tmp = previous.ID;
-            previous.ID = actual.ID;
-            actual.ID = tmp;
-
-            _tasks.OrderBy(task => task.ID);
-
+            previous.ID = actualID;
+            actual.ID = previousID;
             // TODO: zrób sobie sprawdzeniem czy aby przypadkiem nie są daufltem - jeśli chociaż jeden jest defaultem, to wtedy false
             return true;
         }
+
+        IEnumerable<Task> OrderedByID() { return _tasks.OrderBy(task => task.ID); }
     }
 }
