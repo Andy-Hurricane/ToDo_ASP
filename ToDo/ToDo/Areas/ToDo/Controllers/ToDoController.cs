@@ -15,7 +15,8 @@ namespace ToDo.Areas.ToDo.Controllers
         IListOfTasks Tasks = ListOfTasks.GetInstance();
         Config ViewConfig = Config.GetInstance();
         readonly Dictionary<string, IExport> exporters = new Dictionary<string, IExport> {
-            { "TXT", new ExportTXT() }
+            { "TXT", new ExportTxt() },
+            { "XLS", new ExportXls() }
         };
         
         static int tmpTest = 1;
@@ -143,26 +144,6 @@ namespace ToDo.Areas.ToDo.Controllers
         public ActionResult Exit() {
             Tasks.Clear();
             return View("Exit");
-        }
-
-        [HttpPost]
-        public ActionResult ExportPDF()
-        {
-            return Content("test PDF");
-        }
-
-        [HttpPost]
-        public ActionResult ExportCSV()
-        {
-            return Content("test CSV");
-
-        }
-
-        [HttpPost]
-        public ActionResult ExportTXT()
-        {
-
-            return Content("test TXT");
         }
 
         [NonAction]
