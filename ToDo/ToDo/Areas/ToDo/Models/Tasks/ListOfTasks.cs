@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ToDo.Areas.ToDo.Models.Tasks {
@@ -15,6 +16,22 @@ namespace ToDo.Areas.ToDo.Models.Tasks {
         /// </summary>
         private List<Task> _tasks { get; set; }
 
+        private bool _reverseSort { get; set; } = false;
+
+        private Dictionary<AvailableSort, Func<IEnumerable<Task> >> _availableOrder;
+
+        private AvailableSort _selectedSort = AvailableSort.ID;
+        public AvailableSort SelectedSort {
+            get {
+                return _selectedSort;
+            }
+            set {
+                _reverseSort = (_selectedSort == value && !_reverseSort);
+                _selectedSort = value;
+            }
+        }
+
+
         // TODO - jak będzie połączenie z bazą danych, to wtedy nie będzie 1, tylko ostatnie ID z bazy danych.
         private static int ID = 1;
 
@@ -23,6 +40,13 @@ namespace ToDo.Areas.ToDo.Models.Tasks {
         /// </summary>
         private ListOfTasks() {
             _tasks = LoadTasks();
+            _availableOrder = new Dictionary<AvailableSort, Func<IEnumerable<Task>>> {
+                { AvailableSort.ID, OrderedByID },
+                { AvailableSort.DateEnd, OrderedByDateEnd },
+                { AvailableSort.DateStart, OrderedByDateStart },
+                { AvailableSort.Priority, OrderedByPriority },
+                { AvailableSort.State, OrderedByState }
+            };
         }
 
         /// <summary>
@@ -177,6 +201,44 @@ namespace ToDo.Areas.ToDo.Models.Tasks {
             return true;
         }
 
-        IEnumerable<Task> OrderedByID() { return _tasks.OrderBy(task => task.ID); }
+        IEnumerable<Task> IListOfTasks.OrderedBy()
+        {
+            return _availableOrder[SelectedSort](); ;
+        }
+
+        IEnumerable<Task> IListOfTasks.OrderedBy(int skip, int perPage)
+        {
+            return _availableOrder[SelectedSort]().Skip(skip).Take(perPage);
+        }
+
+        private IEnumerable<Task> OrderedByID() { return _tasks.OrderBy(task => task.ID); }
+
+        private IEnumerable<Task> OrderedByDateStart()
+        {
+            return _reverseSort
+                ? _tasks.OrderByDescending(task => task.Start)
+                : _tasks.OrderBy(task => task.Start);
+        }
+
+        private IEnumerable<Task> OrderedByDateEnd()
+        {
+            return _reverseSort
+                ? _tasks.OrderByDescending(task => task.End)
+                : _tasks.OrderBy(task => task.End);
+        }
+
+        private IEnumerable<Task> OrderedByPriority()
+        {
+            return _reverseSort
+                ? _tasks.OrderByDescending(task => task.ActualPriority)
+                : _tasks.OrderBy(task => task.ActualPriority);
+        }
+
+        private IEnumerable<Task> OrderedByState()
+        {
+            return _reverseSort
+                ? _tasks.OrderByDescending(task => task.ActualStatus)
+                : _tasks.OrderBy(task => task.ActualStatus);
+        }
     }
 }

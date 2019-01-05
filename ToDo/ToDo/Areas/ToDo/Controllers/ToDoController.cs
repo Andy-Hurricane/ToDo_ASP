@@ -18,11 +18,35 @@ namespace ToDo.Areas.ToDo.Controllers
         // GET: ToDo/ToDo
         public ActionResult Index()
         {
+            if (Request.HttpMethod == "POST")
+                return Content("Zabawa z postem!");
+
             PrepareViewData();
 
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Export(string ExportType, string OneSite)
+        {
+            if (Request.HttpMethod == "POST")
+                return Content($"Zabawa z postem! {ExportType} oraz {OneSite} {true} {false}" );
+
+            PrepareViewData();
+
+            return View("Index");
+        }
+
+        [HttpPost]
+        public ActionResult Sort(string sortType)
+        {
+            AvailableSort selectedSort = (AvailableSort)Enum.Parse(typeof(AvailableSort), sortType);
+            Tasks.SelectedSort = selectedSort;
+
+            PrepareViewData();
+
+            return View("Index");
+        }
         // GET: ToDo/ToDo/Details/5
         public ActionResult Details(int id) {
             return View();
@@ -95,6 +119,26 @@ namespace ToDo.Areas.ToDo.Controllers
             return View("Exit");
         }
 
+        [HttpPost]
+        public ActionResult ExportPDF()
+        {
+            return Content("test PDF");
+        }
+
+        [HttpPost]
+        public ActionResult ExportCSV()
+        {
+            return Content("test CSV");
+
+        }
+
+        [HttpPost]
+        public ActionResult ExportTXT()
+        {
+
+            return Content("test TXT");
+        }
+
         [NonAction]
         public void PrepareViewData()
         {
@@ -113,9 +157,7 @@ namespace ToDo.Areas.ToDo.Controllers
 
         [NonAction] 
         public IEnumerable<Task> GetOrderedList() {
-            return (from tasks in Tasks.GetList()
-                   orderby tasks.ID
-                   select tasks).Skip( ViewConfig.SkipPages() ).Take(ViewConfig.ActualPerSite);
+            return Tasks.OrderedBy(ViewConfig.SkipPages(), ViewConfig.ActualPerSite);
         }
 
         [HttpPost]

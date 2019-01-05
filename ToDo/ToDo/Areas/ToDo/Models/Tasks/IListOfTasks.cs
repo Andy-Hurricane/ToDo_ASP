@@ -8,6 +8,11 @@ namespace ToDo.Areas.ToDo.Models.Tasks
     public interface IListOfTasks
     {
         /// <summary>
+        /// Wybrane sortowanie.
+        /// </summary>
+        AvailableSort SelectedSort { get; set; }
+
+        /// <summary>
         /// Dodanie zadania do listy.
         /// </summary>
         /// <param name="task">Dodawane zadanie.</param>
@@ -80,5 +85,19 @@ namespace ToDo.Areas.ToDo.Models.Tasks
         /// <param name="actualId">Id wybranego elementu.</param>
         /// <returns>Wartość logiczna dla powodzenia akcji.</returns>
         bool SwapPrevious(int actualId);
+
+        /// <summary>
+        /// Zwraca całą posortowaną listę (sortowanie względem .
+        /// </summary>
+        /// <returns>Posortowana lista</returns>
+        IEnumerable<Task> OrderedBy();
+
+        /// <summary>
+        /// Zwraca posortowany fragment listy.
+        /// </summary>
+        /// <param name="skip">Ile stron ma przeskoczyć.</param>
+        /// <param name="perPage">Ile elementów wyświetlanych na stronie.</param>
+        /// <returns></returns>
+        IEnumerable<Task> OrderedBy(int skip, int perPage);
     }
 }

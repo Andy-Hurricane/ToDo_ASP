@@ -1,21 +1,23 @@
-﻿<div class="row text-center">
-    <i class="fas fa-file-pdf icon-export text-primary"></i>
-</div>
-<div class="row text-center">
-    <i class="fas fa-file-excel icon-export text-primary"></i>
-</div>
-<div class="row text-center">
-    <i class="fas fa-file-alt icon-export text-primary"></i>
-</div>
-<div class="row">
-    <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-2 col-xs-offset-2 form-check">
-        <label class="switch">
-            <input type="checkbox" id="OneSite" onclick="SelectOneSiteOrAll()">
-            <span class="slider round"></span>
-        </label>
+﻿@using (Html.BeginForm("Export", "ToDo", FormMethod.Post)) {
+    <div class="row text-center">
+        <button type="submit" value="PDF" name="ExportType"><i class="fas fa-file-pdf icon-export text-primary"></i></button>
     </div>
+    <div class="row text-center">
+        <button type="submit" value="PDF" name="ExportType"><i class="fas fa-file-excel icon-export text-primary"></i></button>
+    </div>
+    <div class="row text-center">
+        <button type="submit" value="TXT" name="ExportType"><i class="fas fa-file-alt icon-export text-primary"></i></button>
+    </div>
+    <div class="row">
+        <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-2 col-xs-offset-2 form-check">
+            <label class="switch">
+                <input type="checkbox" id="OneSite" onclick="SelectOneSiteOrAll()" name="OneSite">
+                <span class="slider round"></span>
+            </label>
+        </div>
 
-</div>
-<div class="row text-center" id="export-site">
-    Wszystkie strony
-</div>
+    </div>
+    <div class="row text-center" id="export-site">
+        Wszystkie strony
+    </div>
+}
