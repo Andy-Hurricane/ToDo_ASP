@@ -106,7 +106,7 @@ function OpenModalWindow(windowName, id) {
             show: 'slide',
             minWidth: Utilities.ParseToRem(7.5),
             width: Utilities.ParseToRem(7.5),
-            height: Utilities.ParseToRem(35.5),
+            height: Utilities.ParseToRem(38.5),
             draggable: false,
             position: {
                 of: $('#export_btn'),
@@ -176,5 +176,14 @@ function AjaxPost(location, data) {
         console.log(response.responseText);
     });
     return false;
+}
+
+
+function SelectOneSiteOrAll() {
+    $('#export-site').html(
+        $(`#OneSite`).prop('checked')
+            ? "Aktualna<br>strona"
+            : "Wszystkie strony"
+        );    
 }
 
