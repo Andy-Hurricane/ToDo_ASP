@@ -106,7 +106,7 @@ function OpenModalWindow(windowName, id) {
             show: 'slide',
             minWidth: Utilities.ParseToRem(7.5),
             width: Utilities.ParseToRem(7.5),
-            height: Utilities.ParseToRem(38.5),
+            height: Utilities.ParseToRem(40),
             draggable: false,
             position: {
                 of: $('#export_btn'),

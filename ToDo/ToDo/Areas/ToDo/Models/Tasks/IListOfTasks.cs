@@ -8,6 +8,11 @@ namespace ToDo.Areas.ToDo.Models.Tasks
     public interface IListOfTasks
     {
         /// <summary>
+        /// Odwrócone sortowanie.
+        /// </summary>
+        bool ReverseSort { get; }
+
+        /// <summary>
         /// Wybrane sortowanie.
         /// </summary>
         AvailableSort SelectedSort { get; set; }
@@ -87,10 +92,15 @@ namespace ToDo.Areas.ToDo.Models.Tasks
         bool SwapPrevious(int actualId);
 
         /// <summary>
-        /// Zwraca całą posortowaną listę (sortowanie względem .
+        /// Zwraca listę zadań.
         /// </summary>
-        /// <returns>Posortowana lista</returns>
-        IEnumerable<Task> OrderedBy();
+        /// <returns></returns>
+        IEnumerable<Task> GetTasks();
+
+        /// <summary>
+        /// Sortuje listę.
+        /// </summary>
+        void OrderNow();
 
         /// <summary>
         /// Zwraca posortowany fragment listy.
@@ -98,6 +108,6 @@ namespace ToDo.Areas.ToDo.Models.Tasks
         /// <param name="skip">Ile stron ma przeskoczyć.</param>
         /// <param name="perPage">Ile elementów wyświetlanych na stronie.</param>
         /// <returns></returns>
-        IEnumerable<Task> OrderedBy(int skip, int perPage);
+        IEnumerable<Task> GetTasks(int skip, int perPage);
     }
 }

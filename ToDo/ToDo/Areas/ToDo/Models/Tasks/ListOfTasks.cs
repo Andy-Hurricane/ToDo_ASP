@@ -16,17 +16,17 @@ namespace ToDo.Areas.ToDo.Models.Tasks {
         /// </summary>
         private List<Task> _tasks { get; set; }
 
-        private bool _reverseSort { get; set; } = false;
+        public bool ReverseSort { get; private set; } = false;
 
-        private Dictionary<AvailableSort, Func<IEnumerable<Task> >> _availableOrder;
+        private Dictionary<AvailableSort, Action> _availableOrder;
 
         private AvailableSort _selectedSort = AvailableSort.ID;
-        public AvailableSort SelectedSort {
+        AvailableSort IListOfTasks.SelectedSort {
             get {
                 return _selectedSort;
             }
             set {
-                _reverseSort = (_selectedSort == value && !_reverseSort);
+                ReverseSort = (_selectedSort == value && !ReverseSort);
                 _selectedSort = value;
             }
         }
@@ -40,7 +40,7 @@ namespace ToDo.Areas.ToDo.Models.Tasks {
         /// </summary>
         private ListOfTasks() {
             _tasks = LoadTasks();
-            _availableOrder = new Dictionary<AvailableSort, Func<IEnumerable<Task>>> {
+            _availableOrder = new Dictionary<AvailableSort, Action> {
                 { AvailableSort.ID, OrderedByID },
                 { AvailableSort.DateEnd, OrderedByDateEnd },
                 { AvailableSort.DateStart, OrderedByDateStart },
@@ -109,9 +109,7 @@ namespace ToDo.Areas.ToDo.Models.Tasks {
             bool result = true;
 
             try {
-                _tasks = (from Task t in _tasks
-                         where t.ID != id
-                         select t).ToList<Task>();
+                _tasks.RemoveAt(id);
             } catch {
                 result = false;
             }
@@ -174,71 +172,68 @@ namespace ToDo.Areas.ToDo.Models.Tasks {
 
         bool IListOfTasks.SwapNext(int actualId)
         {
-            Task actual = OrderedByID().First(task => task.ID == actualId);
-            Task next = OrderedByID().SkipWhile(task => task.ID != actualId).Skip(1).First();
+            Task tmp = _tasks[actualId];
+            _tasks[actualId] = _tasks[actualId + 1];
+            _tasks[actualId + 1] = tmp;
 
-            int actualID = actual.ID;
-            int nextID = next.ID;
-
-            next.ID = actualID;
-            actual.ID = nextID;
-            
-            // TODO: zrób sobie sprawdzeniem czy aby przypadkiem nie są daufltem - jeśli chociaż jeden jest defaultem, to wtedy false
+            // TODO: Zabezpieczenie na warunki graniczne
             return true;
         }
         
         bool IListOfTasks.SwapPrevious(int actualId)
         {
-            Task actual = OrderedByID().First(task => task.ID == actualId);
-            Task previous = OrderedByID().TakeWhile((task => task.ID != actualId)).Last(); ;
 
-            int actualID = actual.ID;
-            int previousID = previous.ID;
+            Task tmp = _tasks[actualId];
+            _tasks[actualId] = _tasks[actualId - 1];
+            _tasks[actualId - 1] = tmp;
 
-            previous.ID = actualID;
-            actual.ID = previousID;
-            // TODO: zrób sobie sprawdzeniem czy aby przypadkiem nie są daufltem - jeśli chociaż jeden jest defaultem, to wtedy false
+            // TODO: Zabezpieczenie na warunki graniczne
             return true;
         }
 
-        IEnumerable<Task> IListOfTasks.OrderedBy()
+        IEnumerable<Task> IListOfTasks.GetTasks()
         {
-            return _availableOrder[SelectedSort](); ;
+            return _tasks;
         }
 
-        IEnumerable<Task> IListOfTasks.OrderedBy(int skip, int perPage)
+        void IListOfTasks.OrderNow()
         {
-            return _availableOrder[SelectedSort]().Skip(skip).Take(perPage);
+            _availableOrder[_selectedSort](); ;
         }
 
-        private IEnumerable<Task> OrderedByID() { return _tasks.OrderBy(task => task.ID); }
-
-        private IEnumerable<Task> OrderedByDateStart()
+        IEnumerable<Task> IListOfTasks.GetTasks(int skip, int perPage)
         {
-            return _reverseSort
+            return _tasks.Skip(skip).Take(perPage);
+        }
+
+        private void OrderedByID() { _tasks = _tasks.OrderBy(task => task.ID).ToList(); }
+
+        private void OrderedByDateStart()
+        {
+            _tasks = (ReverseSort
                 ? _tasks.OrderByDescending(task => task.Start)
-                : _tasks.OrderBy(task => task.Start);
+                : _tasks.OrderBy(task => task.Start)).ToList();
         }
 
-        private IEnumerable<Task> OrderedByDateEnd()
+        private void OrderedByDateEnd()
         {
-            return _reverseSort
+            _tasks = (ReverseSort
                 ? _tasks.OrderByDescending(task => task.End)
-                : _tasks.OrderBy(task => task.End);
+                : _tasks.OrderBy(task => task.End)).ToList();
         }
 
-        private IEnumerable<Task> OrderedByPriority()
+        private void OrderedByPriority()
         {
-            return _reverseSort
+            _tasks = (ReverseSort
                 ? _tasks.OrderByDescending(task => task.ActualPriority)
-                : _tasks.OrderBy(task => task.ActualPriority);
+                : _tasks.OrderBy(task => task.ActualPriority)).ToList();
         }
 
-        private IEnumerable<Task> OrderedByState()
+        private void OrderedByState()
         {
-            return _reverseSort
+            _tasks = (ReverseSort
                 ? _tasks.OrderByDescending(task => task.ActualStatus)
-                : _tasks.OrderBy(task => task.ActualStatus);
+                : _tasks.OrderBy(task => task.ActualStatus)).ToList();
         }
     }
 }

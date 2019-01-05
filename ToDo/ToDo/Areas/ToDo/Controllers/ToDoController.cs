@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using ToDo.Areas.ToDo.Models.Export;
 using ToDo.Areas.ToDo.Models.Tasks;
 using ToDo.Areas.ToDo.Models.View;
 
@@ -13,7 +14,10 @@ namespace ToDo.Areas.ToDo.Controllers
     public class ToDoController : Controller {
         IListOfTasks Tasks = ListOfTasks.GetInstance();
         Config ViewConfig = Config.GetInstance();
-
+        readonly Dictionary<string, IExport> exporters = new Dictionary<string, IExport> {
+            { "TXT", new ExportTXT() }
+        };
+        
         static int tmpTest = 1;
         // GET: ToDo/ToDo
         public ActionResult Index()
@@ -26,12 +30,32 @@ namespace ToDo.Areas.ToDo.Controllers
         [HttpPost]
         public ActionResult Export(string ExportType, string OneSite)
         {
-            if (Request.HttpMethod == "POST")
-                return Content($"Zabawa z postem! {ExportType} oraz {OneSite} {true} {false}" );
+            if (Request.HttpMethod == "POST") {
+                IExport exporter = exporters[ExportType];
+
+                bool onlyOneSite;
+                try {
+                    onlyOneSite = OneSite.Equals("on");
+                } catch (NullReferenceException) {
+                    onlyOneSite = false;
+                }
+
+                exporter.PrepareData( onlyOneSite );
+
+                Response.Clear();
+                Response.ClearHeaders();
+
+                Response.AppendHeader("Content-Length", exporter.Length.ToString());
+                Response.ContentType = exporter.ContentType;
+                Response.AppendHeader("Content-Disposition", $"attachment;filename=\"output.{exporter.Extension}\"");
+
+                Response.Write(exporter.Export());
+                Response.End();
+            }
 
             PrepareViewData();
 
-            return View("Index");
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
@@ -41,11 +65,11 @@ namespace ToDo.Areas.ToDo.Controllers
             if (Request.HttpMethod == "POST") {
                 AvailableSort selectedSort = (AvailableSort)Enum.Parse(typeof(AvailableSort), sortType);
                 Tasks.SelectedSort = selectedSort;
+                Tasks.OrderNow();
             }
-
             PrepareViewData();
 
-            return View("Index");
+            return RedirectToAction("Index");
         }
         // GET: ToDo/ToDo/Details/5
         public ActionResult Details(int id) {
@@ -113,7 +137,6 @@ namespace ToDo.Areas.ToDo.Controllers
             Tasks.Remove(selectedId);
             PrepareViewData();
             
-            
             return Json( "OK" );
         }
 
@@ -145,7 +168,6 @@ namespace ToDo.Areas.ToDo.Controllers
         [NonAction]
         public void PrepareViewData()
         {
-
             ViewData["Tasks"] = GetOrderedList();
             ViewData["ViewConfig"] = ViewConfig;
             ViewData["AvailableSites"] =
@@ -156,11 +178,14 @@ namespace ToDo.Areas.ToDo.Controllers
                             )
                         )
                     );
+            ViewData["ReverseSort"] = Tasks.ReverseSort;
+            ViewData["ActualSort"] = Tasks.SelectedSort;
+            ViewData["CountOfTasks"] = Tasks.AllElements();
         }
 
         [NonAction] 
         public IEnumerable<Task> GetOrderedList() {
-            return Tasks.OrderedBy(ViewConfig.SkipPages(), ViewConfig.ActualPerSite);
+            return Tasks.GetTasks(ViewConfig.SkipPages(), ViewConfig.ActualPerSite);
         }
 
         [HttpPost]

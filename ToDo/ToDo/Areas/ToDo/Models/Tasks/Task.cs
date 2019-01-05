@@ -46,7 +46,7 @@ namespace ToDo.Areas.ToDo.Models.Tasks
         /// </summary>
         [Required(ErrorMessage = "Pole wymagane")]
         [DataType(DataType.Date)]
-        [DisplayName("Data zakończenia:")]
+        [DisplayName("Data zakończenia")]
         public DateTime End { get; set; }
 
         /// <summary>

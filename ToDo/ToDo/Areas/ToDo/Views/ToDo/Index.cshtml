@@ -5,6 +5,22 @@
     IEnumerable<ToDo.Areas.ToDo.Models.Tasks.Task> tasks = ViewData["Tasks"] as IEnumerable<ToDo.Areas.ToDo.Models.Tasks.Task>;
     ToDo.Areas.ToDo.Models.View.Config config = ViewData["ViewConfig"] as ToDo.Areas.ToDo.Models.View.Config;
     int AvailableSites = Convert.ToInt32(ViewData["AvailableSites"]);
+
+    int maxTasks = Convert.ToInt32(ViewData["CountOfTasks"]);
+    bool reverse = Convert.ToBoolean(ViewData["ReverseSort"]);
+
+    int actualSort = Convert.ToInt32(ViewData["ActualSort"]);
+
+
+    @helper OrderArrow(int main, int actual, bool reverse) {
+        if (main == actual) {
+            if (reverse) {
+                <i class="fas fa-sort-down"></i>
+            } else {
+                <i class="fas fa-sort-up"></i>
+            }
+        }
+    }
 }
 
 @{
@@ -31,15 +47,19 @@
         @using (Html.BeginForm("Sort", "ToDo", FormMethod.Post)) {
             <th>
                 <button type="submit" name="sortType" value="DateStart" class="btn-link">@Html.DisplayNameFor(dateStart => modelForNames.Start)</button>
+                @OrderArrow(actualSort, 1, reverse)
             </th>
             <th>
                 <button type="submit" name="sortType" value="DateEnd" class="btn-link">@Html.DisplayNameFor(dateStart => modelForNames.End)</button>
+                @OrderArrow(actualSort, 2, reverse)
             </th>
             <th>
                 <button type="submit" name="sortType" value="State" class="btn-link">@Html.DisplayNameFor(dateStart => modelForNames.ActualStatus)</button>
+                @OrderArrow(actualSort, 3, reverse)
             </th>
             <th>
                 <button type="submit" name="sortType" value="Priority" class="btn-link">@Html.DisplayNameFor(dateStart => modelForNames.ActualPriority)</button>
+                @OrderArrow(actualSort, 4, reverse)
             </th>
         }
         <th>
@@ -47,7 +67,7 @@
         </th>
         <th></th>
     </tr>
-
+    @{int iter = config.ActualPerSite * (config.ActualSite-1);}
     @foreach (var task in tasks) {
         <tr>
             <td>
@@ -72,19 +92,19 @@
                 @task.Progress
             </td>
             <td>
-                <input type="checkbox" id="selected_@task.ID" onclick="Select(this)">
-                <i class="fab fa-wpforms text-primary small-icon" onclick="OpenModalWindow('Description', @task.ID)"></i>
-                @if (tasks.First() == task) {
+                <input type="checkbox" id="selected_@iter" onclick="Select(this)">
+                <i class="fab fa-wpforms text-primary small-icon" onclick="OpenModalWindow('Description', @iter)"></i>
+                @if (iter==0) {
                     <i class="fas fa-angle-up text-primary small-icon-disabled" onclick=""></i>
                 } else {
-                    <i class="fas fa-angle-up text-primary small-icon" onclick="PreviousInList('@Url.Action("PreviousInList")', @task.ID)"></i>
+                    <i class="fas fa-angle-up text-primary small-icon" onclick="PreviousInList('@Url.Action("PreviousInList")', @iter)"></i>
                 }
-                @if (tasks.Last() == task) {
-                    <i class="fas fa-angle-down text-primary small-icon-disabled" onclick="', @task.ID)"></i>
+                @if (iter == maxTasks - 1) {
+                    <i class="fas fa-angle-down text-primary small-icon-disabled" onclick="', @iter)"></i>
                 } else {
-                    <i class="fas fa-angle-down text-primary small-icon" onclick="NextInList('@Url.Action("NextInList")', @task.ID)"></i>
+                    <i class="fas fa-angle-down text-primary small-icon" onclick="NextInList('@Url.Action("NextInList")', @iter)"></i>
                 }
-                <i class="fas fa-plus fa-rotate-45 text-danger small-icon" onclick="Delete('@Url.Action("Delete")', @task.ID)"></i>
+                <i class="fas fa-plus fa-rotate-45 text-danger small-icon" onclick="Delete('@Url.Action("Delete")', @iter)"></i>
             </td>
             <!--
                 <td>
@@ -96,6 +116,7 @@
                 </td>
             -->
         </tr>
+        iter++;
     }
 
 </table>
