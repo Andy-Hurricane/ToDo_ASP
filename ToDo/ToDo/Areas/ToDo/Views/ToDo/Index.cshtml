@@ -1,4 +1,7 @@
 ﻿@{
+
+    ToDo.Areas.ToDo.Models.Tasks.Task modelForNames = null;
+
     IEnumerable<ToDo.Areas.ToDo.Models.Tasks.Task> tasks = ViewData["Tasks"] as IEnumerable<ToDo.Areas.ToDo.Models.Tasks.Task>;
     ToDo.Areas.ToDo.Models.View.Config config = ViewData["ViewConfig"] as ToDo.Areas.ToDo.Models.View.Config;
     int AvailableSites = Convert.ToInt32(ViewData["AvailableSites"]);
@@ -20,25 +23,27 @@
 <table class="table">
     <tr>
         <th>
-            Czynność
+            @Html.DisplayNameFor(dateStart => modelForNames.Action)
         </th>
         <th>
-            Temat
+            @Html.DisplayNameFor(dateStart => modelForNames.Topic)
         </th>
+        @using (Html.BeginForm("Sort", "ToDo", FormMethod.Post)) {
+            <th>
+                <button type="submit" name="sortType" value="DateStart" class="btn-link">@Html.DisplayNameFor(dateStart => modelForNames.Start)</button>
+            </th>
+            <th>
+                <button type="submit" name="sortType" value="DateEnd" class="btn-link">@Html.DisplayNameFor(dateStart => modelForNames.End)</button>
+            </th>
+            <th>
+                <button type="submit" name="sortType" value="State" class="btn-link">@Html.DisplayNameFor(dateStart => modelForNames.ActualStatus)</button>
+            </th>
+            <th>
+                <button type="submit" name="sortType" value="Priority" class="btn-link">@Html.DisplayNameFor(dateStart => modelForNames.ActualPriority)</button>
+            </th>
+        }
         <th>
-            Data rozpoczęcia
-        </th>
-        <th>
-            Data zakończenia
-        </th>
-        <th>
-            Status
-        </th>
-        <th>
-            Priorytet
-        </th>
-        <th>
-            % zakończenia
+            @Html.DisplayNameFor(dateStart => modelForNames.Progress)
         </th>
         <th></th>
     </tr>
@@ -46,7 +51,7 @@
     @foreach (var task in tasks) {
         <tr>
             <td>
-               @task.ID . @task.Action
+                @task.ID . @task.Action
             </td>
             <td>
                 @task.Topic
@@ -133,7 +138,7 @@
         @if (config.ActualSite == AvailableSites + 1) {
             <input type="button" value="Następny" class="btn btn-primary" disabled />
         } else {
-            <input type="button" value="Następny" class="btn btn-primary" onclick="NextSite('@Url.Action("ActualSite")')"  />
+            <input type="button" value="Następny" class="btn btn-primary" onclick="NextSite('@Url.Action("ActualSite")')" />
         }
     </div>
 </div>

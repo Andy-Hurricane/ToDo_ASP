@@ -37,8 +37,11 @@ namespace ToDo.Areas.ToDo.Controllers
         [HttpPost]
         public ActionResult Sort(string sortType)
         {
-            AvailableSort selectedSort = (AvailableSort)Enum.Parse(typeof(AvailableSort), sortType);
-            Tasks.SelectedSort = selectedSort;
+
+            if (Request.HttpMethod == "POST") {
+                AvailableSort selectedSort = (AvailableSort)Enum.Parse(typeof(AvailableSort), sortType);
+                Tasks.SelectedSort = selectedSort;
+            }
 
             PrepareViewData();
 
@@ -51,8 +54,11 @@ namespace ToDo.Areas.ToDo.Controllers
 
         // GET: ToDo/ToDo/Create
         public ActionResult Create() {
+            Random rand = new Random();
             Task tmp = new Task {
                 Topic = "Zadanie" + tmpTest, 
+                ActualPriority = rand.Next(0,69),
+                ActualStatus = rand.Next(0,69),
                 Description = "test"
             };
             Tasks.Add(tmp);
