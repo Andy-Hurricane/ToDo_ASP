@@ -18,9 +18,6 @@ namespace ToDo.Areas.ToDo.Controllers
         // GET: ToDo/ToDo
         public ActionResult Index()
         {
-            if (Request.HttpMethod == "POST")
-                return Content("Zabawa z postem!");
-
             PrepareViewData();
 
             return View();
