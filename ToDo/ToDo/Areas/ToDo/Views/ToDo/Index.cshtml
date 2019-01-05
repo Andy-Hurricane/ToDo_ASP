@@ -67,7 +67,7 @@
                 @task.Progress
             </td>
             <td>
-                <input type="checkbox" id="selected_@task.ID">
+                <input type="checkbox" id="selected_@task.ID" onclick="Select(this)">
                 <i class="fab fa-wpforms text-primary small-icon" onclick="OpenModalWindow('Description', @task.ID)"></i>
                 @if (tasks.First() == task) {
                     <i class="fas fa-angle-up text-primary small-icon-disabled" onclick=""></i>

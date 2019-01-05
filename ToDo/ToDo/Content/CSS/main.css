@@ -13,6 +13,10 @@
   padding: 0.5rem;
   height: 7rem; }
 
+.disabled {
+  font-size: 6rem;
+  color: lightslategray; }
+
 .icon {
   font-size: 6rem; }
   .icon:hover {

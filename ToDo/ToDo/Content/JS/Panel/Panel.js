@@ -1,10 +1,35 @@
-﻿const defaultPosition = {
+﻿const editable = {
+    selected: '',
+    Select: function (selectedName) {
+        const editButton = $('#EditButton');
+        if (this.selected == selectedName) {
+            this.selected = '';
+            editButton.removeClass('icon')
+            editButton.addClass('disabled');
+        }
+        else {
+            if (this.selected != '')
+                $(`#${this.selected}`).prop('checked', false);
+            this.selected = selectedName;
+            editButton.removeClass('disabled');
+            editButton.addClass('icon');
+        }
+    },
+    IsDisableEdit: function () {
+        return this.selected == '';
+    }
+}
+
+function Select(select) {
+    editable.Select(select.id);
+}
+
+const defaultPosition = {
     my: 'center',
     at: 'center',
     of: window,
     collision: 'fit'
 };
-
 
 function OpenModalWindow(windowName, id) {
     const windowConfig = {
@@ -98,15 +123,16 @@ function OpenModalWindow(windowName, id) {
     $(`#modal`).children().hide();
     $(`#modal`).children(`div.${windowName}-modal`).show();
 
-    console.log($(`#modal .ui-dialog-titlebar`));
     $(`#modal`).dialog( windowConfig[windowName] );
+
+    if (windowName == 'Edit' && editable.IsDisableEdit())
+        return;
 
     $(`#modal`).dialog('open');
 
 
     $(`#modal .ui-dialog-titlebar`).css(`display`, `none`);
 }
-
 
 function ChangeElementsPerSite(location) {    
     AjaxPost(location, $(`#viewPerSite`).val());
@@ -135,8 +161,6 @@ function Delete(location, id) {
     AjaxPost(location, id);
 }
 
-
-
 function AjaxPost(location, data) {
     console.log(data);
     $.ajax({
@@ -153,3 +177,4 @@ function AjaxPost(location, data) {
     });
     return false;
 }
+

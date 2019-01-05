@@ -28,6 +28,12 @@ body {
     height: $panel-height;
 }
 
+.disabled {
+    font-size: $icon-height;
+    color: lightslategray;
+}
+
+
 .icon {
     font-size: $icon-height;
 
