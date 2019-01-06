@@ -127,7 +127,16 @@ namespace ToDo.Areas.ToDo.Controllers
 
             return Json("OK open Edit");
         }
-        
+
+        [HttpPost]
+        public JsonResult Description(string element)
+        {
+            editTask = Tasks.Get(Convert.ToInt32(element));
+            PrepareViewData();
+
+            return Json("OK open Description");
+        }
+
         // POST: ToDo/ToDo/Edit/5
         [HttpPost]
         public ActionResult Edit(FormCollection collection) {
@@ -167,7 +176,6 @@ namespace ToDo.Areas.ToDo.Controllers
             }
         }
         
-        // POST: ToDo/ToDo/Delete/5
         [HttpPost]
         public JsonResult Delete(string element) {
             int selectedId = Convert.ToInt32(element);

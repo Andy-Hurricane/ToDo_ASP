@@ -90,7 +90,7 @@
             </td>
             <td>
                 <input type="checkbox" id="selected_@iter" onclick="Select(this)">
-                <i class="fab fa-wpforms text-primary small-icon" onclick="OpenModalWindow('Description')"></i>
+                <i class="fab fa-wpforms text-primary small-icon" onclick="OpenModalWindow('Description', @iter)"></i>
                 @if (iter == 0) {
                     <i class="fas fa-angle-up text-primary small-icon-disabled" onclick=""></i>
                 } else {
@@ -160,7 +160,7 @@
         @{Html.RenderPartial("/Areas/ToDo/Views/Shared/_FormView.cshtml", editTask);}
     </div>
     <div class="row Description-modal">
-        @{Html.RenderPartial("/Areas/ToDo/Views/Shared/_DescriptionView.cshtml");}
+        @{Html.RenderPartial("/Areas/ToDo/Views/Shared/_DescriptionView.cshtml", editTask);}
     </div>
     <div class="row List-modal">
         @{Html.RenderPartial("/Areas/ToDo/Views/Shared/_ListingView.cshtml");}

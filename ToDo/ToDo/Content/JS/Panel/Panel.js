@@ -44,7 +44,7 @@ const defaultPosition = {
     collision: 'fit'
 };
 
-function OpenModalWindow(windowName) {
+function OpenModalWindow(windowName, id) {
     const windowConfig = {
         'Add': {
             classes: {
@@ -77,8 +77,8 @@ function OpenModalWindow(windowName) {
             autoOpen: false,
             hide: 'puff',
             show: 'slide',
-            width: 300,
-            height: 100,
+            width: 'auto',
+            height: 'auto',
             draggable: true,
             position: defaultPosition,
             open: function (event, ui) {
@@ -149,6 +149,13 @@ function OpenModalWindow(windowName) {
             AjaxPost('ToDo/SetEdit', editable.GetID());
     }
 
+    if (windowName == 'Description') {
+        if (sessionStorage.getItem('openWindow') !== null)
+            sessionStorage.removeItem('openWindow');
+        else
+            AjaxPost('ToDo/Description', id);
+    }
+
     $(`#modal`).dialog('open');
 
 
@@ -187,6 +194,7 @@ function NextInList(location, id) {
 function Delete(location, id) {
     AjaxPost(location, id);
 }
+
 
 function Validate(method) {
     const form = $(`#${method}Form`); 
@@ -310,6 +318,13 @@ function AjaxPost(location, data) {
         
         if (response == "OK open Edit") {
             sessionStorage.setItem("openWindow", "Edit");
+            sessionStorage.setItem("editable", editable.selected);
+
+            window.location.reload(true);
+        }
+
+        if (response == "OK open Description") {
+            sessionStorage.setItem("openWindow", "Description");
             sessionStorage.setItem("editable", editable.selected);
 
             window.location.reload(true);
