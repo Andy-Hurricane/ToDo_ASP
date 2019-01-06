@@ -89,25 +89,19 @@ function OpenModalWindow(windowName, id) {
             autoOpen: false,
             hide: 'puff',
             show: 'slide',
-            width: 300,
-            height: 100,
+            width: 800,
+            height: 400,
             draggable: true,
-            position: defaultPosition,
-            open: function (event, ui) {
-                $('#modal').css('overflow', 'hidden');
-            }
+            position: defaultPosition
         },
         'Tile': {
             autoOpen: false,
             hide: 'puff',
             show: 'slide',
-            width: 300,
-            height: 100,
+            width: 800,
+            height: 400,
             draggable: true,
-            position: defaultPosition,
-            open: function (event, ui) {
-                $('#modal').css('overflow', 'hidden');
-            }
+            position: defaultPosition
         },
         'Export': {
             autoOpen: false,

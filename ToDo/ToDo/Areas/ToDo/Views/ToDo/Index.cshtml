@@ -163,10 +163,10 @@
         @{Html.RenderPartial("/Areas/ToDo/Views/Shared/_DescriptionView.cshtml", editTask);}
     </div>
     <div class="row List-modal">
-        @{Html.RenderPartial("/Areas/ToDo/Views/Shared/_ListingView.cshtml");}
+        @{Html.RenderPartial("/Areas/ToDo/Views/Shared/_ListingView.cshtml", new ViewDataDictionary { { "tasks", tasks }, { "Type", "list" } });}
     </div>
     <div class="row Tile-modal">
-        @{Html.RenderPartial("/Areas/ToDo/Views/Shared/_ListingView.cshtml");}
+        @{Html.RenderPartial("/Areas/ToDo/Views/Shared/_ListingView.cshtml", new ViewDataDictionary { { "tasks", tasks }, { "Type", "tile" } }); }
     </div>
     <div class="row Export-modal">
         @{Html.RenderPartial("/Areas/ToDo/Views/Shared/_ExportView.cshtml");}

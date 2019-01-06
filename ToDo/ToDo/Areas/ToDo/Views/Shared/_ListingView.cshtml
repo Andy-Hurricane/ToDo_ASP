@@ -1,2 +1,111 @@
-﻿
-listing
+﻿@{
+    ToDo.Areas.ToDo.Models.Tasks.Task modelForNames = null;
+
+    IEnumerable<ToDo.Areas.ToDo.Models.Tasks.Task> myModel = this.ViewData["tasks"] as IEnumerable<ToDo.Areas.ToDo.Models.Tasks.Task>;
+
+    string myType = this.ViewData.ContainsKey("Type") ? this.ViewData["Type"].ToString() : "NIE MA?";
+}
+
+@if (myType == "list") {
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => modelForNames.Action)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => modelForNames.Topic)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => modelForNames.Start)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => modelForNames.End)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => modelForNames.ActualStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => modelForNames.ActualPriority)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => modelForNames.Progress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => modelForNames.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => modelForNames.FilePath)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in myModel) {
+            <tr>
+                <td style="font-weight: bold">
+                    @Html.DisplayFor(modelItem => item.Action)
+                </td>
+                <td style="font-weight: bold">
+                    @Html.DisplayFor(modelItem => item.Topic)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Start)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.End)
+                </td>
+                <td style="background-color: yellow">
+                    @Html.DisplayFor(modelItem => item.ActualStatus)
+                </td>
+                <td style="background-color: lightblue">
+                    @Html.DisplayFor(modelItem => item.ActualPriority)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Progress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FilePath)
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+
+@if (myType == "tile") {
+
+    <div class="row">
+
+        @foreach (var tile in myModel) {
+            <div class="col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-1 col-lg-3 col-md-3 col-sm-3 col-xs-3" style="border: 2px solid black; border-radius: 2px">
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-center" style="background-color: lightblue">
+                        @Html.DisplayFor(modelItem => tile.ActualPriority)
+                    </div>
+                    <div class="col-lg-offset-7 col-md-offset-7 col-sm-offset-7 col-xs-offset-7 col-lg-2 col-md-2 col-sm-2 col-xs-2 text-center"style="background-color: yellow">
+
+                        @Html.DisplayFor(modelItem => tile.ActualStatus)
+                    </div>
+                </div>
+                <div class="row text-center" style="font-weight: bold">
+                    @Html.DisplayFor(modelItem => tile.Action)
+                </div>
+                <div class="row text-center" style="font-weight: bold">
+                    @Html.DisplayFor(modelItem => tile.Topic)
+                </div>
+                <div class="row">
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                        @Html.DisplayFor(modelItem => tile.Start) - @Html.DisplayFor(modelItem => tile.End)
+                    </div>
+                    <div class="col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-1 col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        @Html.DisplayFor(modelItem => tile.Progress)
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+    
+}
