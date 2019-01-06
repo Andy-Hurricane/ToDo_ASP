@@ -1,6 +1,7 @@
 ﻿@{
-
     ToDo.Areas.ToDo.Models.Tasks.Task modelForNames = null;
+
+    ToDo.Areas.ToDo.Models.Tasks.Task editTask = ViewData["EditTask"] as ToDo.Areas.ToDo.Models.Tasks.Task;
 
     IEnumerable<ToDo.Areas.ToDo.Models.Tasks.Task> tasks = ViewData["Tasks"] as IEnumerable<ToDo.Areas.ToDo.Models.Tasks.Task>;
     ToDo.Areas.ToDo.Models.View.Config config = ViewData["ViewConfig"] as ToDo.Areas.ToDo.Models.View.Config;
@@ -12,7 +13,8 @@
     int actualSort = Convert.ToInt32(ViewData["ActualSort"]);
 
 
-    @helper OrderArrow(int main, int actual, bool reverse) {
+    @helper OrderArrow(int main, int actual, bool reverse)
+    {
         if (main == actual) {
             if (reverse) {
                 <i class="fas fa-sort-down"></i>
@@ -28,11 +30,6 @@
 }
 
 @{Html.RenderPartial("/Areas/ToDo/Views/Shared/_PanelView.cshtml");}
-
-@AvailableSites;
-@config.BaseElementPerSite;
-@config.ActualPerSite;
-
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -67,34 +64,34 @@
         </th>
         <th></th>
     </tr>
-    @{int iter = config.ActualPerSite * (config.ActualSite-1);}
+    @{int iter = config.ActualPerSite * (config.ActualSite - 1);}
     @foreach (var task in tasks) {
         <tr>
             <td>
-                @task.ID . @task.Action
+                @Html.DisplayFor(m => task.Action)
             </td>
             <td>
-                @task.Topic
+                @Html.DisplayFor(m => task.Topic)
             </td>
             <td>
-                @task.Start
+                @Html.DisplayFor(m => task.Start)
             </td>
             <td>
-                @task.End
+                @Html.DisplayFor(m => task.End)
             </td>
             <td>
-                @task.ActualStatus
+                @Html.DisplayFor(m => task.ActualStatus)
             </td>
             <td>
-                @task.ActualPriority
+                @Html.DisplayFor(m => task.ActualPriority)
             </td>
             <td>
-                @task.Progress
+                @Html.DisplayFor(m => task.Progress)
             </td>
             <td>
                 <input type="checkbox" id="selected_@iter" onclick="Select(this)">
-                <i class="fab fa-wpforms text-primary small-icon" onclick="OpenModalWindow('Description', @iter)"></i>
-                @if (iter==0) {
+                <i class="fab fa-wpforms text-primary small-icon" onclick="OpenModalWindow('Description')"></i>
+                @if (iter == 0) {
                     <i class="fas fa-angle-up text-primary small-icon-disabled" onclick=""></i>
                 } else {
                     <i class="fas fa-angle-up text-primary small-icon" onclick="PreviousInList('@Url.Action("PreviousInList")', @iter)"></i>
@@ -106,15 +103,6 @@
                 }
                 <i class="fas fa-plus fa-rotate-45 text-danger small-icon" onclick="Delete('@Url.Action("Delete")', @iter)"></i>
             </td>
-            <!--
-                <td>
-                <input type="button" value="Szczegoly" id="detail_at Html.DisplayFor(modelItem => item.ID)" />
-
-                    at Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                    at Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                    at Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                </td>
-            -->
         </tr>
         iter++;
     }
@@ -161,5 +149,26 @@
         } else {
             <input type="button" value="Następny" class="btn btn-primary" onclick="NextSite('@Url.Action("ActualSite")')" />
         }
+    </div>
+</div>
+
+<div id="modal" style="display: none">
+    <div class="row Add-modal">
+        @{Html.RenderPartial("/Areas/ToDo/Views/Shared/_FormView.cshtml");}
+    </div>
+    <div class="row Edit-modal">
+        @{Html.RenderPartial("/Areas/ToDo/Views/Shared/_FormView.cshtml", editTask);}
+    </div>
+    <div class="row Description-modal">
+        @{Html.RenderPartial("/Areas/ToDo/Views/Shared/_DescriptionView.cshtml");}
+    </div>
+    <div class="row List-modal">
+        @{Html.RenderPartial("/Areas/ToDo/Views/Shared/_ListingView.cshtml");}
+    </div>
+    <div class="row Tile-modal">
+        @{Html.RenderPartial("/Areas/ToDo/Views/Shared/_ListingView.cshtml");}
+    </div>
+    <div class="row Export-modal">
+        @{Html.RenderPartial("/Areas/ToDo/Views/Shared/_ExportView.cshtml");}
     </div>
 </div>

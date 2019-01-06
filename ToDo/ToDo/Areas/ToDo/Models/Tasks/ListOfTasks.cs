@@ -68,7 +68,16 @@ namespace ToDo.Areas.ToDo.Models.Tasks {
             }
             _tasks = new List<Task> {
                 new Task {
-                    Topic = "test"
+                    Action = "test",
+                    Topic = "test",
+                    ActualPriority = 0,
+                    ActualStatus = 1,
+                    Description = "test",
+                    End = DateTime.Now,
+                    FilePath = "test",
+                    ID = 1,
+                    Progress = 2,
+                    Start = DateTime.Now
                 }
             };
             return  _tasks;
@@ -123,8 +132,7 @@ namespace ToDo.Areas.ToDo.Models.Tasks {
 
             try {
                 int id = _tasks.IndexOf(oldTask);
-                _tasks.Remove(oldTask);
-                _tasks.Insert(id, newTask);
+                _tasks[id] = newTask;
             } catch {
                 result = false;
             }
@@ -137,8 +145,7 @@ namespace ToDo.Areas.ToDo.Models.Tasks {
             bool result = true;
 
             try {
-                _tasks.RemoveAt(id);
-                _tasks.Insert(id, newTask);
+                _tasks[id] = newTask;
             } catch {
                 result = false;
             }

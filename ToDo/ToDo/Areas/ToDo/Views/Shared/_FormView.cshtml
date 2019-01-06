@@ -1,2 +1,226 @@
-﻿
-form
+﻿@model ToDo.Areas.ToDo.Models.Tasks.Task
+
+@if (Model != null) {
+    using (Html.BeginForm("Edit", "ToDo", FormMethod.Post, new { id = "EditForm" })) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Action, htmlAttributes: new { @class = "control-label col-lg-2 col-md-2 col-sm-2 col-xs-2", @maxlength = "255"})
+                <div class="col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-1 col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                    @Html.EditorFor(model => model.Action, new { htmlAttributes = new { @class = "form-control", @id = "ActionEdit" } })
+                    @Html.ValidationMessageFor(model => model.Action, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row text-center text-danger" id="ErrorActionEdit"></div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Topic, htmlAttributes: new { @class = "control-label col-lg-2 col-md-2 col-sm-2 col-xs-2" })
+                <div class="col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-1 col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                    @Html.EditorFor(model => model.Topic, new { htmlAttributes = new { @class = "form-control", @id = "TopicEdit" } })
+                    @Html.ValidationMessageFor(model => model.Topic, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row text-center text-danger" id="ErrorTopicEdit"></div>
+            <div class="row">
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                    @Html.LabelFor(model => model.Start.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+                </div>
+                <div class="col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-1 col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                    @Html.LabelFor(model => model.End, htmlAttributes: new { @class = "control-label col-md-2" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                    @Html.EditorFor(model => model.Start, new { htmlAttributes = new { @class = "form-control", @id = "StartEdit" } })
+                    @Html.ValidationMessageFor(model => model.Start, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-1 col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                    @Html.EditorFor(model => model.End, new { htmlAttributes = new { @class = "form-control", @id = "EndEdit" } })
+                    @Html.ValidationMessageFor(model => model.End, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-center text-danger" id="ErrorStartEdit"></div>
+                <div class="col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-1 col-lg-5 col-md-5 col-sm-5 col-xs-5 text-center text-danger" id="ErrorEndEdit"></div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    @Html.LabelFor(model => model.ActualStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+                </div>
+
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    @Html.LabelFor(model => model.ActualPriority, htmlAttributes: new { @class = "control-label col-md-2" })
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    @Html.LabelFor(model => model.Progress, htmlAttributes: new { @class = "control-label col-md-2" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    @Html.EditorFor(model => model.ActualStatus, new { htmlAttributes = new { @class = "form-control", @id = "ActualStatusEdit" } })
+                    @Html.ValidationMessageFor(model => model.ActualStatus, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    @Html.EditorFor(model => model.ActualPriority, new { htmlAttributes = new { @class = "form-control", @id = "ActualPriorityEdit" } })
+                    @Html.ValidationMessageFor(model => model.ActualPriority, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    @Html.EditorFor(model => model.Progress, new { htmlAttributes = new { @class = "form-control", @id = "ProgressEdit" } })
+                    @Html.ValidationMessageFor(model => model.Progress, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-center text-danger" id="ErrorStatusEdit"></div>
+
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-center text-danger" id="ErrorPriorityEdit"></div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-center text-danger" id="ErrorProrgressEdit"></div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @id = "DescriptionEdit" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+                <div class="row text-center text-danger" id="ErrorDescriptionEdit"></div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.FilePath, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.FilePath, new { htmlAttributes = new { @class = "form-control", @id = "FilePathEdit" } })
+                    @Html.ValidationMessageFor(model => model.FilePath, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input value="Edit" class="btn btn-default" onclick="Validate('Edit')" />
+                </div>
+            </div>
+        </div>
+    }
+
+} else {
+
+    using (Html.BeginForm("Create", "ToDo", FormMethod.Post, new { id = "CreateForm" })) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Action, htmlAttributes: new { @class = "control-label col-lg-2 col-md-2 col-sm-2 col-xs-2", @maxlength = "255" })
+                <div class="col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-1 col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                    @Html.EditorFor(model => model.Action, new { htmlAttributes = new { @class = "form-control", @id = "ActionCreate" } })
+                    @Html.ValidationMessageFor(model => model.Action, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row text-center text-danger" id="ErrorActionCreate"></div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Topic, htmlAttributes: new { @class = "control-label col-lg-2 col-md-2 col-sm-2 col-xs-2" })
+                <div class="col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-1 col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                    @Html.EditorFor(model => model.Topic, new { htmlAttributes = new { @class = "form-control", @id = "TopicCreate" } })
+                    @Html.ValidationMessageFor(model => model.Topic, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row text-center text-danger" id="ErrorTopicCreate"></div>
+            <div class="row">
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                    @Html.LabelFor(model => model.Start, htmlAttributes: new { @class = "control-label col-md-2" })
+                </div>
+                <div class="col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-1 col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                    @Html.LabelFor(model => model.End, htmlAttributes: new { @class = "control-label col-md-2" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                    @Html.EditorFor(model => model.Start, new { htmlAttributes = new { @class = "form-control", @id = "StartCreate" } })
+                    @Html.ValidationMessageFor(model => model.Start, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-1 col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                    @Html.EditorFor(model => model.End, new { htmlAttributes = new { @class = "form-control", @id = "EndCreate" } })
+                    @Html.ValidationMessageFor(model => model.End, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-center text-danger" id="ErrorStartCreate"></div>
+                <div class="col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-1 col-lg-5 col-md-5 col-sm-5 col-xs-5 text-center text-danger" id="ErrorEndCreate"></div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    @Html.LabelFor(model => model.ActualStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+                </div>
+
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    @Html.LabelFor(model => model.ActualPriority, htmlAttributes: new { @class = "control-label col-md-2" })
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    @Html.LabelFor(model => model.Progress, htmlAttributes: new { @class = "control-label col-md-2" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    @Html.EditorFor(model => model.ActualStatus, new { htmlAttributes = new { @class = "form-control", @id = "ActualStatusCreate" } })
+                    @Html.ValidationMessageFor(model => model.ActualStatus, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    @Html.EditorFor(model => model.ActualPriority, new { htmlAttributes = new { @class = "form-control", @id = "ActualPriorityCreate" } })
+                    @Html.ValidationMessageFor(model => model.ActualPriority, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    @Html.EditorFor(model => model.Progress, new { htmlAttributes = new { @class = "form-control", @id = "ProgressCreate" } })
+                    @Html.ValidationMessageFor(model => model.Progress, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-center text-danger" id="ErrorStatusCreate"></div>
+
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-center text-danger" id="ErrorPriorityCreate"></div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-center text-danger" id="ErrorProrgressCreate"></div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @id = "DescriptionCreate" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+                <div class="row text-center text-danger" id="ErrorDescriptionCreate"></div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.FilePath, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.FilePath, new { htmlAttributes = new { @class = "form-control", @id = "FilePathCreate" } })
+                    @Html.ValidationMessageFor(model => model.FilePath, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input value="Create" class="btn btn-default" onclick="Validate('Create')" />
+                </div>
+            </div>
+        </div>
+
+    }
+}

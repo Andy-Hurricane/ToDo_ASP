@@ -18,6 +18,7 @@ namespace ToDo.Areas.ToDo.Controllers
     public class ToDoController : Controller {
         IListOfTasks Tasks = ListOfTasks.GetInstance();
         Config ViewConfig = Config.GetInstance();
+        static Task editTask;
         
         static int tmpTest = 1;
         // GET: ToDo/ToDo
@@ -81,49 +82,82 @@ namespace ToDo.Areas.ToDo.Controllers
         }
 
         // GET: ToDo/ToDo/Create
-        public ActionResult Create() {
-            Random rand = new Random();
-            Task tmp = new Task {
-                Topic = "Zadanie" + tmpTest, 
-                ActualPriority = rand.Next(0,69),
-                ActualStatus = rand.Next(0,69),
-                Description = "test"
-            };
-            Tasks.Add(tmp);
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(FormCollection collection) {
+            if (Request.HttpMethod == "POST") {
+                string action = Request.Form["Action"];
+                string topic = Request.Form["Topic"];
+                string start = Request.Form["Start"];
+                string end = Request.Form["End"];
+                string status = Request.Form["ActualStatus"];
+                string priority = Request.Form["ActualPriority"];
+                string progress = Request.Form["Progress"];
+                string desc = Request.Form["Desc"];
+                string file = Request.Form["File"];
 
-            tmpTest++;
+                Task tmp = new Task {
+                    Topic = topic,
+                    Action = action,
+                    Start = Convert.ToDateTime(start),
+                    End = Convert.ToDateTime(end),
+                    ActualStatus = Convert.ToInt32(status),
+                    ActualPriority = Convert.ToInt32(priority),
+                    Progress = Convert.ToInt32(progress),
+                    Description = desc
+                };
+                Tasks.Add(tmp);
 
+                tmpTest++;
+                return RedirectToAction("Index");
+                
+            } else {
+
+                PrepareViewData();
+
+                return View("Index");
+            }
+        }
+        
+        [HttpPost]
+        public JsonResult SetEdit(string element)
+        {
+            editTask = Tasks.Get(Convert.ToInt32(element));
             PrepareViewData();
 
-            return View( "Index" );
+            return Json("OK open Edit");
         }
-
-        // POST: ToDo/ToDo/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection) {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: ToDo/ToDo/Edit/5
-        public ActionResult Edit(int id) {
-            return View();
-        }
-
+        
         // POST: ToDo/ToDo/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection) {
+        public ActionResult Edit(FormCollection collection) {
             try
             {
-                // TODO: Add update logic here
+                int ID = editTask.ID;
+                string action = Request.Form["Action"];
+                string topic = Request.Form["Topic"];
+                string start = Request.Form["Start"];
+                string end = Request.Form["End"];
+                string status = Request.Form["ActualStatus"];
+                string priority = Request.Form["ActualPriority"];
+                string progress = Request.Form["Progress"];
+                string desc = Request.Form["Desc"];
+                string file = Request.Form["File"];
+
+                Task tmp = new Task {
+                    ID = ID, 
+                    Topic = topic,
+                    Action = action,
+                    Start = Convert.ToDateTime(start),
+                    End = Convert.ToDateTime(end),
+                    ActualStatus = Convert.ToInt32(status),
+                    ActualPriority = Convert.ToInt32(priority),
+                    Progress = Convert.ToInt32(progress),
+                    Description = desc
+                };
+
+                Tasks.Edit(ID, tmp);
+
 
                 return RedirectToAction("Index");
             }
@@ -165,6 +199,7 @@ namespace ToDo.Areas.ToDo.Controllers
             ViewData["ReverseSort"] = Tasks.ReverseSort;
             ViewData["ActualSort"] = Tasks.SelectedSort;
             ViewData["CountOfTasks"] = Tasks.AllElements();
+            ViewData["EditTask"] = editTask;
         }
 
         [NonAction] 

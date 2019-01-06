@@ -38,6 +38,7 @@ namespace ToDo.Areas.ToDo.Models.Tasks
         /// </summary>
         [Required(ErrorMessage = "Pole wymagane")]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         [DisplayName("Data rozpoczęcia")]
         public DateTime Start { get; set; }
 
@@ -46,6 +47,7 @@ namespace ToDo.Areas.ToDo.Models.Tasks
         /// </summary>
         [Required(ErrorMessage = "Pole wymagane")]
         [DataType(DataType.Date)]
+        [DisplayFormat( DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         [DisplayName("Data zakończenia")]
         public DateTime End { get; set; }
 
