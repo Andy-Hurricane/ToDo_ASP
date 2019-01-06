@@ -9,11 +9,11 @@ namespace ToDo.Areas.ToDo.Models.Export
 {
     public class ExportXls : Exporter
     {
+        public ExportXls(HttpResponseBase response) : base(response) { }
+
         protected override void Prepare(bool actualSite)
         {
-            IEnumerable<Task> list = actualSite
-                ? _tasks.GetTasks(_viewConfig.SkipPages(), _viewConfig.ActualPerSite)
-                : _tasks.GetTasks();
+            IEnumerable<Task> list = MyList(actualSite);
 
             StringBuilder sb = new StringBuilder();
 

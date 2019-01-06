@@ -1,8 +1,12 @@
-﻿using System;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System;
 using System.Collections.Generic;
 using System.Dynamic;
+using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using ToDo.Areas.ToDo.Models.Export;
@@ -14,10 +18,6 @@ namespace ToDo.Areas.ToDo.Controllers
     public class ToDoController : Controller {
         IListOfTasks Tasks = ListOfTasks.GetInstance();
         Config ViewConfig = Config.GetInstance();
-        readonly Dictionary<string, IExport> exporters = new Dictionary<string, IExport> {
-            { "TXT", new ExportTxt() },
-            { "XLS", new ExportXls() }
-        };
         
         static int tmpTest = 1;
         // GET: ToDo/ToDo
@@ -28,10 +28,18 @@ namespace ToDo.Areas.ToDo.Controllers
             return View();
         }
 
+
         [HttpPost]
         public ActionResult Export(string ExportType, string OneSite)
         {
+
             if (Request.HttpMethod == "POST") {
+                Dictionary<string, IExport> exporters = new Dictionary<string, IExport> {
+                    { "TXT", new ExportTxt(Response) },
+                    { "XLS", new ExportXls(Response) },
+                    { "PDF", new ExportPdf(Response) }
+                };
+
                 IExport exporter = exporters[ExportType];
 
                 bool onlyOneSite;
@@ -43,15 +51,10 @@ namespace ToDo.Areas.ToDo.Controllers
 
                 exporter.PrepareData( onlyOneSite );
 
-                Response.Clear();
-                Response.ClearHeaders();
+                exporter.Export();
 
-                Response.AppendHeader("Content-Length", exporter.Length.ToString());
-                Response.ContentType = exporter.ContentType;
-                Response.AppendHeader("Content-Disposition", $"attachment;filename=\"output.{exporter.Extension}\"");
-
-                Response.Write(exporter.Export());
-                Response.End();
+                if (ExportType.Equals("PDF")) 
+                    return File((exporter as ExportPdf)._memory, exporter.ContentType, $"{exporter.GetName}.{exporter.Extension}");
             }
 
             PrepareViewData();

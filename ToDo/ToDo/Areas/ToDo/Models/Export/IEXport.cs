@@ -2,11 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace ToDo.Areas.ToDo.Models.Export
 {
     public interface IExport
     {
+        /// <summary>
+        /// Zwraca nazwę pliku.
+        /// </summary>
+        string GetName { get; }
+
         /// <summary>
         /// Ustawienia content-type dla pliku.
         /// </summary>
@@ -34,6 +40,6 @@ namespace ToDo.Areas.ToDo.Models.Export
         /// Eksportuje dane.
         /// </summary>
         /// <returns>Zwraca plik w formacie string.</returns>
-        string Export();
+        void Export();
     }
 }
