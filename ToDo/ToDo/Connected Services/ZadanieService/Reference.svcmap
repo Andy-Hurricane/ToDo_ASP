@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="ee1a3b0a-70fd-4de0-a55d-c90a5a5e491f" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:52119/Services/Zadania/ZadanieService2.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="ZadanieService2.xsd" MetadataType="Schema" ID="19b4f2c6-db00-4082-9bc9-9c11add08376" SourceId="1" SourceUrl="http://localhost:52119/Services/Zadania/ZadanieService2.svc?xsd=xsd2" />
+    <MetadataFile FileName="ZadanieService21.xsd" MetadataType="Schema" ID="4d2f4d69-a530-43b2-aa5a-c614cb7d71bd" SourceId="1" SourceUrl="http://localhost:52119/Services/Zadania/ZadanieService2.svc?xsd=xsd0" />
+    <MetadataFile FileName="ZadanieService2.disco" MetadataType="Disco" ID="71908e58-92d8-4756-8df1-240f5006312a" SourceId="1" SourceUrl="http://localhost:52119/Services/Zadania/ZadanieService2.svc?disco" />
+    <MetadataFile FileName="ZadanieService22.xsd" MetadataType="Schema" ID="fcbf594c-8687-41d7-bbe3-8ef4bc3d776a" SourceId="1" SourceUrl="http://localhost:52119/Services/Zadania/ZadanieService2.svc?xsd=xsd1" />
+    <MetadataFile FileName="ZadanieService2.wsdl" MetadataType="Wsdl" ID="ba516acd-ad22-445b-be6b-9f0f15593560" SourceId="1" SourceUrl="http://localhost:52119/Services/Zadania/ZadanieService2.svc?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

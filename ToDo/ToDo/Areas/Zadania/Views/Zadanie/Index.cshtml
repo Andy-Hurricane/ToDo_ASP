@@ -1,7 +1,39 @@
-﻿
+﻿@model ToDo.Areas.Zadania.ViewModel.TasksVIewConfigModel
+
 @{
+    ToDo.Areas.Zadania.Models.Task nameModel = null;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <td scope="col">@Html.DisplayNameFor(n => nameModel.Action)</td>
+            <td scope="col">@Html.DisplayNameFor(n => nameModel.Topic)</td>
+            <td scope="col">@Html.DisplayNameFor(n => nameModel.Start)</td>
+            <td scope="col">@Html.DisplayNameFor(n => nameModel.End)</td>
+            <td scope="col">@Html.DisplayNameFor(n => nameModel.Status)</td>
+            <td scope="col">@Html.DisplayNameFor(n => nameModel.Priority)</td>
+            <td scope="col">@Html.DisplayNameFor(n => nameModel.Progress)</td>
+            <td scope="col"></td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var task in Model.Tasks)
+        {
+        <tr>
+
+            <td scope="col">@Html.DisplayFor(n => task.Action)</td>
+            <td scope="col">@Html.DisplayFor(n => task.Topic)</td>
+            <td scope="col">@Html.DisplayFor(n => task.Start)</td>
+            <td scope="col">@Html.DisplayFor(n => task.End)</td>
+            <td scope="col">@Html.DisplayFor(n => task.Status)</td>
+            <td scope="col">@Html.DisplayFor(n => task.Priority)</td>
+            <td scope="col">@Html.DisplayFor(n => task.Progress)</td>
+            <td scope="col"></td>
+        </tr>
+        }
+    </tbody>
+</table>
 

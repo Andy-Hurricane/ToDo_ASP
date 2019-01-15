@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ZadanieService2" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:52119/Services/Zadania/ZadanieService2.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:52119/Services/Zadania/ZadanieService2.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:52119/Services/Zadania/ZadanieService2.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/ToDo.Areas.Zadania.Models" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IZadanieService2_DoWork_InputMessage">
+    <wsdl:part name="parameters" element="tns:DoWork" />
+  </wsdl:message>
+  <wsdl:message name="IZadanieService2_DoWork_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DoWorkResponse" />
+  </wsdl:message>
+  <wsdl:message name="IZadanieService2_GetTasks_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTasks" />
+  </wsdl:message>
+  <wsdl:message name="IZadanieService2_GetTasks_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTasksResponse" />
+  </wsdl:message>
+  <wsdl:message name="IZadanieService2_Add_InputMessage">
+    <wsdl:part name="parameters" element="tns:Add" />
+  </wsdl:message>
+  <wsdl:message name="IZadanieService2_Add_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddResponse" />
+  </wsdl:message>
+  <wsdl:message name="IZadanieService2_Edit_InputMessage">
+    <wsdl:part name="parameters" element="tns:Edit" />
+  </wsdl:message>
+  <wsdl:message name="IZadanieService2_Edit_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditResponse" />
+  </wsdl:message>
+  <wsdl:message name="IZadanieService2_Remove_InputMessage">
+    <wsdl:part name="parameters" element="tns:Remove" />
+  </wsdl:message>
+  <wsdl:message name="IZadanieService2_Remove_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveResponse" />
+  </wsdl:message>
+  <wsdl:message name="IZadanieService2_SwapNext_InputMessage">
+    <wsdl:part name="parameters" element="tns:SwapNext" />
+  </wsdl:message>
+  <wsdl:message name="IZadanieService2_SwapNext_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SwapNextResponse" />
+  </wsdl:message>
+  <wsdl:message name="IZadanieService2_SwapPrevious_InputMessage">
+    <wsdl:part name="parameters" element="tns:SwapPrevious" />
+  </wsdl:message>
+  <wsdl:message name="IZadanieService2_SwapPrevious_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SwapPreviousResponse" />
+  </wsdl:message>
+  <wsdl:message name="IZadanieService2_GetError_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetError" />
+  </wsdl:message>
+  <wsdl:message name="IZadanieService2_GetError_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetErrorResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IZadanieService2">
+    <wsdl:operation name="DoWork">
+      <wsdl:input wsaw:Action="http://tempuri.org/IZadanieService2/DoWork" message="tns:IZadanieService2_DoWork_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IZadanieService2/DoWorkResponse" message="tns:IZadanieService2_DoWork_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTasks">
+      <wsdl:input wsaw:Action="http://tempuri.org/IZadanieService2/GetTasks" message="tns:IZadanieService2_GetTasks_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IZadanieService2/GetTasksResponse" message="tns:IZadanieService2_GetTasks_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Add">
+      <wsdl:input wsaw:Action="http://tempuri.org/IZadanieService2/Add" message="tns:IZadanieService2_Add_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IZadanieService2/AddResponse" message="tns:IZadanieService2_Add_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Edit">
+      <wsdl:input wsaw:Action="http://tempuri.org/IZadanieService2/Edit" message="tns:IZadanieService2_Edit_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IZadanieService2/EditResponse" message="tns:IZadanieService2_Edit_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Remove">
+      <wsdl:input wsaw:Action="http://tempuri.org/IZadanieService2/Remove" message="tns:IZadanieService2_Remove_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IZadanieService2/RemoveResponse" message="tns:IZadanieService2_Remove_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SwapNext">
+      <wsdl:input wsaw:Action="http://tempuri.org/IZadanieService2/SwapNext" message="tns:IZadanieService2_SwapNext_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IZadanieService2/SwapNextResponse" message="tns:IZadanieService2_SwapNext_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SwapPrevious">
+      <wsdl:input wsaw:Action="http://tempuri.org/IZadanieService2/SwapPrevious" message="tns:IZadanieService2_SwapPrevious_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IZadanieService2/SwapPreviousResponse" message="tns:IZadanieService2_SwapPrevious_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetError">
+      <wsdl:input wsaw:Action="http://tempuri.org/IZadanieService2/GetError" message="tns:IZadanieService2_GetError_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IZadanieService2/GetErrorResponse" message="tns:IZadanieService2_GetError_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IZadanieService2" type="tns:IZadanieService2">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="DoWork">
+      <soap:operation soapAction="http://tempuri.org/IZadanieService2/DoWork" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTasks">
+      <soap:operation soapAction="http://tempuri.org/IZadanieService2/GetTasks" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Add">
+      <soap:operation soapAction="http://tempuri.org/IZadanieService2/Add" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Edit">
+      <soap:operation soapAction="http://tempuri.org/IZadanieService2/Edit" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Remove">
+      <soap:operation soapAction="http://tempuri.org/IZadanieService2/Remove" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SwapNext">
+      <soap:operation soapAction="http://tempuri.org/IZadanieService2/SwapNext" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SwapPrevious">
+      <soap:operation soapAction="http://tempuri.org/IZadanieService2/SwapPrevious" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetError">
+      <soap:operation soapAction="http://tempuri.org/IZadanieService2/GetError" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ZadanieService2">
+    <wsdl:port name="BasicHttpBinding_IZadanieService2" binding="tns:BasicHttpBinding_IZadanieService2">
+      <soap:address location="http://localhost:52119/Services/Zadania/ZadanieService2.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

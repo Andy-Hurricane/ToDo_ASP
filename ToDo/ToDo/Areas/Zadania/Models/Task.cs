@@ -64,7 +64,7 @@ namespace ToDo.Areas.Zadania.Models
         /// Progres postępu zadania.
         /// </summary>
         [Required(ErrorMessage = "Progres nie może być pusty.")]
-        [DisplayName("Progres")]
+        [DisplayName("% zakończenia")]
         public int Progress { get; set; }
 
 
