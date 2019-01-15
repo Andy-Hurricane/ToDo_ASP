@@ -9,7 +9,14 @@ namespace ToDo.Services.Zadania
     [NotMapped]
     public class ViewConfig
     {
+        /// <summary>
+        /// Aktualna strona.
+        /// </summary>
         public int ActualSite { get; set; } = 1;
+
+        /// <summary>
+        /// Ilość zadań na stronę.
+        /// </summary>
         public int PagePerSite { get; set; } = 10;
     }
 }
