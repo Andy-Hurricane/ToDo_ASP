@@ -17,6 +17,6 @@ namespace ToDo.Services.Zadania
         /// <summary>
         /// Ilość zadań na stronę.
         /// </summary>
-        public int PagePerSite { get; set; } = 10;
+        public int TaskPerSite { get; set; } = 10;
     }
 }
