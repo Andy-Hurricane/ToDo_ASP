@@ -35,7 +35,7 @@ namespace ToDo.Services.Zadania
 
             try
             {
-                ValidateTask.GetInstance().ValidateWithID(newTask, Context.Tasks);
+                ValidateTask.GetInstance().ValidateWithID(newTask, GetTasks());
 
                 Context.Tasks.Add(newTask);
 

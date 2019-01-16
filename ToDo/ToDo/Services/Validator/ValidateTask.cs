@@ -56,7 +56,7 @@ namespace ToDo.Services.Validator
             ValidateAction(task);
             ValidateDates(task);
             ValidateProgress(task);
-            ValidateTopic(task);
+            ValidateTopic(task, tasks);
         }
 
         /// <summary>
@@ -93,7 +93,7 @@ namespace ToDo.Services.Validator
                 Task tmp = tasks.FirstOrDefault(t => t.Topic.Trim().Equals(task.Topic.Trim()));
 
                 if (tmp != null)
-                    throw new TaskException(NULL_TOPIC_EXCEPTION);
+                    throw new TaskException(EXIST_TOPIC_EXCEPTION);
             }
         }
 
