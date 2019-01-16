@@ -1,2 +1,2 @@
 *.lock
-*.mdf
+/ToDo/ToDo/App_Data/*

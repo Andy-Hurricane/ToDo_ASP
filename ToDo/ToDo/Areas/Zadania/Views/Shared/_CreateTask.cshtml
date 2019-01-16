@@ -1,17 +1,22 @@
 ﻿@model ToDo.Areas.Zadania.Models.Task
 
-@using (Html.BeginForm("Create", "Zadanie"))
+@using (Html.BeginForm("Create", "Zadanie", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    @Html.HiddenFor(t => Model.Id)
 
     <div class="form-row align-items-center">
         <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
             @Html.LabelFor(t => Model.Topic)
             @Html.TextBoxFor(t => Model.Topic, new { @class = "form-control", placeholder = Html.DisplayNameFor(t => Model.Topic) })
+            @Html.ValidationMessageFor(t => Model.Topic, "", new { @class = "text-danger" })
         </div>
         <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
             @Html.LabelFor(t => Model.Action)
             @Html.TextBoxFor(t => Model.Action, new { @class = "form-control", placeholder = Html.DisplayNameFor(t => Model.Action) })
+            @Html.ValidationMessageFor(t => Model.Action, "", new { @class = "text-danger" })
         </div>
     </div>
 
@@ -20,10 +25,12 @@
         <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
             @Html.LabelFor(t => Model.Start)
             @Html.EditorFor(t => Model.Start, new { htmlAttributes = new { @class = "form-control", @value = "dd/mm/yyyy" } })
+            @Html.ValidationMessageFor(t => Model.Start, "", new { @class = "text-danger" })
         </div>
         <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
             @Html.LabelFor(t => Model.End)
             @Html.EditorFor(t => Model.End, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(t => Model.End, "", new { @class = "text-danger" })
         </div>
     </div>
 
@@ -31,25 +38,30 @@
         <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-4">
             @Html.LabelFor(t => Model.Status)
             @Html.TextBoxFor(t => Model.Status, new { @class = "form-control" })
+            @Html.ValidationMessageFor(t => Model.Status, "", new { @class = "text-danger" })
         </div>
         <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-4">
             @Html.LabelFor(t => Model.Priority)
             @Html.TextBoxFor(t => Model.Priority, new { @class = "form-control" })
+            @Html.ValidationMessageFor(t => Model.Priority, "", new { @class = "text-danger" })
         </div>
         <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-4">
             @Html.LabelFor(t => Model.Progress)
             @Html.TextBoxFor(t => Model.Progress, new { @class = "form-control" })
+            @Html.ValidationMessageFor(t => Model.Progress, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="form-row">
         <div class="center-block">
             @Html.LabelFor(t => Model.Description)
             @Html.TextAreaFor(t => Model.Description, new { @class = "form-control", placeholder = Html.DisplayNameFor(t => Model.Description) })
+            @Html.ValidationMessageFor(t => Model.Description, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(t => Model.File)
         @Html.TextBoxFor(t => Model.File, new { @class = "form-control", placeholder = Html.DisplayNameFor(t => Model.File) })
+        @Html.ValidationMessageFor(t => Model.File, "", new { @class = "text-danger" })
     </div>
     <div class="form-row">
         <div class="text-center">

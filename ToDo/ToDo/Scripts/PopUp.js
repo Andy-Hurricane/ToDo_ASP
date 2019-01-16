@@ -7,7 +7,10 @@
         maxWidth: '500px',
         width: '500px',
         hide: 'puff',
-        show: 'puff'
+        show: 'puff',
+        beforeClose: function (event, ui) {
+            location.href = "/Zadania/Zadanie"
+        }
     },
     'Edit': {
         autoOpen: false,
@@ -17,7 +20,11 @@
         maxWidth: '500px',
         width: '500px',
         hide: 'puff',
-        show: 'puff'
+        show: 'puff',
+        close: function (event, ui) {
+            console.log('test');
+            location.href = "/Zadania"
+        }
     }
 }
 

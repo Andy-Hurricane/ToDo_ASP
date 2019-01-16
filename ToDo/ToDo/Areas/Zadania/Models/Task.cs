@@ -47,7 +47,7 @@ namespace ToDo.Areas.Zadania.Models
         [DisplayName("Data rozpoczęcia")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime Start { get; set; }
+        public DateTime Start { get; set; } = DateTime.Now;
 
         /// <summary>
         /// Data zakończenia zadania.
@@ -56,7 +56,7 @@ namespace ToDo.Areas.Zadania.Models
         [DisplayName("Data zakończenia")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime End { get; set; }
+        public DateTime End { get; set; } = DateTime.Now;
 
         /// <summary>
         /// Priorytet zadania.

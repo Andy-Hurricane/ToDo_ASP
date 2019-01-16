@@ -27,5 +27,7 @@ namespace ToDo.Services.Zadania
         public int TaskPerSite { get { return MultiplierTaskPerSite * BasePerSite; } }
 
         public int MaxMultiplierPerSite { get { return maxMultiplier; } }
+
+        public string VisibleModal { get; set; } = String.Empty;
     }
 }
