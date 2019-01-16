@@ -8,7 +8,7 @@ using ToDo.Areas.Zadania.Models;
 
 namespace ToDo.Services.Zadania
 {
-    // UWAGA: możesz użyć polecenia „Zmień nazwę” w menu „Refaktoryzuj”, aby zmienić nazwę interfejsu „IZadanieService” w kodzie i pliku konfiguracji.
+    // UWAGA: możesz użyć polecenia „Zmień nazwę” w menu „Refaktoryzuj”, aby zmienić nazwę interfejsu „IZadanieService2” w kodzie i pliku konfiguracji.
     [ServiceContract]
     public interface IZadanieService
     {
@@ -30,6 +30,5 @@ namespace ToDo.Services.Zadania
 
         [OperationContract]
         string GetError();
-
     }
 }

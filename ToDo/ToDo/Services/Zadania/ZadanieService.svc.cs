@@ -8,8 +8,8 @@ using ToDo.Areas.Zadania.Models;
 
 namespace ToDo.Services.Zadania
 {
-    // UWAGA: możesz użyć polecenia „Zmień nazwę” w menu „Refaktoryzuj”, aby zmienić nazwę klasy „ZadanieService” w kodzie, usłudze i pliku konfiguracji.
-    // UWAGA: aby uruchomić klienta testowego WCF w celu przetestowania tej usługi, wybierz plik ZadanieService.svc lub ZadanieService.svc.cs w eksploratorze rozwiązań i rozpocznij debugowanie.
+    // UWAGA: możesz użyć polecenia „Zmień nazwę” w menu „Refaktoryzuj”, aby zmienić nazwę klasy „ZadanieService2” w kodzie, usłudze i pliku konfiguracji.
+    // UWAGA: aby uruchomić klienta testowego WCF w celu przetestowania tej usługi, wybierz plik ZadanieService2.svc lub ZadanieService2.svc.cs w eksploratorze rozwiązań i rozpocznij debugowanie.
     public class ZadanieService : IZadanieService
     {
         private string Error { get; set; }
