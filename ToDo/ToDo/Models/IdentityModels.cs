@@ -20,6 +20,8 @@ namespace ToDo.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<ToDo.Areas.Zadania.Models.Task> Tasks { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

@@ -22,36 +22,6 @@ namespace ToDo.ZadanieService {
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ActionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DescriptionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.DateTime EndField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string FilePathField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int IdField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int PriorityField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int ProgressField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.DateTime StartField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int StatusField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string TopicField;
-        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -59,136 +29,6 @@ namespace ToDo.ZadanieService {
             }
             set {
                 this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Action {
-            get {
-                return this.ActionField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ActionField, value) != true)) {
-                    this.ActionField = value;
-                    this.RaisePropertyChanged("Action");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Description {
-            get {
-                return this.DescriptionField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.DescriptionField, value) != true)) {
-                    this.DescriptionField = value;
-                    this.RaisePropertyChanged("Description");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime End {
-            get {
-                return this.EndField;
-            }
-            set {
-                if ((this.EndField.Equals(value) != true)) {
-                    this.EndField = value;
-                    this.RaisePropertyChanged("End");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string FilePath {
-            get {
-                return this.FilePathField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.FilePathField, value) != true)) {
-                    this.FilePathField = value;
-                    this.RaisePropertyChanged("FilePath");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Id {
-            get {
-                return this.IdField;
-            }
-            set {
-                if ((this.IdField.Equals(value) != true)) {
-                    this.IdField = value;
-                    this.RaisePropertyChanged("Id");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Priority {
-            get {
-                return this.PriorityField;
-            }
-            set {
-                if ((this.PriorityField.Equals(value) != true)) {
-                    this.PriorityField = value;
-                    this.RaisePropertyChanged("Priority");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Progress {
-            get {
-                return this.ProgressField;
-            }
-            set {
-                if ((this.ProgressField.Equals(value) != true)) {
-                    this.ProgressField = value;
-                    this.RaisePropertyChanged("Progress");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime Start {
-            get {
-                return this.StartField;
-            }
-            set {
-                if ((this.StartField.Equals(value) != true)) {
-                    this.StartField = value;
-                    this.RaisePropertyChanged("Start");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Status {
-            get {
-                return this.StatusField;
-            }
-            set {
-                if ((this.StatusField.Equals(value) != true)) {
-                    this.StatusField = value;
-                    this.RaisePropertyChanged("Status");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Topic {
-            get {
-                return this.TopicField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.TopicField, value) != true)) {
-                    this.TopicField = value;
-                    this.RaisePropertyChanged("Topic");
-                }
             }
         }
         
@@ -206,12 +46,6 @@ namespace ToDo.ZadanieService {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ZadanieService.IZadanieService")]
     public interface IZadanieService {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IZadanieService/DoWork", ReplyAction="http://tempuri.org/IZadanieService/DoWorkResponse")]
-        void DoWork();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IZadanieService/DoWork", ReplyAction="http://tempuri.org/IZadanieService/DoWorkResponse")]
-        System.Threading.Tasks.Task DoWorkAsync();
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IZadanieService/GetTasks", ReplyAction="http://tempuri.org/IZadanieService/GetTasksResponse")]
         ToDo.ZadanieService.Task[] GetTasks();
         
@@ -225,10 +59,10 @@ namespace ToDo.ZadanieService {
         System.Threading.Tasks.Task<bool> AddAsync(ToDo.ZadanieService.Task newTask);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IZadanieService/Edit", ReplyAction="http://tempuri.org/IZadanieService/EditResponse")]
-        bool Edit(ToDo.ZadanieService.Task editedTask);
+        bool Edit(int idOld, ToDo.ZadanieService.Task newTask);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IZadanieService/Edit", ReplyAction="http://tempuri.org/IZadanieService/EditResponse")]
-        System.Threading.Tasks.Task<bool> EditAsync(ToDo.ZadanieService.Task editedTask);
+        System.Threading.Tasks.Task<bool> EditAsync(int idOld, ToDo.ZadanieService.Task newTask);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IZadanieService/Remove", ReplyAction="http://tempuri.org/IZadanieService/RemoveResponse")]
         bool Remove(int id);
@@ -237,16 +71,16 @@ namespace ToDo.ZadanieService {
         System.Threading.Tasks.Task<bool> RemoveAsync(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IZadanieService/SwapNext", ReplyAction="http://tempuri.org/IZadanieService/SwapNextResponse")]
-        bool SwapNext(ToDo.ZadanieService.Task swapMe);
+        bool SwapNext(int swapMe);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IZadanieService/SwapNext", ReplyAction="http://tempuri.org/IZadanieService/SwapNextResponse")]
-        System.Threading.Tasks.Task<bool> SwapNextAsync(ToDo.ZadanieService.Task swapMe);
+        System.Threading.Tasks.Task<bool> SwapNextAsync(int swapMe);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IZadanieService/SwapPrevious", ReplyAction="http://tempuri.org/IZadanieService/SwapPreviousResponse")]
-        bool SwapPrevious(ToDo.ZadanieService.Task swapMe);
+        bool SwapPrevious(int swapMe);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IZadanieService/SwapPrevious", ReplyAction="http://tempuri.org/IZadanieService/SwapPreviousResponse")]
-        System.Threading.Tasks.Task<bool> SwapPreviousAsync(ToDo.ZadanieService.Task swapMe);
+        System.Threading.Tasks.Task<bool> SwapPreviousAsync(int swapMe);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IZadanieService/GetError", ReplyAction="http://tempuri.org/IZadanieService/GetErrorResponse")]
         string GetError();
@@ -282,14 +116,6 @@ namespace ToDo.ZadanieService {
                 base(binding, remoteAddress) {
         }
         
-        public void DoWork() {
-            base.Channel.DoWork();
-        }
-        
-        public System.Threading.Tasks.Task DoWorkAsync() {
-            return base.Channel.DoWorkAsync();
-        }
-        
         public ToDo.ZadanieService.Task[] GetTasks() {
             return base.Channel.GetTasks();
         }
@@ -306,12 +132,12 @@ namespace ToDo.ZadanieService {
             return base.Channel.AddAsync(newTask);
         }
         
-        public bool Edit(ToDo.ZadanieService.Task editedTask) {
-            return base.Channel.Edit(editedTask);
+        public bool Edit(int idOld, ToDo.ZadanieService.Task newTask) {
+            return base.Channel.Edit(idOld, newTask);
         }
         
-        public System.Threading.Tasks.Task<bool> EditAsync(ToDo.ZadanieService.Task editedTask) {
-            return base.Channel.EditAsync(editedTask);
+        public System.Threading.Tasks.Task<bool> EditAsync(int idOld, ToDo.ZadanieService.Task newTask) {
+            return base.Channel.EditAsync(idOld, newTask);
         }
         
         public bool Remove(int id) {
@@ -322,19 +148,19 @@ namespace ToDo.ZadanieService {
             return base.Channel.RemoveAsync(id);
         }
         
-        public bool SwapNext(ToDo.ZadanieService.Task swapMe) {
+        public bool SwapNext(int swapMe) {
             return base.Channel.SwapNext(swapMe);
         }
         
-        public System.Threading.Tasks.Task<bool> SwapNextAsync(ToDo.ZadanieService.Task swapMe) {
+        public System.Threading.Tasks.Task<bool> SwapNextAsync(int swapMe) {
             return base.Channel.SwapNextAsync(swapMe);
         }
         
-        public bool SwapPrevious(ToDo.ZadanieService.Task swapMe) {
+        public bool SwapPrevious(int swapMe) {
             return base.Channel.SwapPrevious(swapMe);
         }
         
-        public System.Threading.Tasks.Task<bool> SwapPreviousAsync(ToDo.ZadanieService.Task swapMe) {
+        public System.Threading.Tasks.Task<bool> SwapPreviousAsync(int swapMe) {
             return base.Channel.SwapPreviousAsync(swapMe);
         }
         

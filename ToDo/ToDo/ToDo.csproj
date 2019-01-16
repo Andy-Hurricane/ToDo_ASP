@@ -238,10 +238,20 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901160534243_Initialize.cs" />
+    <Compile Include="Migrations\201901160534243_Initialize.Designer.cs">
+      <DependentUpon>201901160534243_Initialize.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901160538315_InitialModel.cs" />
+    <Compile Include="Migrations\201901160538315_InitialModel.Designer.cs">
+      <DependentUpon>201901160538315_InitialModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Zadania\Errors.cs" />
     <Compile Include="Services\Zadania\IZadanieService.cs" />
     <Compile Include="Services\Zadania\ViewConfig.cs" />
     <Compile Include="Services\Zadania\ZadanieService.svc.cs">
@@ -354,6 +364,14 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\ZadanieService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201901160534243_Initialize.resx">
+      <DependentUpon>201901160534243_Initialize.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901160538315_InitialModel.resx">
+      <DependentUpon>201901160538315_InitialModel.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

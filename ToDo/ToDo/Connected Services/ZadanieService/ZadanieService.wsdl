@@ -7,12 +7,6 @@
       <xsd:import schemaLocation="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/ToDo.Areas.Zadania.Models" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="IZadanieService_DoWork_InputMessage">
-    <wsdl:part name="parameters" element="tns:DoWork" />
-  </wsdl:message>
-  <wsdl:message name="IZadanieService_DoWork_OutputMessage">
-    <wsdl:part name="parameters" element="tns:DoWorkResponse" />
-  </wsdl:message>
   <wsdl:message name="IZadanieService_GetTasks_InputMessage">
     <wsdl:part name="parameters" element="tns:GetTasks" />
   </wsdl:message>
@@ -56,10 +50,6 @@
     <wsdl:part name="parameters" element="tns:GetErrorResponse" />
   </wsdl:message>
   <wsdl:portType name="IZadanieService">
-    <wsdl:operation name="DoWork">
-      <wsdl:input wsaw:Action="http://tempuri.org/IZadanieService/DoWork" message="tns:IZadanieService_DoWork_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IZadanieService/DoWorkResponse" message="tns:IZadanieService_DoWork_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="GetTasks">
       <wsdl:input wsaw:Action="http://tempuri.org/IZadanieService/GetTasks" message="tns:IZadanieService_GetTasks_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IZadanieService/GetTasksResponse" message="tns:IZadanieService_GetTasks_OutputMessage" />
@@ -91,15 +81,6 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IZadanieService" type="tns:IZadanieService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="DoWork">
-      <soap:operation soapAction="http://tempuri.org/IZadanieService/DoWork" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetTasks">
       <soap:operation soapAction="http://tempuri.org/IZadanieService/GetTasks" style="document" />
       <wsdl:input>

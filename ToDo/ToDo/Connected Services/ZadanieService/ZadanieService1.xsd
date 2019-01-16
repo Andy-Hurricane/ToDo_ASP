@@ -1,16 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/ToDo.Areas.Zadania.Models" />
-  <xs:element name="DoWork">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="DoWorkResponse">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
   <xs:element name="GetTasks">
     <xs:complexType>
       <xs:sequence />
@@ -40,7 +30,8 @@
   <xs:element name="Edit">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/ToDo.Areas.Zadania.Models" minOccurs="0" name="editedTask" nillable="true" type="q3:Task" />
+        <xs:element minOccurs="0" name="idOld" type="xs:int" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/ToDo.Areas.Zadania.Models" minOccurs="0" name="newTask" nillable="true" type="q3:Task" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -68,7 +59,7 @@
   <xs:element name="SwapNext">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/ToDo.Areas.Zadania.Models" minOccurs="0" name="swapMe" nillable="true" type="q4:Task" />
+        <xs:element minOccurs="0" name="swapMe" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -82,7 +73,7 @@
   <xs:element name="SwapPrevious">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/ToDo.Areas.Zadania.Models" minOccurs="0" name="swapMe" nillable="true" type="q5:Task" />
+        <xs:element minOccurs="0" name="swapMe" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

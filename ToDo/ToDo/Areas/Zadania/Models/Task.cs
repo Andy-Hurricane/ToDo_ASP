@@ -2,9 +2,12 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.IO;
+using System.Runtime.Serialization;
 
 namespace ToDo.Areas.Zadania.Models
 {
+    [DataContract]
     public class Task
     {
         /// <summary>
@@ -79,6 +82,6 @@ namespace ToDo.Areas.Zadania.Models
         /// Ścieżka do pliku dla zadania.
         /// </summary>
         [DisplayName("Ścieżka do pliku")]
-        public string FilePath { get; set; }
+        public FileInfo File { get; set; }
     }
 }
