@@ -27,12 +27,17 @@ namespace ToDo.Services.Zadania
         {
             GetInstance().VisibleModal = modalName;
         }
+        public static void SetDescriptionTaskId(int id)
+        {
+            GetInstance().DescriptionTaskId = id;
+        }
 
         private int maxMultiplier = 5;
         private int basePerSite = 10;
 
         public int BasePerSite { get { return basePerSite; } }
 
+        public int DescriptionTaskId { get; private set; }
         /// <summary>
         /// Aktualna strona.
         /// </summary>

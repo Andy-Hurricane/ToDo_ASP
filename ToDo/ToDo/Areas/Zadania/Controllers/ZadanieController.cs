@@ -75,5 +75,25 @@ namespace ToDo.Areas.Zadania.Controllers
             
             return View("Index", ViewModel);
         }
+
+        public ActionResult Delete(int id)
+        {
+            Service.Remove(id);
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Description(int id)
+        {
+            ViewConfig.SetVisibleModal("Description");
+            ViewConfig.SetDescriptionTaskId(id);
+
+            var ViewModel = new TasksVIewConfigModel
+            {
+                Tasks = Service.GetTasks(),
+                ViewConfig = ViewConfig.GetInstance()
+            };
+
+            return View("Index", ViewModel);
+        }
     }
 }

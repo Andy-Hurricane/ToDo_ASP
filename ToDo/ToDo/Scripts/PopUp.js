@@ -22,8 +22,7 @@
         hide: 'puff',
         show: 'puff',
         close: function (event, ui) {
-            console.log('test');
-            location.href = "/Zadania"
+            location.href = "/Zadania/Zadanie"
         }
     },
     'Error': {
@@ -39,6 +38,13 @@
                     $(this).dialog('close');
                 }
             }]
+    },
+    'Description': {
+        autoOpen: true,
+        title: 'Szczegóły zadania',
+        modal: true,
+        hide: 'puff',
+        show: 'puff'
     }
 }
 

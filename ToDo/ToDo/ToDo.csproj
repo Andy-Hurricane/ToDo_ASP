@@ -281,6 +281,7 @@
     <Content Include="Areas\Zadania\Views\Zadanie\Exit.cshtml" />
     <Content Include="Areas\Zadania\Views\Shared\_CreateTask.cshtml" />
     <Content Include="Areas\Zadania\Views\Shared\_ExceptionHandle.cshtml" />
+    <Content Include="Areas\Zadania\Views\Shared\_DescriptionView.cshtml" />
     <None Include="Connected Services\ZadanieService\configuration91.svcinfo" />
     <None Include="Connected Services\ZadanieService\configuration.svcinfo" />
     <None Include="Connected Services\ZadanieService\Reference.svcmap">
