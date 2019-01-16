@@ -7,6 +7,7 @@ using System.ServiceModel;
 using System.Text;
 using ToDo.Areas.Zadania.Models;
 using ToDo.Models;
+using ToDo.Services.Validator;
 
 namespace ToDo.Services.Zadania
 {
@@ -32,11 +33,10 @@ namespace ToDo.Services.Zadania
         {
             bool result;
 
-            if (newTask == null)
-                SetError(Errors.AddEmptyTask, out result);
-
             try
             {
+                ValidateTask.GetInstance().ValidateWithID(newTask, Context.Tasks);
+
                 Context.Tasks.Add(newTask);
 
                 Context.SaveChanges();
@@ -49,8 +49,6 @@ namespace ToDo.Services.Zadania
             {
                 result = true;
             }
-
-
 
             return result;
         }
@@ -66,8 +64,7 @@ namespace ToDo.Services.Zadania
                 if (task == null)
                     SetError(Errors.EditFromEmptyTask, out result);
 
-                if (newTask == null)
-                    SetError(Errors.EditToEmptyTask, out result);
+                ValidateTask.GetInstance().ValidateWithoutID(newTask, Context.Tasks);
 
                 task.Action = newTask.Action;
                 task.Description = newTask.Description;

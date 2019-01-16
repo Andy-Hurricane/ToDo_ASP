@@ -25,7 +25,7 @@ namespace ToDo.Services.Validator
         private const string LOWER_PROGRESS_EXCEPTION = "Progres nie może być ujemny.";
         private const string HIGHER_PROGRESS_EXCEPTION = "Progres nie może być większy jak 100%.";
 
-        private const string LENGTH_DESCRIPTION_EXCEPTION = "Niestety, opis zawiera zbyt dużą ilość znaków (max 255)."
+        private const string LENGTH_DESCRIPTION_EXCEPTION = "Niestety, opis zawiera zbyt dużą ilość znaków (max 255).";
 
         private static ValidateTask _Instance { get; set; }
         private ValidateTask() { }
