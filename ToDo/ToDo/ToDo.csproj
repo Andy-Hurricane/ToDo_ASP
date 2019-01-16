@@ -246,6 +246,10 @@
     <Compile Include="Migrations\201901160538315_InitialModel.Designer.cs">
       <DependentUpon>201901160538315_InitialModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901160709133_TaskFileToString.cs" />
+    <Compile Include="Migrations\201901160709133_TaskFileToString.Designer.cs">
+      <DependentUpon>201901160709133_TaskFileToString.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -260,9 +264,16 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\aspnet-ToDo-20190115113136.mdf" />
+    <Content Include="App_Data\aspnet-ToDo-20190115113136_log.ldf">
+      <DependentUpon>aspnet-ToDo-20190115113136.mdf</DependentUpon>
+    </Content>
     <Content Include="Connected Services\ZadanieService\ToDo.ZadanieService.Task.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
+    <Content Include="Areas\Zadania\Views\Shared\_PanelView.cshtml" />
+    <Content Include="Areas\Zadania\Views\Zadanie\Exit.cshtml" />
+    <Content Include="Areas\Zadania\Views\Shared\_CreateTask.cshtml" />
     <None Include="Connected Services\ZadanieService\configuration91.svcinfo" />
     <None Include="Connected Services\ZadanieService\configuration.svcinfo" />
     <None Include="Connected Services\ZadanieService\Reference.svcmap">
@@ -274,6 +285,23 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <None Include="Content\CSS\main.scss" />
+    <Content Include="Content\CSS\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\CSS\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\CSS\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\CSS\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\CSS\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\CSS\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\CSS\jquery-ui.css" />
+    <Content Include="Content\CSS\jquery-ui.min.css" />
+    <Content Include="Content\CSS\jquery-ui.structure.css" />
+    <Content Include="Content\CSS\jquery-ui.structure.min.css" />
+    <Content Include="Content\CSS\jquery-ui.theme.css" />
+    <Content Include="Content\CSS\jquery-ui.theme.min.css" />
+    <Content Include="Content\CSS\main.css" />
+    <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="Scripts\jquery-ui.min.js" />
+    <Content Include="Scripts\PopUp.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -295,6 +323,9 @@
     <None Include="Connected Services\ZadanieService\ZadanieService2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Content\CSS\_additional - Copy %282%29.scss" />
+    <Content Include="Content\CSS\_additional - Copy %283%29.scss" />
+    <Content Include="Content\CSS\main.min.css" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -342,10 +373,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Areas\Zadania\Views\Shared\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -371,6 +399,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901160538315_InitialModel.resx">
       <DependentUpon>201901160538315_InitialModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901160709133_TaskFileToString.resx">
+      <DependentUpon>201901160709133_TaskFileToString.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

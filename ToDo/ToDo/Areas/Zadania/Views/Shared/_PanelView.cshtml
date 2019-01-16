@@ -1,0 +1,62 @@
+﻿
+<div class="row">
+    <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12 panel tasks">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-1 col-sm-2 col-xs-offset-1 col-xs-2 text-center">
+                <p class="icon-cont" onclick="AddTask()">
+                    <i class="fas fa-plus icon text-success"></i>
+                </p>
+            </div>
+            <div class="col-lg-offset-2 col-lg-2 col-md-offset-2 col-md-2 col-sm-offset-2 col-sm-2 col-xs-offset-2 col-xs-2">
+                <p class="icon-cont" onclick="EditTask()">
+                    <i id="EditButton" class="fas fa-edit text-primary disabled"></i>
+                </p>
+            </div>
+            <div class="col-lg-offset-2 col-lg-2 col-md-offset-2 col-md-2 col-sm-offset-2 col-sm-2 col-xs-offset-2 col-xs-2">
+                <p class="icon-cont" onclick="Export()" id="export_btn">
+                    <i class="fas fa-file-export icon text-primary"></i>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-offset-2 col-lg-5 col-md-offset-2 col-md-5 col-sm-6 col-xs-12 panel app">
+        <div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-sm-offset-1 col-sm-2 col-xs-offset-1 col-xs-2">
+            <p class="icon-cont" onclick="List()">
+                <i class="fas fa-list icon text-primary disabled"></i>
+            </p>
+        </div>
+        <div class="col-lg-offset-2 col-lg-2 col-md-offset-2 col-md-2 col-sm-offset-2 col-sm-2 col-xs-offset-2 col-xs-2">
+            <p class="icon-cont" onclick="Tile()">
+                <i class="fas fa-th-large icon text-primary"></i>
+            </p>
+        </div>
+        <div class="col-lg-offset-2 col-lg-2 col-md-offset-2 col-md-2 col-sm-offset-2 col-sm-2 col-xs-offset-2 col-xs-2">
+            <p class="icon-cont">
+                <a href="@Url.Action("Exit")" class="link-with-icon">
+                    <i class="fas fa-window-close icon text-danger"></i>
+                </a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    const AddTask = function () {
+        PopUp.OpenDialog("Add");
+    };
+    const EditTask = function () {
+        const editBtn = $(`#EditButton`);
+
+      //  if (!editBtn.hasClass(`disabled`))
+            PopUp.OpenDialog("Edit");
+    };
+    const Export = function () {
+        PopUp.OpenDialog("Export");
+    };
+    const List = function () {
+        console.log("Podmień klasy.");
+    };
+    const Tile = function () {
+        console.log("Podmień klasy.");
+    }
+</script> 

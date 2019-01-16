@@ -19,12 +19,22 @@ namespace ToDo
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
+            bundles.Add(new ScriptBundle("~/bundles/jquery-ui").Include(
+                        "~/Scripts/jquery-ui.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/PopUp").Include("~/Scripts/PopUp.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/CSS/jquery-ui.css",
+                      "~/Content/CSS/jquery-ui.structure.css",
+                      "~/Content/CSS/jquery-ui.theme.css",
+                      "~/Content/CSS/main.css"));
+            
         }
     }
 }

@@ -3,8 +3,13 @@
 @{
     ToDo.Areas.Zadania.Models.Task nameModel = null;
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var availableSite = Model.ViewConfig.MultiplierTaskPerSite != 0
+        ? Math.Ceiling( (decimal)(Model.Tasks.Count() / Model.ViewConfig.TaskPerSite ) )
+        : 1;
 }
 
+@{Html.RenderPartial("~/Areas/Zadania/Views/Shared/_PanelView.cshtml");}
 
 <table class="table">
     <thead>
@@ -22,18 +27,84 @@
     <tbody>
         @foreach (var task in Model.Tasks)
         {
-        <tr>
+            <tr>
 
-            <td scope="col">@Html.DisplayFor(n => task.Action)</td>
-            <td scope="col">@Html.DisplayFor(n => task.Topic)</td>
-            <td scope="col">@Html.DisplayFor(n => task.Start)</td>
-            <td scope="col">@Html.DisplayFor(n => task.End)</td>
-            <td scope="col">@Html.DisplayFor(n => task.Status)</td>
-            <td scope="col">@Html.DisplayFor(n => task.Priority)</td>
-            <td scope="col">@Html.DisplayFor(n => task.Progress)</td>
-            <td scope="col"></td>
-        </tr>
+                <td scope="col">@Html.DisplayFor(n => task.Action)</td>
+                <td scope="col">@Html.DisplayFor(n => task.Topic)</td>
+                <td scope="col">@Html.DisplayFor(n => task.Start)</td>
+                <td scope="col">@Html.DisplayFor(n => task.End)</td>
+                <td scope="col">@Html.DisplayFor(n => task.Status)</td>
+                <td scope="col">@Html.DisplayFor(n => task.Priority)</td>
+                <td scope="col">@Html.DisplayFor(n => task.Progress)</td>
+                <td scope="col"></td>
+            </tr>
         }
     </tbody>
 </table>
 
+<div class="row">
+    <div class="text-right">
+        <p>
+            Elementów na stronie
+            <select class="btn" id="viewPerSite" onchange="ChangeElementsPerSite('@Url.Action("ElementsPerSite")')">
+                @for (var iterator = 1; iterator <= Model.ViewConfig.MaxMultiplierPerSite; iterator++)
+                {
+                    int value = iterator * Convert.ToInt32(Model.ViewConfig.BasePerSite);
+                    if (value == Model.ViewConfig.TaskPerSite)
+                    {
+                        <option value="@value" selected="selected">@value</option>
+                    }
+                    else
+                    {
+                        <option value="@value">@value</option>
+                    }
+                }
+
+            </select>
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="text-center">
+        @if (Model.ViewConfig.ActualSite == 1)
+        {
+            <input type="button" value="Poprzedni" class="btn btn-primary" disabled />
+        }
+        else
+        {
+            <input type="button" value="Poprzedni" class="btn btn-primary" onclick="PreviousSite('@Url.Action("ActualSite")')" />
+        }
+        <select class="btn" id="actualSite" onchange="ChangeActualSite('@Url.Action("ActualSite")')">
+            @for (var iterator = 1; iterator <= availableSite + 1; iterator++)
+            {
+                if (iterator == Model.ViewConfig.ActualSite)
+                {
+                    <option value="@iterator" selected="selected">@iterator</option>
+                }
+                else
+                {
+                    <option value="@iterator">@iterator</option>
+                }
+            }
+        </select>
+
+        @if (Model.ViewConfig.ActualSite == availableSite)
+        {
+            <input type="button" value="Następny" class="btn btn-primary" disabled />
+        }
+        else
+        {
+            <input type="button" value="Następny" class="btn btn-primary" onclick="NextSite('@Url.Action("ActualSite")')" />
+        }
+    </div>
+</div>
+
+<div id="popup" style="display: none;">
+    <div id="AddPopUp">
+        @{ Html.RenderPartial("~/Areas/Zadania/Views/Shared/_CreateTask.cshtml", new ToDo.Areas.Zadania.Models.Task()); }
+    </div>
+    <div id="EditPopUp">
+        TEST
+    </div>
+</div>

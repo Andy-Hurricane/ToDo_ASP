@@ -46,6 +46,7 @@ namespace ToDo.Areas.Zadania.Models
         [Required(ErrorMessage = "Data rozpoczęcia nie może być pusta.")]
         [DisplayName("Data rozpoczęcia")]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Start { get; set; }
 
         /// <summary>
@@ -54,6 +55,7 @@ namespace ToDo.Areas.Zadania.Models
         [Required(ErrorMessage = "Data zakończenia nie może być pusta.")]
         [DisplayName("Data zakończenia")]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime End { get; set; }
 
         /// <summary>
@@ -82,6 +84,6 @@ namespace ToDo.Areas.Zadania.Models
         /// Ścieżka do pliku dla zadania.
         /// </summary>
         [DisplayName("Ścieżka do pliku")]
-        public FileInfo File { get; set; }
+        public string File { get; set; }
     }
 }

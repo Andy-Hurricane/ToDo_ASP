@@ -30,5 +30,10 @@ namespace ToDo.Areas.Zadania.Controllers
 
             return View(ViewModel);
         }
+
+        public ActionResult Exit()
+        {
+            return View();
+        }
     }
 }

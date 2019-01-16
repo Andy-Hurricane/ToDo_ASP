@@ -1,0 +1,62 @@
+﻿@model ToDo.Areas.Zadania.Models.Task
+
+@using (Html.BeginForm("Create", "Zadanie"))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-row align-items-center">
+        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            @Html.LabelFor(t => Model.Topic)
+            @Html.TextBoxFor(t => Model.Topic, new { @class = "form-control", placeholder = Html.DisplayNameFor(t => Model.Topic) })
+        </div>
+        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            @Html.LabelFor(t => Model.Action)
+            @Html.TextBoxFor(t => Model.Action, new { @class = "form-control", placeholder = Html.DisplayNameFor(t => Model.Action) })
+        </div>
+    </div>
+
+
+    <div class="form-row">
+        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            @Html.LabelFor(t => Model.Start)
+            @Html.EditorFor(t => Model.Start, new { htmlAttributes = new { @class = "form-control", @value = "dd/mm/yyyy" } })
+        </div>
+        <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            @Html.LabelFor(t => Model.End)
+            @Html.EditorFor(t => Model.End, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-4">
+            @Html.LabelFor(t => Model.Status)
+            @Html.TextBoxFor(t => Model.Status, new { @class = "form-control" })
+        </div>
+        <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-4">
+            @Html.LabelFor(t => Model.Priority)
+            @Html.TextBoxFor(t => Model.Priority, new { @class = "form-control" })
+        </div>
+        <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-4">
+            @Html.LabelFor(t => Model.Progress)
+            @Html.TextBoxFor(t => Model.Progress, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="center-block">
+            @Html.LabelFor(t => Model.Description)
+            @Html.TextAreaFor(t => Model.Description, new { @class = "form-control", placeholder = Html.DisplayNameFor(t => Model.Description) })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(t => Model.File)
+        @Html.TextBoxFor(t => Model.File, new { @class = "form-control", placeholder = Html.DisplayNameFor(t => Model.File) })
+    </div>
+    <div class="form-row">
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary mb-2">Dodaj zadanie</button>
+        </div>
+    </div>
+}
+
+
+

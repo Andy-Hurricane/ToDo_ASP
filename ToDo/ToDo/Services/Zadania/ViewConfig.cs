@@ -9,14 +9,23 @@ namespace ToDo.Services.Zadania
     [NotMapped]
     public class ViewConfig
     {
+        private int maxMultiplier = 5;
+        private int basePerSite = 10;
+
+        public int BasePerSite { get { return basePerSite; } }
+
         /// <summary>
         /// Aktualna strona.
         /// </summary>
         public int ActualSite { get; set; } = 1;
 
         /// <summary>
-        /// Ilość zadań na stronę.
+        /// Mnożnik ilości zadań na stronę.
         /// </summary>
-        public int TaskPerSite { get; set; } = 10;
+        public int MultiplierTaskPerSite { get; set; } = 1;
+
+        public int TaskPerSite { get { return MultiplierTaskPerSite * BasePerSite; } }
+
+        public int MaxMultiplierPerSite { get { return maxMultiplier; } }
     }
 }

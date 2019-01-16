@@ -1,0 +1,20 @@
+﻿@mixin clicakble() {
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+@mixin Transition($time) {
+    transition: $time;
+    -webkit-transition: $time;
+    -moz-transition: $time;
+    -o-transition: $time;
+}
+
+@mixin Transform($value) {
+    transform: $value;
+    -webkit-transform: $value;
+    -moz-transition: $value;
+    -o-transition: $value;
+    -ms-transform: $value;
+}
