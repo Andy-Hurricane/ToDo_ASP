@@ -67,11 +67,11 @@ namespace ToDo.Services.Validator
         public void ValidateId(Task task, IEnumerable<Task> tasks = null)
         {
             if (task == null)
-                throw new Exception(NULL_EXCEPTION);
+                throw new TaskException(NULL_EXCEPTION);
 
             Task tmp = tasks.FirstOrDefault(t => t.Id == task.Id);
                 if (tmp != null)
-                    throw new Exception(EXIST_ID_EXCEPTION);
+                    throw new TaskException(EXIST_ID_EXCEPTION);
         }
 
         /// <summary>
@@ -82,18 +82,18 @@ namespace ToDo.Services.Validator
         public void ValidateTopic(Task task, IEnumerable<Task> tasks = null)
         {
             if (task == null)
-                throw new Exception(NULL_EXCEPTION);
+                throw new TaskException(NULL_EXCEPTION);
 
             if (String.IsNullOrEmpty(task.Topic.Trim()))
-                throw new Exception(NULL_TOPIC_EXCEPTION);
+                throw new TaskException(NULL_TOPIC_EXCEPTION);
             if (task.Topic.Length > 255)
-                throw new Exception(LENGTH_TOPIC_EXCEPTION);
+                throw new TaskException(LENGTH_TOPIC_EXCEPTION);
             if ( tasks != null )
             {
                 Task tmp = tasks.FirstOrDefault(t => t.Topic.Trim().Equals(task.Topic.Trim()));
 
                 if (tmp != null)
-                    throw new Exception(NULL_TOPIC_EXCEPTION);
+                    throw new TaskException(NULL_TOPIC_EXCEPTION);
             }
         }
 
@@ -104,12 +104,12 @@ namespace ToDo.Services.Validator
         public void ValidateAction(Task task)
         {
             if (task == null)
-                throw new Exception(NULL_EXCEPTION);
+                throw new TaskException(NULL_EXCEPTION);
 
             if (String.IsNullOrEmpty(task.Action.Trim()))
-                throw new Exception(NULL_ACTION_EXCEPTION);
+                throw new TaskException(NULL_ACTION_EXCEPTION);
             if (task.Topic.Length > 255)
-                throw new Exception(LENGTH_ACTION_EXCEPTION);
+                throw new TaskException(LENGTH_ACTION_EXCEPTION);
         }
 
         /// <summary>
@@ -119,15 +119,15 @@ namespace ToDo.Services.Validator
         public void ValidateDates(Task task)
         {
             if (task == null)
-                throw new Exception(NULL_EXCEPTION);
+                throw new TaskException(NULL_EXCEPTION);
 
             if (task.Start == null)
-                throw new Exception(NULL_DATE_START_EXCEPTION);
+                throw new TaskException(NULL_DATE_START_EXCEPTION);
             if (task.End == null)
-                throw new Exception(NULL_DATE_END_EXCEPTION);
+                throw new TaskException(NULL_DATE_END_EXCEPTION);
 
             if (task.End < task.Start)
-                throw new Exception(DATE_EXCEPTION);
+                throw new TaskException(DATE_EXCEPTION);
         }
 
         /// <summary>
@@ -137,12 +137,12 @@ namespace ToDo.Services.Validator
         public void ValidateProgress(Task task)
         {
             if (task == null)
-                throw new Exception(NULL_EXCEPTION);
+                throw new TaskException(NULL_EXCEPTION);
 
             if (task.Progress < 0)
-                throw new Exception(LOWER_PROGRESS_EXCEPTION);
+                throw new TaskException(LOWER_PROGRESS_EXCEPTION);
             if (task.Progress > 100)
-                throw new Exception(HIGHER_PROGRESS_EXCEPTION);
+                throw new TaskException(HIGHER_PROGRESS_EXCEPTION);
         }
 
         /// <summary>
@@ -152,10 +152,10 @@ namespace ToDo.Services.Validator
         public void ValidateDetails(Task task)
         {
             if (task == null)
-                throw new Exception(NULL_EXCEPTION);
+                throw new TaskException(NULL_EXCEPTION);
 
             if (task.Description.Length > 255)
-                throw new Exception(LENGTH_DESCRIPTION_EXCEPTION);
+                throw new TaskException(LENGTH_DESCRIPTION_EXCEPTION);
         }
     }
 }

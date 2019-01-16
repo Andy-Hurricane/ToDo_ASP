@@ -9,6 +9,25 @@ namespace ToDo.Services.Zadania
     [NotMapped]
     public class ViewConfig
     {
+        private static ViewConfig _Instance;
+
+        private ViewConfig() { }
+
+        public static ViewConfig GetInstance()
+        {
+            return (_Instance ?? (_Instance = new ViewConfig()));
+        }
+
+        public static void ClearVisibleModal()
+        {
+            GetInstance().VisibleModal = String.Empty;
+        }
+
+        public static void SetVisibleModal(string modalName)
+        {
+            GetInstance().VisibleModal = modalName;
+        }
+
         private int maxMultiplier = 5;
         private int basePerSite = 10;
 

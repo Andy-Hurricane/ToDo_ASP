@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     var availableSite = Model.ViewConfig.MultiplierTaskPerSite != 0
-        ? Math.Ceiling( (decimal)(Model.Tasks.Count() / Model.ViewConfig.TaskPerSite ) )
+        ? Math.Ceiling((decimal)(Model.Tasks.Count() / Model.ViewConfig.TaskPerSite))
         : 1;
 }
 
@@ -109,12 +109,29 @@
     </div>
 </div>
 
+<div id="Error" style="display: none;"></div>
+
 <script type="text/javascript">
-    @{ 
+    @{
         <text>
-    window.onload = function () {
+    const LoadModalWindow = function () {
+        console.log ('test')
         PopUp.OpenDialog('@Model.ViewConfig.VisibleModal');
     };
+
+    if (window.addEventListener) {
+        window.addEventListener('load', LoadModalWindow, false);
+    }
+    else if (window.attachEvent) {
+        window.attachEvent('onload', LoadModalWindow);
+    }
+
         </text>
     }
 </script>
+
+@if (Model.Exception != String.Empty && Model.Exception != null)
+{
+    Html.RenderPartial("~/Areas/Zadania/Views/Shared/_ExceptionHandle.cshtml", Model.Exception);
+}
+

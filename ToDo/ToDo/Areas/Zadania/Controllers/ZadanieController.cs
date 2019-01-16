@@ -12,21 +12,35 @@ namespace ToDo.Areas.Zadania.Controllers
     public class ZadanieController : Controller
     {
         private IZadanieService Service { get; set; }
-        private ViewConfig ViewConfig { get; set; }
 
         public ZadanieController(IZadanieService service)
         {
             Service = service;
-            ViewConfig = new ViewConfig();
+        }
+
+        protected override void OnException(ExceptionContext filterContext)
+        {            
+            var ViewModel = new TasksVIewConfigModel
+            {
+                Tasks = Service.GetTasks(),
+                ViewConfig = ViewConfig.GetInstance(),
+                Exception = filterContext.Exception.Message
+            };
+
+            filterContext.Result = View("Index", ViewModel);
+            filterContext.ExceptionHandled = true;
         }
 
         // GET: Zadania/Zadanie
         public ActionResult Index()
         {
+            ViewConfig.ClearVisibleModal();
+
             var ViewModel = new TasksVIewConfigModel
             {
                 Tasks = Service.GetTasks(),
-                ViewConfig = ViewConfig
+                ViewConfig = ViewConfig.GetInstance(),
+                Exception = String.Empty
             };
 
             return View(ViewModel);
@@ -40,19 +54,23 @@ namespace ToDo.Areas.Zadania.Controllers
         [HttpPost]
         public ActionResult Create(Task task)
         {
+            ViewConfig.SetVisibleModal("Add");
+
             if (ModelState.IsValid)
             {
                 if (Service.Add(task))
+                {
+                    ViewConfig.ClearVisibleModal();
                     return RedirectToAction("Index");
+                }
                 else return Content("Błąd: " + Service.GetError());
             }
 
-            ViewConfig.VisibleModal = "Add";
 
             var ViewModel = new TasksVIewConfigModel
             {
                 Tasks = Service.GetTasks(),
-                ViewConfig = ViewConfig
+                ViewConfig = ViewConfig.GetInstance()
             };
             
             return View("Index", ViewModel);

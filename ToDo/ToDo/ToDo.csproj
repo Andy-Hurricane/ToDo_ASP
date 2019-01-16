@@ -263,6 +263,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Validator\TaskException.cs" />
     <Compile Include="Services\Validator\ValidateTask.cs" />
     <Compile Include="Services\Zadania\Errors.cs" />
     <Compile Include="Services\Zadania\IZadanieService.cs" />
@@ -279,6 +280,7 @@
     <Content Include="Areas\Zadania\Views\Shared\_PanelView.cshtml" />
     <Content Include="Areas\Zadania\Views\Zadanie\Exit.cshtml" />
     <Content Include="Areas\Zadania\Views\Shared\_CreateTask.cshtml" />
+    <Content Include="Areas\Zadania\Views\Shared\_ExceptionHandle.cshtml" />
     <None Include="Connected Services\ZadanieService\configuration91.svcinfo" />
     <None Include="Connected Services\ZadanieService\configuration.svcinfo" />
     <None Include="Connected Services\ZadanieService\Reference.svcmap">

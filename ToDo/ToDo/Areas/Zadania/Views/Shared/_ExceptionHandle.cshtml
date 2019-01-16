@@ -1,0 +1,21 @@
+﻿@model String
+
+<script type="text/javascript">
+    @{ 
+        <text>
+    const LoadErrorModule = function () {
+        console.log('Na pewno?!');
+        PopUp.OpenErrorDialog('@Model');
+    };  
+
+    if (window.addEventListener) 
+    {
+        window.addEventListener('load', LoadErrorModule, false); 
+    }
+    else if (window.attachEvent) 
+    {
+        window.attachEvent('onload', LoadErrorModule);
+    }
+        </text>
+    }
+</script>

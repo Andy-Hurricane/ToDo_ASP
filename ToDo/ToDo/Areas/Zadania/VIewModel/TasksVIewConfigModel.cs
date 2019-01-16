@@ -11,5 +11,6 @@ namespace ToDo.Areas.Zadania.ViewModel
     {
         public IEnumerable<Task> Tasks { get; set; }
         public ViewConfig ViewConfig { get; set; }
+        public string Exception { get; set; }
     }
 }

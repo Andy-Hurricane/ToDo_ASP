@@ -14,7 +14,7 @@
     },
     'Edit': {
         autoOpen: false,
-        title: 'Edit',
+        title: 'Edytuj zadanie',
         modal: true,
         minWidth: '500px',
         maxWidth: '500px',
@@ -25,6 +25,20 @@
             console.log('test');
             location.href = "/Zadania"
         }
+    },
+    'Error': {
+        autoOpen: true,
+        title: 'Błąd',
+        modal: true,
+        hide: 'clip',
+        show: 'shake',
+        buttons: [
+            {
+                text: "OK",
+                click: function () {
+                    $(this).dialog('close');
+                }
+            }]
     }
 }
 
@@ -48,5 +62,13 @@ const PopUp = {
         }
         else
             console.log(`Nie ma okna: ${window}`);
+    },
+    OpenErrorDialog: function (msg) {
+        const error = $('#Error');
+
+        error.empty();
+        error.append(`<p>${msg}</p>`)
+        error.dialog( WindowConfig['Error'])
+        error.dialog('open');
     }
 };
