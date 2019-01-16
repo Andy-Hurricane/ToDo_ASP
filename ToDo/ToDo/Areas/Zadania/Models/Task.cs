@@ -70,6 +70,7 @@ namespace ToDo.Areas.Zadania.Models
         /// </summary>
         [Required(ErrorMessage = "Progres nie może być pusty.")]
         [DisplayName("% zakończenia")]
+        [Range(0, 100)]
         public int Progress { get; set; }
 
 

@@ -207,10 +207,5 @@ namespace ToDo.Services.Zadania
             result = false;
         }
 
-        private void ValidateTask(Task task)
-        {
-            if (task.Topic.Trim().Equals(String.Empty)) ;
-
-        }
     }
 }

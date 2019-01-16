@@ -254,11 +254,16 @@
     <Compile Include="Migrations\201901161251031_DefaultValueToDates.Designer.cs">
       <DependentUpon>201901161251031_DefaultValueToDates.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901161650323_AddRangeToProgress.cs" />
+    <Compile Include="Migrations\201901161650323_AddRangeToProgress.Designer.cs">
+      <DependentUpon>201901161650323_AddRangeToProgress.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Validator\ValidateTask.cs" />
     <Compile Include="Services\Zadania\Errors.cs" />
     <Compile Include="Services\Zadania\IZadanieService.cs" />
     <Compile Include="Services\Zadania\ViewConfig.cs" />
@@ -268,10 +273,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\aspnet-ToDo-20190115113136.mdf" />
-    <Content Include="App_Data\aspnet-ToDo-20190115113136_log.ldf">
-      <DependentUpon>aspnet-ToDo-20190115113136.mdf</DependentUpon>
-    </Content>
     <Content Include="Connected Services\ZadanieService\ToDo.ZadanieService.Task.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
@@ -377,7 +378,9 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -409,6 +412,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901161251031_DefaultValueToDates.resx">
       <DependentUpon>201901161251031_DefaultValueToDates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901161650323_AddRangeToProgress.resx">
+      <DependentUpon>201901161650323_AddRangeToProgress.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
