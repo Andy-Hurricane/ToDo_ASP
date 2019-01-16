@@ -206,5 +206,11 @@ namespace ToDo.Services.Zadania
             Error = communicat;
             result = false;
         }
+
+        private void ValidateTask(Task task)
+        {
+            if (task.Topic.Trim().Equals(String.Empty)) ;
+
+        }
     }
 }
