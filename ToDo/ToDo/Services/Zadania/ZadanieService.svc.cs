@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Core;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -19,14 +20,30 @@ namespace ToDo.Services.Zadania
 
         private string Error { get; set; }
 
+        private Dictionary<SortFilter, Action> sorterFunctions;
+
+        private SortList SortedList;
+
+        private IEnumerable<Task> List;
+
         public ZadanieService()
         {
             Context = new ApplicationDbContext();
+            SortedList = SortList.GetInstance();
+
+            if (SortedList.actualList == null) 
+                SortedList.actualList = Context.Tasks.ToList();
         }
+
+        public void Sort(SortFilter By)
+        {
+            SortedList.Sort(By, Context.Tasks.ToList());
+        }
+
 
         public IEnumerable<Task> GetTasks()
         {
-            return Context.Tasks.ToList();
+            return SortedList.actualList;
         }
 
         public bool Add(Task newTask)
@@ -53,13 +70,13 @@ namespace ToDo.Services.Zadania
             return result;
         }
 
-        public bool Edit(int idOld, Task newTask)
+        public bool Edit(Task newTask)
         {
             bool result;
 
             try
             {
-                Task task = Context.Tasks.FirstOrDefault(el => el.Id == idOld);
+                Task task = Context.Tasks.FirstOrDefault(el => el.Id == newTask.Id);
 
                 if (task == null)
                     SetError(Errors.EditFromEmptyTask, out result);

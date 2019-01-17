@@ -1,12 +1,36 @@
-﻿@model ToDo.Areas.Zadania.ViewModel.TasksVIewConfigModel
+﻿@model ToDo.Areas.Zadania.ViewModel.TasksViewConfigModel
+
+@using ToDo.Areas.Zadania.Models
+@using ToDo.Services.Zadania
 
 @{
-    ToDo.Areas.Zadania.Models.Task nameModel = null;
+    Task nameModel = null;
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     var availableSite = Model.ViewConfig.MultiplierTaskPerSite != 0
         ? Math.Ceiling((decimal)(Model.Tasks.Count() / Model.ViewConfig.TaskPerSite))
         : 1;
+
+    var descriptionModel = Model.Tasks.FirstOrDefault(t => t.Id == Model.ViewConfig.DescriptionTaskId);
+    var descriptionVisibleStyle = descriptionModel == null ? "none" : "inherit";
+
+    var editedTask = Model.Tasks.FirstOrDefault(t => t.Id == Model.ViewConfig.EditedTaskId);
+    var editedVisibleStyle = editedTask == null ? "none" : "inherit";
+
+    @helper OrderArrow(SortFilter main, SortFilter actual, bool reverse)
+    {
+        if (main == actual)
+        {
+            if (reverse)
+            {
+                <i class="fas fa-sort-down"></i>
+            }
+            else
+            {
+                <i class="fas fa-sort-up"></i>
+            }
+        }
+    }
 }
 
 @{Html.RenderPartial("~/Areas/Zadania/Views/Shared/_PanelView.cshtml");}
@@ -15,11 +39,26 @@
     <thead>
         <tr>
             <td scope="col">@Html.DisplayNameFor(n => nameModel.Action)</td>
-            <td scope="col">@Html.DisplayNameFor(n => nameModel.Topic)</td>
-            <td scope="col">@Html.DisplayNameFor(n => nameModel.Start)</td>
-            <td scope="col">@Html.DisplayNameFor(n => nameModel.End)</td>
-            <td scope="col">@Html.DisplayNameFor(n => nameModel.Status)</td>
-            <td scope="col">@Html.DisplayNameFor(n => nameModel.Priority)</td>
+            <td scope="col">
+                @Html.ActionLink(@Html.DisplayNameFor(n => nameModel.Topic).ToString(), "SortByTopic")
+                @OrderArrow(Model.ViewConfig.ActualSort, SortFilter.TOPIC, Model.ViewConfig.NormalSort)
+            </td>
+            <td scope="col">
+                @Html.ActionLink(@Html.DisplayNameFor(n => nameModel.Start).ToString(), "SortByStart")
+                @OrderArrow(Model.ViewConfig.ActualSort, SortFilter.START, Model.ViewConfig.NormalSort)
+            </td>
+            <td scope="col">
+                @Html.ActionLink(@Html.DisplayNameFor(n => nameModel.End).ToString(), "SortByEnd")
+                 @OrderArrow(Model.ViewConfig.ActualSort, SortFilter.END, Model.ViewConfig.NormalSort)
+            </td>
+            <td scope="col">
+                @Html.ActionLink(@Html.DisplayNameFor(n => nameModel.Status).ToString(), "SortByStatus")
+                @OrderArrow(Model.ViewConfig.ActualSort, SortFilter.STATUS, Model.ViewConfig.NormalSort)
+            </td>
+            <td scope="col">
+                @Html.ActionLink(@Html.DisplayNameFor(n => nameModel.Priority).ToString(), "SortByPriority")
+                @OrderArrow(Model.ViewConfig.ActualSort, SortFilter.PRIORITY, Model.ViewConfig.NormalSort)
+            </td>
             <td scope="col">@Html.DisplayNameFor(n => nameModel.Progress)</td>
             <td scope="col"></td>
         </tr>
@@ -37,8 +76,8 @@
                 <td scope="col">@Html.DisplayFor(n => task.Priority)</td>
                 <td scope="col">@Html.DisplayFor(n => task.Progress)</td>
                 <td scope="col">
-                    <input type="checkbox" id="selected_@task.Id" onclick="Select(this)">
-                    <i class="fab fa-wpforms text-primary small-icon" onclick="Description('@task.Id')"></i>
+                    <input type="checkbox" class="EditCheckboxes" id="selected_@task.Id" onclick="Select()">
+                    <a href="@Url.Action("Description", new { id = @task.Id })" class="link-with-icon"><i class="fab fa-wpforms text-primary small-icon"></i></a>
                     @if (Model.Tasks.First() == task)
                     {
                         <i class="fas fa-angle-up text-primary small-icon-disabled" onclick=""></i>
@@ -122,27 +161,44 @@
 
 <div id="popup" style="display: none;">
     <div id="AddPopUp">
-        @{ Html.RenderPartial("~/Areas/Zadania/Views/Shared/_CreateTask.cshtml", new ToDo.Areas.Zadania.Models.Task()); }
+        @{ Html.RenderPartial("~/Areas/Zadania/Views/Shared/_CreateTask.cshtml", new Task()); }
     </div>
-    <div id="EditPopUp">
-
-    </div>
-    <div id="DescriptionPopUp">
-        @if (Model.ViewConfig.DescriptionTaskId > 0)
+    <div id="EditPopUp" style="display: @editedVisibleStyle">
+        @if (editedTask != null)
         {
-            Html.RenderPartial("~/Areas/Zadania/Views/Shared/_DescriptionView.cshtml", Model.Tasks.FirstOrDefault(t => t.Id == Model.ViewConfig.DescriptionTaskId));
+            Html.RenderPartial("~/Areas/Zadania/Views/Shared/_CreateTask.cshtml", editedTask);
+        }
+    </div>
+    <div id="DescriptionPopUp" style="display: @descriptionVisibleStyle">
+        @if (descriptionModel != null)
+        {
+            Html.RenderPartial("~/Areas/Zadania/Views/Shared/_DescriptionView.cshtml", descriptionModel);
         }
     </div>
 </div>
 
 <div id="Error" style="display: none;"></div>
 <div id="DeleteModal" style="display: none;">Czy na pewno chcesz usunąć to zadanie?</div>
-@Model.ViewConfig.VisibleModal
-@Model.ViewConfig.DescriptionTaskId
+
 <script type="text/javascript">
     const Description = function (id) {
         location.href = `@Url.Action("Description", "Zadanie")/${id}`;
+    }
 
+    const Select = function () {
+        var selected = 0;
+        var EditButton = $('#EditButton');
+
+        $('.EditCheckboxes').each(function () {
+            if ($(this).prop('checked'))
+                selected++;
+        });
+
+
+        if (selected == 1)
+            EditButton.removeClass('disabled').addClass('icon');
+        else
+            EditButton.removeClass('icon').addClass('disabled');
     }
 
     const Delete = function (id) {
@@ -156,7 +212,7 @@
                 {
                     text: "OK",
                     click: function () {
-                        @{ 
+                        @{
                             <text>
                         location.href = `@Url.Action("Delete", "Zadanie")/${id}`;
                             </text>
@@ -175,6 +231,7 @@
     @{
         <text>
     const LoadModalWindow = function () {
+        Select();
         PopUp.OpenDialog('@Model.ViewConfig.VisibleModal');
     };
 

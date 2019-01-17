@@ -285,3 +285,4 @@ D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo\bin\Unity.Interception.Configuration.pd
 D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo\bin\Unity.RegistrationByConvention.pdb
 D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo\bin\Unity.ServiceLocation.pdb
 D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo\obj\Debug\ToDo.Migrations.AddRangeToProgress.resources
+Z:\and_tmp\ToDo_ASP\ToDo\ToDo\obj\Debug\ToDo.Migrations.AddRangeToProgress.resources

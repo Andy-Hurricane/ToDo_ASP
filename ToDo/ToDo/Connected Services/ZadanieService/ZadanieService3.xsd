@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/ToDo.Services.Zadania" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/ToDo.Services.Zadania" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="SortFilter">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NULL" />
+      <xs:enumeration value="ID" />
+      <xs:enumeration value="START" />
+      <xs:enumeration value="END" />
+      <xs:enumeration value="STATUS" />
+      <xs:enumeration value="PRIORITY" />
+      <xs:enumeration value="TOPIC" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="SortFilter" nillable="true" type="tns:SortFilter" />
+</xs:schema>

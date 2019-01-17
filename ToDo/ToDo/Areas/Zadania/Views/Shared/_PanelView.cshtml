@@ -9,7 +9,7 @@
             </div>
             <div class="col-lg-offset-2 col-lg-2 col-md-offset-2 col-md-2 col-sm-offset-2 col-sm-2 col-xs-offset-2 col-xs-2">
                 <p class="icon-cont" onclick="EditTask()">
-                    <i id="EditButton" class="fas fa-edit text-primary disabled"></i>
+                    <i id="EditButton" class="fas fa-edit text-primary"></i>
                 </p>
             </div>
             <div class="col-lg-offset-2 col-lg-2 col-md-offset-2 col-md-2 col-sm-offset-2 col-sm-2 col-xs-offset-2 col-xs-2">
@@ -47,8 +47,18 @@
     const EditTask = function () {
         const editBtn = $(`#EditButton`);
 
-        if (!editBtn.hasClass(`disabled`))
-            PopUp.OpenDialog('Edit');
+        if (!editBtn.hasClass(`disabled`)) {
+            var id;
+
+            $(".EditCheckboxes").each(function () {
+                if ($(this).prop('checked'))
+                    id = $(this).prop('id');
+            });
+            id = id.replace('selected_', '');
+
+            location.href = "/Zadania/Zadanie/Edit/" + id;
+        }
+            
     };
     const Export = function () {
         PopUp.OpenDialog('Export');

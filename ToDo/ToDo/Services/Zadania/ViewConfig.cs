@@ -31,6 +31,18 @@ namespace ToDo.Services.Zadania
         {
             GetInstance().DescriptionTaskId = id;
         }
+        public static void SetEditedTaskId(int id)
+        {
+            GetInstance().EditedTaskId = id;
+        }
+
+        public SortFilter ActualSort {
+            get { return SortList.GetInstance().ActualFilter; }
+        }
+
+        public bool NormalSort {
+            get { return SortList.GetInstance().NormalSort;  }
+        }
 
         private int maxMultiplier = 5;
         private int basePerSite = 10;
@@ -38,6 +50,7 @@ namespace ToDo.Services.Zadania
         public int BasePerSite { get { return basePerSite; } }
 
         public int DescriptionTaskId { get; private set; }
+        public int EditedTaskId { get; private set; }
         /// <summary>
         /// Aktualna strona.
         /// </summary>

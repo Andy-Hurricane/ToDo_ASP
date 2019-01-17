@@ -26,6 +26,7 @@
     <MetadataFile FileName="ZadanieService.xsd" MetadataType="Schema" ID="72249429-9040-40ee-85fa-b53591c500e9" SourceId="1" SourceUrl="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd1" />
     <MetadataFile FileName="ZadanieService1.xsd" MetadataType="Schema" ID="1b60995a-1de0-492d-83b4-05d676ec27e7" SourceId="1" SourceUrl="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd0" />
     <MetadataFile FileName="ZadanieService.disco" MetadataType="Disco" ID="842fdc98-f199-4105-8a25-2521f18b7ce5" SourceId="1" SourceUrl="http://localhost:52119/Services/Zadania/ZadanieService.svc?disco" />
+    <MetadataFile FileName="ZadanieService3.xsd" MetadataType="Schema" ID="63c11556-02cb-4539-8745-96e46a3701ab" SourceId="1" SourceUrl="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd3" />
     <MetadataFile FileName="ZadanieService2.xsd" MetadataType="Schema" ID="2ed333aa-5400-46ed-be44-97358d298321" SourceId="1" SourceUrl="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd2" />
   </Metadata>
   <Extensions>

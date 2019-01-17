@@ -90,7 +90,7 @@ namespace ToDo.Services.Validator
                 throw new TaskException(LENGTH_TOPIC_EXCEPTION);
             if ( tasks != null )
             {
-                Task tmp = tasks.FirstOrDefault(t => t.Topic.Trim().Equals(task.Topic.Trim()));
+                Task tmp = tasks.FirstOrDefault(t => (t.Topic.Trim().Equals(task.Topic.Trim()) && (t.Id != task.Id) ));
 
                 if (tmp != null)
                     throw new TaskException(EXIST_TOPIC_EXCEPTION);

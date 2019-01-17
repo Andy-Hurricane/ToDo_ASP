@@ -9,7 +9,6 @@
         hide: 'puff',
         show: 'puff',
         beforeClose: function (event, ui) {
-            location.href = "/Zadania/Zadanie"
         }
     },
     'Edit': {
@@ -22,7 +21,7 @@
         hide: 'puff',
         show: 'puff',
         close: function (event, ui) {
-            location.href = "/Zadania/Zadanie"
+            location.href = "/Zadania/Zadanie";
         }
     },
     'Error': {
@@ -46,12 +45,12 @@
         hide: 'puff',
         show: 'puff'
     }
-}
+};
 
 const PopUpWindow = $('#popup');
 
 PopUpWindow.dialog({
-    autoOpen: false,
+    autoOpen: false
 });
 
 const PopUp = {
@@ -59,7 +58,7 @@ const PopUp = {
         if (WindowConfig.hasOwnProperty(window)) {
             PopUpWindow.children().each(function () {
                 $(this).hide();
-                if ($(this).attr('id') == `${window}PopUp`)
+                if ($(this).attr('id') === `${window}PopUp`)
                     $(this).show();
             });
 
@@ -73,8 +72,8 @@ const PopUp = {
         const error = $('#Error');
 
         error.empty();
-        error.append(`<p>${msg}</p>`)
-        error.dialog( WindowConfig['Error'])
+        error.append(`<p>${msg}</p>`);
+        error.dialog(WindowConfig['Error']);
         error.dialog('open');
     }
 };

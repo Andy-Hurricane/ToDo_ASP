@@ -20,6 +20,13 @@ namespace ToDo.Services.Zadania
         IEnumerable<Task> GetTasks();
 
         /// <summary>
+        /// Sortuje listę danych.
+        /// </summary>
+        /// <param name="By">Filtr sortowania.</param>
+        [OperationContract]
+        void Sort(SortFilter By);
+
+        /// <summary>
         /// Dodaj zadanie.
         /// </summary>
         /// <param name="newTask">Zadanie, które ma być dodane.</param>
@@ -34,7 +41,7 @@ namespace ToDo.Services.Zadania
         /// <param name="newTask">Nowe wartości zadania.</param>
         /// <returns>Prawdę dla powodzenia akcji, w przeciwnym wypadku zapisuje błąd, który można odczytać z GetError().</returns>
         [OperationContract]
-        bool Edit(int idOld, Task newTask);
+        bool Edit(Task newTask);
 
         /// <summary>
         /// Usuń zadanie.

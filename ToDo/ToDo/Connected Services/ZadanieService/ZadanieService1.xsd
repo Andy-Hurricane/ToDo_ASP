@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/ToDo.Areas.Zadania.Models" />
+  <xs:import schemaLocation="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/ToDo.Services.Zadania" />
   <xs:element name="GetTasks">
     <xs:complexType>
       <xs:sequence />
@@ -13,10 +14,22 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="Sort">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/ToDo.Services.Zadania" minOccurs="0" name="By" type="q2:SortFilter" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SortResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="Add">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/ToDo.Areas.Zadania.Models" minOccurs="0" name="newTask" nillable="true" type="q2:Task" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/ToDo.Areas.Zadania.Models" minOccurs="0" name="newTask" nillable="true" type="q3:Task" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -30,8 +43,7 @@
   <xs:element name="Edit">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="idOld" type="xs:int" />
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/ToDo.Areas.Zadania.Models" minOccurs="0" name="newTask" nillable="true" type="q3:Task" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/ToDo.Areas.Zadania.Models" minOccurs="0" name="newTask" nillable="true" type="q4:Task" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
