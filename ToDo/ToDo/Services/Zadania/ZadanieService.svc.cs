@@ -39,7 +39,9 @@ namespace ToDo.Services.Zadania
 
         public IEnumerable<Task> GetTasks()
         {
-            return SortedList.actualList;
+            ViewConfig vc = ViewConfig.GetInstance();
+            vc.CountAllTasks = SortedList.actualList.Count();
+            return SortedList.actualList.Skip((vc.ActualSite - 1) * vc.TaskPerSite).Take(vc.TaskPerSite);
         }
 
         public bool Add(Task newTask)

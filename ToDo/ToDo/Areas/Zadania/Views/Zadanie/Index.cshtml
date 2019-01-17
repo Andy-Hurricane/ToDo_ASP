@@ -8,7 +8,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     var availableSite = Model.ViewConfig.MultiplierTaskPerSite != 0
-        ? Math.Ceiling((decimal)(Model.Tasks.Count()) / Model.ViewConfig.TaskPerSite)
+        ? Math.Ceiling((decimal)(Model.ViewConfig.CountAllTasks) / Model.ViewConfig.TaskPerSite)
         : 1;
 
     var descriptionModel = Model.Tasks.FirstOrDefault(t => t.Id == Model.ViewConfig.DescriptionTaskId);
@@ -37,6 +37,7 @@
 
 @{Html.RenderPartial("~/Areas/Zadania/Views/Shared/_PanelView.cshtml");}
 
+
 <table class="table">
     <thead>
         <tr>
@@ -51,7 +52,7 @@
             </td>
             <td scope="col">
                 @Html.ActionLink(@Html.DisplayNameFor(n => nameModel.End).ToString(), "SortByEnd")
-                 @OrderArrow(Model.ViewConfig.ActualSort, SortFilter.END, Model.ViewConfig.NormalSort)
+                @OrderArrow(Model.ViewConfig.ActualSort, SortFilter.END, Model.ViewConfig.NormalSort)
             </td>
             <td scope="col">
                 @Html.ActionLink(@Html.DisplayNameFor(n => nameModel.Status).ToString(), "SortByStatus")
@@ -68,40 +69,40 @@
     <tbody>
         @foreach (var task in Model.Tasks)
         {
-        <tr>
+            <tr>
 
-            <td scope="col">@Html.DisplayFor(n => task.Action)</td>
-            <td scope="col">@Html.DisplayFor(n => task.Topic)</td>
-            <td scope="col">@Html.DisplayFor(n => task.Start)</td>
-            <td scope="col">@Html.DisplayFor(n => task.End)</td>
-            <td scope="col">@Html.DisplayFor(n => task.Status)</td>
-            <td scope="col">@Html.DisplayFor(n => task.Priority)</td>
-            <td scope="col">@Html.DisplayFor(n => task.Progress)</td>
-            <td scope="col">
-                <input type="checkbox" class="EditCheckboxes" id="selected_@task.Id" onclick="Select()">
-                <a href="@Url.Action("Description", new { id = @task.Id })" class="link-with-icon"><i class="fab fa-wpforms text-primary small-icon"></i></a>
-                @if (Model.Tasks.First() == task)
-                {
-                    <i class="fas fa-angle-up text-primary small-icon-disabled"></i>
+                <td scope="col">@Html.DisplayFor(n => task.Action)</td>
+                <td scope="col">@Html.DisplayFor(n => task.Topic)</td>
+                <td scope="col">@Html.DisplayFor(n => task.Start)</td>
+                <td scope="col">@Html.DisplayFor(n => task.End)</td>
+                <td scope="col">@Html.DisplayFor(n => task.Status)</td>
+                <td scope="col">@Html.DisplayFor(n => task.Priority)</td>
+                <td scope="col">@Html.DisplayFor(n => task.Progress)</td>
+                <td scope="col">
+                    <input type="checkbox" class="EditCheckboxes" id="selected_@task.Id" onclick="Select()">
+                    <a href="@Url.Action("Description", new { id = @task.Id })" class="link-with-icon"><i class="fab fa-wpforms text-primary small-icon"></i></a>
+                    @if (Model.Tasks.First() == task)
+                    {
+                        <i class="fas fa-angle-up text-primary small-icon-disabled"></i>
+                    }
+                    else
+                    {
+                        <a href='@Url.Action("SwapPrevious", new { id = swapIndex })'><i class="fas fa-angle-up text-primary small-icon"></i></a>
+                    }
+                    @if (Model.Tasks.Last() == task)
+                    {
+                        <i class="fas fa-angle-down text-primary small-icon-disabled"></i>
+                    }
+                    else
+                    {
+                        <a href='@Url.Action("SwapNext", new { id = swapIndex })'><i class="fas fa-angle-down text-primary small-icon"></i></a>
+                    }
+                    <i class="fas fa-plus fa-rotate-45 text-danger small-icon" onclick="Delete(@task.Id)"></i>
+                </td>
+                @{
+                    swapIndex++;
                 }
-                else
-                {
-                    <a href='@Url.Action("SwapPrevious", new { id = swapIndex })'><i class="fas fa-angle-up text-primary small-icon"></i></a>
-                }
-                @if (Model.Tasks.Last() == task)
-                {
-                    <i class="fas fa-angle-down text-primary small-icon-disabled"></i>
-                }
-                else
-                {
-                    <a href='@Url.Action("SwapNext", new { id = swapIndex })'><i class="fas fa-angle-down text-primary small-icon"></i></a>
-                }
-                <i class="fas fa-plus fa-rotate-45 text-danger small-icon" onclick="Delete(@task.Id)"></i>
-            </td>
-            @{
-                swapIndex++;
-            }
-        </tr>
+            </tr>
         }
     </tbody>
 </table>
@@ -110,17 +111,17 @@
     <div class="text-right">
         <p>
             Elementów na stronie
-            <select class="btn" id="viewPerSite" onchange="ChangeElementsPerSite('@Url.Action("ElementsPerSite")')">
+            <select class="btn" id="viewPerSite" onchange="ChangeElementsPerSite()">
                 @for (var iterator = 1; iterator <= Model.ViewConfig.MaxMultiplierPerSite; iterator++)
                 {
                     int value = iterator * Convert.ToInt32(Model.ViewConfig.BasePerSite);
                     if (value == Model.ViewConfig.TaskPerSite)
                     {
-                        <option value="@value" selected="selected">@value</option>
+                        <option value="@iterator" selected="selected">@value</option>
                     }
                     else
                     {
-                        <option value="@value">@value</option>
+                        <option value="@iterator">@value</option>
                     }
                 }
 
@@ -137,9 +138,9 @@
         }
         else
         {
-            <input type="button" value="Poprzedni" class="btn btn-primary" onclick="PreviousSite('@Url.Action("ActualSite")')" />
+            <input type="button" value="Poprzedni" class="btn btn-primary" onclick="PreviousSite()" />
         }
-        <select class="btn" id="actualSite" onchange="ChangeActualSite('@Url.Action("ActualSite")')">
+        <select class="btn" id="actualSite" onchange="ChangeActualSite()">
             @for (var iterator = 1; iterator <= availableSite; iterator++)
             {
                 if (iterator == Model.ViewConfig.ActualSite)
@@ -159,7 +160,7 @@
         }
         else
         {
-            <input type="button" value="Następny" class="btn btn-primary" onclick="NextSite('@Url.Action("ActualSite")')" />
+            <input type="button" value="Następny" class="btn btn-primary" onclick="NextSite()" />
         }
     </div>
 </div>
@@ -186,6 +187,38 @@
 <div id="DeleteModal" style="display: none;">Czy na pewno chcesz usunąć to zadanie?</div>
 
 <script type="text/javascript">
+    const ChangeActualSiteHelper = function (id) {
+        location.href = `@Url.Action("ChangeActualSite", "Zadanie")/${id}`;
+    }
+    const ChangeActualSite = function () {
+        const int = parseInt($('#actualSite').val());
+        if (int == NaN)
+            console.warn('Coś poszło nie tak. Wartość była tekstem.')
+        else
+            ChangeActualSiteHelper(int);
+    }
+    const PreviousSite = function () {
+        const int = parseInt($('#actualSite').val()) - 1;
+        if (int == NaN)
+            console.warn('Coś poszło nie tak. Wartość była tekstem.')
+        else
+            ChangeActualSiteHelper(int);
+    }
+    const NextSite = function () {
+        const int = parseInt($('#actualSite').val()) + 1;
+        if (int == NaN)
+            console.warn('Coś poszło nie tak. Wartość była tekstem.')
+        else
+            ChangeActualSiteHelper(int);
+
+    }
+
+    const ChangeElementsPerSite = function () {
+        const value = $('#viewPerSite').val();
+
+        location.href = `@Url.Action("ChangeTasksPerSite", "Zadanie")/${value}`;
+    }
+
     const Description = function (id) {
         location.href = `@Url.Action("Description", "Zadanie")/${id}`;
     }

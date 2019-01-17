@@ -135,5 +135,17 @@ namespace ToDo.Areas.Zadania.Controllers
             Service.SwapNext(id);
             return RedirectToAction("Index");
         }
-}
+
+        public ActionResult ChangeTasksPerSite(int id)
+        {
+            ViewConfig.GetInstance().MultiplierTaskPerSite = id;
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult ChangeActualSite(int id)
+        {
+            ViewConfig.GetInstance().ActualSite = id;
+            return RedirectToAction("Index");
+        }
+    }
 }

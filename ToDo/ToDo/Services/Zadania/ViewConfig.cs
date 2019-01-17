@@ -48,6 +48,7 @@ namespace ToDo.Services.Zadania
         private int basePerSite = 10;
 
         public int BasePerSite { get { return basePerSite; } }
+        public int CountAllTasks { get; set; }
 
         public int DescriptionTaskId { get; private set; }
         public int EditedTaskId { get; private set; }
