@@ -123,5 +123,17 @@ namespace ToDo.Areas.Zadania.Controllers
             Service.Sort(SortFilter.STATUS);
             return RedirectToAction("Index");
         }
+
+        public ActionResult SwapPrevious(int id)
+        {
+            Service.SwapPrevious(id);
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult SwapNext(int id)
+        {
+            Service.SwapNext(id);
+            return RedirectToAction("Index");
+        }
 }
 }

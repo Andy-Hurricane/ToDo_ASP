@@ -20,11 +20,7 @@ namespace ToDo.Services.Zadania
 
         private string Error { get; set; }
 
-        private Dictionary<SortFilter, Action> sorterFunctions;
-
         private SortList SortedList;
-
-        private IEnumerable<Task> List;
 
         public ZadanieService()
         {
@@ -144,19 +140,16 @@ namespace ToDo.Services.Zadania
 
             try
             {
-                Task selectedTask = Context.Tasks.FirstOrDefault(el => el.Id == swapMe);
-
-                if (selectedTask == null)
-                    SetError(Errors.SwapEmptyTask, out result);
-
-                Task nextTask = Context.Tasks.SkipWhile(el => el == selectedTask).Skip(1).FirstOrDefault();
-
-                if (nextTask == null)
+                if (swapMe >= SortedList.actualList.Count() - 1)
                     SetError(Errors.SwapWithEmptyTask, out result);
 
-                Task tmp = selectedTask;
-                selectedTask = nextTask;
-                nextTask = selectedTask;
+                List<Task> test = SortedList.actualList.ToList();
+
+                Task tmp = test[swapMe];
+                test[swapMe] = test[swapMe + 1];
+                test[swapMe + 1] = tmp;
+
+                SortedList.actualList = test;
             }
             catch (EntityException ex)
             {
@@ -176,19 +169,16 @@ namespace ToDo.Services.Zadania
 
             try
             {
-                Task selectedTask = Context.Tasks.FirstOrDefault(el => el.Id == swapMe);
-
-                if (selectedTask == null)
-                    SetError(Errors.SwapEmptyTask, out result);
-
-                Task previousTask = Context.Tasks.TakeWhile(el => el == selectedTask).LastOrDefault();
-
-                if (previousTask == null)
+                if (swapMe <= 0)
                     SetError(Errors.SwapWithEmptyTask, out result);
 
-                Task tmp = selectedTask;
-                selectedTask = previousTask;
-                previousTask = selectedTask;
+                List<Task> test = SortedList.actualList.ToList();
+
+                Task tmp = test[swapMe];
+                test[swapMe] = test[swapMe - 1];
+                test[swapMe - 1] = tmp;
+
+                SortedList.actualList = test;
             }
             catch (EntityException ex)
             {

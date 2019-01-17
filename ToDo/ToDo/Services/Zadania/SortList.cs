@@ -10,7 +10,7 @@ namespace ToDo.Services.Zadania
     public class SortList
     {
         public bool NormalSort { get; set; } = true;
-        public SortFilter ActualFilter { get; set; }
+        public SortFilter ActualFilter { get; set; } = SortFilter.ID;
         public IEnumerable<Task> actualList;
 
         private static SortList _Instance;
@@ -46,8 +46,8 @@ namespace ToDo.Services.Zadania
 
                 ActualFilter = By;
             }
-            if (sorterFunctions.ContainsKey(By))
-                sorterFunctions[By]();
+            if (sorterFunctions.ContainsKey(ActualFilter))
+                sorterFunctions[ActualFilter]();
             else throw new Exception("Nie ma jeszcze takiego sortowania");
         }
 
