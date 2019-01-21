@@ -89,7 +89,7 @@
                     {
                         <a href='@Url.Action("SwapPrevious", new { id = swapIndex })'><i class="fas fa-angle-up text-primary small-icon"></i></a>
                     }
-                    @if (Model.Tasks.Last() == task)
+                    @if (Model.ViewConfig.CountAllTasks == swapIndex)
                     {
                         <i class="fas fa-angle-down text-primary small-icon-disabled"></i>
                     }
@@ -180,6 +180,9 @@
         {
             Html.RenderPartial("~/Areas/Zadania/Views/Shared/_DescriptionView.cshtml", descriptionModel);
         }
+    </div>
+    <div id="ExportPopUp" class="export-container">
+        @{Html.RenderPartial("/Areas/Zadania/Views/Shared/_ExportView.cshtml");}
     </div>
 </div>
 

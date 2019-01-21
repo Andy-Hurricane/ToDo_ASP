@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\ToDo",
+    "\\ToDo\\ToDo",
+    "\\ToDo\\ToDo\\App_Data",
+    "\\ToDo\\ToDo\\Areas",
+    "\\ToDo\\ToDo\\Areas\\Zadania",
+    "\\ToDo\\ToDo\\Areas\\Zadania\\Controllers"
+  ],
+  "SelectedNode": "\\ToDo\\ToDo\\Areas\\Zadania\\Controllers\\ZadanieController.cs",
+  "PreviewInSolutionExplorer": false
+}

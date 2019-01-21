@@ -55,9 +55,6 @@ D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo.Tests\bin\Debug\Microsoft.VisualStudio.
 D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
 D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo.Tests\bin\Debug\ApplicationInsights.config
-D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo.Tests\bin\Debug\pl\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll
-D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo.Tests\bin\Debug\pl\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll
-D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo.Tests\bin\Debug\pl\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
 D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo.Tests\bin\Debug\ToDo.Tests.dll.config
 D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo.Tests\bin\Debug\ToDo.Tests.dll
 D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo.Tests\bin\Debug\ToDo.Tests.pdb
@@ -143,3 +140,11 @@ D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo.Tests\bin\Debug\Unity.Interception.pdb
 D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo.Tests\bin\Debug\Unity.Interception.Configuration.pdb
 D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo.Tests\bin\Debug\Unity.RegistrationByConvention.pdb
 D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo.Tests\bin\Debug\Unity.ServiceLocation.pdb
+D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo.Tests\bin\Debug\EntityFramework.SqlServer.dll
+D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo.Tests\bin\Debug\EntityFramework.SqlServer.xml
+D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo.Tests\bin\Debug\AjaxMin.dll
+D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo.Tests\bin\Debug\HtmlAgilityPack.dll
+D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo.Tests\bin\Debug\WebCompiler.dll
+D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo.Tests\bin\Debug\HtmlAgilityPack.pdb
+D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo.Tests\bin\Debug\HtmlAgilityPack.xml
+D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo.Tests\bin\Debug\WebCompiler.pdb

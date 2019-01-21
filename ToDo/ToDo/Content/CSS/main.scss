@@ -142,3 +142,7 @@ input:checked + .slider:before {
 .slider.round:before {
     border-radius: 50%;
 }
+
+.export-container > div{
+    width: 130px;
+}

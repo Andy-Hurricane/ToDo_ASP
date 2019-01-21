@@ -44,6 +44,26 @@
         modal: true,
         hide: 'puff',
         show: 'puff'
+    },
+    'Export': {
+        autoOpen: false,
+        classes: {
+            "ui-dialog": "ui-corner-all custom-red",
+            "ui-dialog-titlebar": "none"
+        },
+        hide: 'puff',
+        show: 'slide',
+        height: "auto",
+        minWidth: 150,
+        maxWidth: 150,
+        width: 150,
+        draggable: false,
+        position: {
+            of: $('#export_btn'),
+            my: 'center bottom',
+            at: 'center top',
+            collision: 'flip'
+        }
     }
 };
 

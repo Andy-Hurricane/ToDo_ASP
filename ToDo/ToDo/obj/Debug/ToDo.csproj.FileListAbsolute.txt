@@ -261,11 +261,6 @@ Z:\and_tmp\ToDo_ASP\ToDo\ToDo\obj\Debug\ToDo.csproj.GenerateResource.cache
 Z:\and_tmp\ToDo_ASP\ToDo\ToDo\obj\Debug\ToDo.Migrations.InitialModel.resources
 Z:\and_tmp\ToDo_ASP\ToDo\ToDo\obj\Debug\ToDo.Migrations.TaskFileToString.resources
 Z:\and_tmp\ToDo_ASP\ToDo\ToDo\obj\Debug\ToDo.Migrations.DefaultValueToDates.resources
-D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo\obj\Debug\ToDo.Migrations.Initialize.resources
-D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo\obj\Debug\ToDo.Migrations.InitialModel.resources
-D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo\obj\Debug\ToDo.Migrations.TaskFileToString.resources
-D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo\obj\Debug\ToDo.Migrations.DefaultValueToDates.resources
-D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo\obj\Debug\ToDo.csproj.GenerateResource.cache
 D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo\bin\CommonServiceLocator.dll
 D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo\bin\Unity.Abstractions.dll
 D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo\bin\Unity.Configuration.dll
@@ -284,5 +279,12 @@ D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo\bin\Unity.Interception.pdb
 D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo\bin\Unity.Interception.Configuration.pdb
 D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo\bin\Unity.RegistrationByConvention.pdb
 D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo\bin\Unity.ServiceLocation.pdb
-D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo\obj\Debug\ToDo.Migrations.AddRangeToProgress.resources
 Z:\and_tmp\ToDo_ASP\ToDo\ToDo\obj\Debug\ToDo.Migrations.AddRangeToProgress.resources
+D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo\obj\Debug\ToDo.Migrations.test.resources
+D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo\obj\Debug\ToDo.csproj.GenerateResource.cache
+D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo\bin\AjaxMin.dll
+D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo\bin\HtmlAgilityPack.dll
+D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo\bin\WebCompiler.dll
+D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo\bin\HtmlAgilityPack.pdb
+D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo\bin\HtmlAgilityPack.xml
+D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo\bin\WebCompiler.pdb
