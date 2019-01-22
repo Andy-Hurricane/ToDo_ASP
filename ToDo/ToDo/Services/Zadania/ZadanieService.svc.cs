@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Core;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.Text;
+using System.Web;
+using System.Web.Mvc;
 using ToDo.Areas.Zadania.Models;
 using ToDo.Models;
+using ToDo.Services.Export;
 using ToDo.Services.Validator;
+
 
 namespace ToDo.Services.Zadania
 {
@@ -36,12 +37,22 @@ namespace ToDo.Services.Zadania
             SortedList.Sort(By, Context.Tasks.ToList());
         }
 
+        private IEnumerable<Task> GetWholeList()
+        {
+            return SortedList.actualList;
+        }
 
-        public IEnumerable<Task> GetTasks()
+        private IEnumerable<Task> GetSectionFromList()
         {
             ViewConfig vc = ViewConfig.GetInstance();
             vc.CountAllTasks = SortedList.actualList.Count();
             return SortedList.actualList.Skip((vc.ActualSite - 1) * vc.TaskPerSite).Take(vc.TaskPerSite);
+        }
+
+
+        public IEnumerable<Task> GetTasks()
+        {
+            return GetSectionFromList();
         }
 
         public bool Add(Task newTask)
@@ -213,5 +224,42 @@ namespace ToDo.Services.Zadania
             result = false;
         }
 
+
+        public ExportResponse Export(HttpRequestBase Request, HttpResponseBase Response, string ExportType, string OneSite)
+        {
+            if (Request.HttpMethod == "POST")
+            {
+                bool onlyOneSite;
+                try
+                {
+                    onlyOneSite = OneSite.Equals("on");
+                }
+                catch (NullReferenceException)
+                {
+                    onlyOneSite = false;
+                }
+
+                IEnumerable<Task> list = onlyOneSite
+                    ? GetSectionFromList()
+                    : GetWholeList();
+
+                Dictionary<string, IExport> exporters = new Dictionary<string, IExport> {
+                    { "TXT", new ExportTxt(Response, list) },
+                    { "XLS", new ExportXls(Response, list) },
+                    { "PDF", new ExportPdf(Response, list) }
+                };
+
+                IExport exporter = exporters[ExportType];
+
+                exporter.PrepareData(onlyOneSite);
+
+                exporter.Export();
+                
+                if (ExportType.Equals("PDF"))
+                    return new ExportResponse($"{exporter.GetName}.{exporter.Extension}", exporter.ContentType, (exporter as ExportPdf)._memory);
+            }
+
+            return new ExportResponse("Index");
+        }
     }
 }

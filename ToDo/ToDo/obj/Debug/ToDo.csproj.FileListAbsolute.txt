@@ -288,3 +288,6 @@ D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo\bin\WebCompiler.dll
 D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo\bin\HtmlAgilityPack.pdb
 D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo\bin\HtmlAgilityPack.xml
 D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo\bin\WebCompiler.pdb
+D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo\bin\itextsharp.dll
+D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo\bin\itextsharp.xmlworker.dll
+D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo\bin\itextsharp.xml

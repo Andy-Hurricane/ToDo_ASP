@@ -10,7 +10,7 @@ namespace ToDo.Services.Zadania
     public class SortList
     {
         public bool NormalSort { get; set; } = true;
-        public SortFilter ActualFilter { get; set; } = SortFilter.ID;
+        public SortFilter ActualFilter { get; set; } = SortFilter.PRIORITY;
         public IEnumerable<Task> actualList;
 
         private static SortList _Instance;

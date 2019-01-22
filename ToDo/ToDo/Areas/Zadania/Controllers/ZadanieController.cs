@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using ToDo.Areas.Zadania.Models;
 using ToDo.Areas.Zadania.ViewModel;
+using ToDo.Services.Export;
 using ToDo.Services.Zadania;
 
 namespace ToDo.Areas.Zadania.Controllers
@@ -39,6 +40,16 @@ namespace ToDo.Areas.Zadania.Controllers
         public ActionResult Exit()
         {
             return View();
+        }
+        public ActionResult List()
+        {
+            ViewConfig.GetInstance().SetListView();
+            return RedirectToAction("Index");
+        }
+        public ActionResult Tails()
+        {
+            ViewConfig.GetInstance().SetTailView();
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
@@ -147,5 +158,17 @@ namespace ToDo.Areas.Zadania.Controllers
             ViewConfig.GetInstance().ActualSite = id;
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public ActionResult Export(string ExportType, string OneSite)
+        {
+            ExportResponse respo = Service.Export(Request, Response, ExportType, OneSite);
+
+            if (respo.Type == ExportResponseType.FILE)
+                return File(respo.FileArray, respo.ContentType, respo.Name);
+            
+            return RedirectToAction(respo.Redirect);
+        }
+
     }
 }

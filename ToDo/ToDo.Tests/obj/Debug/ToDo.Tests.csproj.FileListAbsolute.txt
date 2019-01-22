@@ -148,3 +148,6 @@ D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo.Tests\bin\Debug\WebCompiler.dll
 D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo.Tests\bin\Debug\HtmlAgilityPack.pdb
 D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo.Tests\bin\Debug\HtmlAgilityPack.xml
 D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo.Tests\bin\Debug\WebCompiler.pdb
+D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo.Tests\bin\Debug\itextsharp.dll
+D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo.Tests\bin\Debug\itextsharp.xmlworker.dll
+D:\_repozytoria\Aseco\ToDo_ASP\ToDo\ToDo.Tests\bin\Debug\itextsharp.xml

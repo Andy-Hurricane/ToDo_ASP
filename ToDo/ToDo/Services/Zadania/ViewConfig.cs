@@ -52,6 +52,12 @@ namespace ToDo.Services.Zadania
 
         public int DescriptionTaskId { get; private set; }
         public int EditedTaskId { get; private set; }
+
+        public ViewType ActualViewType { get; private set; } = ViewType.LIST;
+
+        public void SetListView() { ActualViewType = ViewType.LIST; }
+        public void SetTailView() { ActualViewType = ViewType.TAIL; }
+
         /// <summary>
         /// Aktualna strona.
         /// </summary>

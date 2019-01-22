@@ -4,7 +4,10 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using System.Web;
+using System.Web.Mvc;
 using ToDo.Areas.Zadania.Models;
+using ToDo.Services.Export;
 
 namespace ToDo.Services.Zadania
 {
@@ -73,5 +76,8 @@ namespace ToDo.Services.Zadania
         /// <returns>Zwraca komunikat błędu, jaki wystąpił.</returns>
         [OperationContract]
         string GetError();
+
+        [OperationContract]
+        ExportResponse Export(HttpRequestBase Request, HttpResponseBase Response, string ExportType, string OneSite);
     }
 }

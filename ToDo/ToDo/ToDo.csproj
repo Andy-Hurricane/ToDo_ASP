@@ -66,6 +66,12 @@
     <Reference Include="HtmlAgilityPack, Version=1.4.9.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlAgilityPack.1.4.9\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp.xmlworker, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itextsharp.xmlworker.5.5.13\lib\itextsharp.xmlworker.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -267,6 +273,13 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Export\Exporter.cs" />
+    <Compile Include="Services\Export\ExportPdf.cs" />
+    <Compile Include="Services\Export\ExportResponseType.cs" />
+    <Compile Include="Services\Export\ExportTxt.cs" />
+    <Compile Include="Services\Export\ExportXls.cs" />
+    <Compile Include="Services\Export\IExport.cs" />
+    <Compile Include="Services\Export\ExportResponse.cs" />
     <Compile Include="Services\Validator\TaskException.cs" />
     <Compile Include="Services\Validator\ValidateTask.cs" />
     <Compile Include="Services\Zadania\Errors.cs" />
@@ -274,6 +287,7 @@
     <Compile Include="Services\Zadania\SortFilter.cs" />
     <Compile Include="Services\Zadania\SortList.cs" />
     <Compile Include="Services\Zadania\ViewConfig.cs" />
+    <Compile Include="Services\Zadania\ViewType.cs" />
     <Compile Include="Services\Zadania\ZadanieService.svc.cs">
       <DependentUpon>ZadanieService.svc</DependentUpon>
     </Compile>
@@ -289,6 +303,8 @@
     <Content Include="Areas\Zadania\Views\Shared\_ExceptionHandle.cshtml" />
     <Content Include="Areas\Zadania\Views\Shared\_DescriptionView.cshtml" />
     <Content Include="Areas\Zadania\Views\Shared\_ExportView.cshtml" />
+    <Content Include="Areas\Zadania\Views\Shared\_List.cshtml" />
+    <Content Include="Areas\Zadania\Views\Shared\_Tail.cshtml" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
