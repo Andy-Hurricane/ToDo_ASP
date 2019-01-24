@@ -3,51 +3,62 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using ToDo.Services.Zadania.SearchBar;
 
 namespace ToDo.Services.Zadania
 {
     [NotMapped]
     public class ViewConfig
     {
-        private static ViewConfig _Instance;
+        private static Dictionary<string, ViewConfig> _Instance = new Dictionary<string, ViewConfig>();
 
-        private ViewConfig() { }
+        private ViewConfig() {}
 
-        public static ViewConfig GetInstance()
+        public static ViewConfig GetInstance(string key)
         {
-            return (_Instance ?? (_Instance = new ViewConfig()));
+            if (!_Instance.ContainsKey(key))
+                _Instance.Add(key, new ViewConfig());
+
+            return _Instance[key];
         }
 
-        public static void ClearVisibleModal()
+        public static void ClearVisibleModal(string key)
         {
-            GetInstance().VisibleModal = String.Empty;
+            GetInstance(key).VisibleModal = String.Empty;
         }
 
-        public static void SetVisibleModal(string modalName)
+        public static void SetVisibleModal(string modalName, string key)
         {
-            GetInstance().VisibleModal = modalName;
+            GetInstance(key).VisibleModal = modalName;
         }
-        public static void SetDescriptionTaskId(int id)
+        public static void SetDescriptionTaskId(int id, string key)
         {
-            GetInstance().DescriptionTaskId = id;
+            GetInstance(key).DescriptionTaskId = id;
         }
-        public static void SetEditedTaskId(int id)
+        public static void SetEditedTaskId(int id, string key)
         {
-            GetInstance().EditedTaskId = id;
+            GetInstance(key).EditedTaskId = id;
         }
 
-        public SortFilter ActualSort {
-            get { return SortList.GetInstance().ActualFilter; }
+        public SortFilter ActualSort(string key) {
+            return SortList.GetInstance(key).ActualFilter;
         }
 
-        public bool NormalSort {
-            get { return SortList.GetInstance().NormalSort;  }
+        public bool NormalSort(string key) {
+            return SortList.GetInstance(key).NormalSort; 
         }
 
         private int maxMultiplier = 5;
         private int basePerSite = 10;
+        private int basePerSiteTile = 9;
 
-        public int BasePerSite { get { return basePerSite; } }
+        public int BasePerSite {
+            get {
+                return ActualViewType == ViewType.LIST
+                    ? basePerSite
+                    : basePerSiteTile;
+            }
+        }
         public int CountAllTasks { get; set; }
 
         public int DescriptionTaskId { get; private set; }
@@ -56,7 +67,11 @@ namespace ToDo.Services.Zadania
         public ViewType ActualViewType { get; private set; } = ViewType.LIST;
 
         public void SetListView() { ActualViewType = ViewType.LIST; }
-        public void SetTailView() { ActualViewType = ViewType.TAIL; }
+        public void SetTailView(string key) {
+            SortList.GetInstance(key).NormalSort = true;
+            SortList.GetInstance(key).ActualFilter = SortFilter.PRIORITY;
+            ActualViewType = ViewType.TAIL;
+        }
 
         /// <summary>
         /// Aktualna strona.
@@ -73,5 +88,8 @@ namespace ToDo.Services.Zadania
         public int MaxMultiplierPerSite { get { return maxMultiplier; } }
 
         public string VisibleModal { get; set; } = String.Empty;
+
+        public Content SearchBar { get; set; }
+        public bool HandleSearchBar { get; set; }
     }
 }

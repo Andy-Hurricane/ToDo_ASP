@@ -110,3 +110,22 @@ input:checked + .slider:before {
 
 .export-container > div {
   width: 130px; }
+
+.card {
+  border: 0.2rem solid rgba(32, 73, 107, 0.69);
+  border-radius: 3%;
+  padding: 1.3rem;
+  margin: 0.4rem;
+  background-color: rgba(50, 133, 202, 0.4); }
+  .card .row {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem; }
+  .card #priority {
+    color: blue; }
+  .card #status {
+    color: yellow; }
+  .card #topic, .card #action {
+    font-weight: bold; }
+  .card a {
+    margin-top: 1.2rem;
+    margin-bottom: 0.6rem; }

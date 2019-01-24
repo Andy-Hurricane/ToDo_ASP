@@ -54,6 +54,20 @@
         <h2>Napotkane trudności 5</h2>
         <p>
             Tak kombinuję i nie mogę wymyślić. Jeżeli chodzi o sortowanie: pobieramy kolekcję z bazy danych. Ona jest zawsze taka sama (taka sama kolejność). Mogę nadawać sortowanie za każdym razem - wtedy nie będzie działać przesuwanie 'góra'/'dół'. Mogę trzymać instancję listy w pamięci - wtedy 'przy wymaganych sytuacjach' ta lista jest wczytywana na nowo (np. gdy zostanie dodany/usunięty element). Tylko wtedy 'przesuwane' elementy też się posortują. Czy można to jakoś zrobić sensowniej? <span style="text-decoration: line-through;">Tymczasowo lista jest statyczna (nie powinno się tak robić, wiem, ale zrobiłem to tymczasowo, żeby pójść dalej).</span> Przerobiłem to na singletona.
-</p>
+        </p>
+    </div>
+    <div class="col-md-4">
+        <h2>Informacja ogólna</h2>
+        <p>
+            Zdaję sobie sprawę z tego, że powinna być niekiedy większa hermetyzacja danych, ale niestety - ograniczenia czasowe nie do końca pozwalają mi na dokładne rozpisanie sobie tego zadania. No i czasami wiem, że są lepsze rozwiązania, ale bardziej chciałem się pobawić "własnymi" pomysłami, tak jak przerobienie singletona, na - nie wiem nawet, czy coś takiego istnieje - multitona, który za pomocą id pobiera odpowiednią instancję singletona (obstawiam, że taki "multiton" obciąża serwer; optymalniej byłoby rzeczywiście trzymać w sesji, cookies, albo nawet w bazie danych konfigurację). Klucz jest przetrzymywany w sesji. Czy takie rozwiązanie będzie problematyczne w związku z asynchronicznością? (po zaimplementowaniu widzę, że to brzydkie rozwiązanie, jeśli chodzi o kod; chyba, że można lepiej rozwiązać takiego multitona). Równie dobrze mógłbym w sesji trzymać widok i listę, ale chciałem przetestować sobie takie, a nie inne rozwiązanie. I w sumie nasuwa mi się pytanie - czy z poziomu Razora można wpływać na instancję modelu? Bo tak czytałem ostatnio o SPA, wówczas możnaby się pobawić w taką namiastkę SPA wykorzystując Razora.
+        </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h2>Dodatkowa informacja 4</h2>
+        <p>
+            Postaram się jeszcze do soboty porobić testy jednostkowe, żeby wykorzystać tam moq'a, ale niestety, nie mogę obiecać, że się wyrobię z tym. Na chwilę obecną - tyle zrobiłem. Też commity ostatnio były nie do końca 'należyte' (presja czasu), ale zrobiłem tyle, ile mi się udało.
+        </p>
     </div>
 </div>

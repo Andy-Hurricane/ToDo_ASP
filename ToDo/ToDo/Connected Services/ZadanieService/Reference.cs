@@ -68,6 +68,154 @@ namespace ToDo.ZadanieService {
         TOPIC = 6,
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CodePageDataItem", Namespace="http://schemas.datacontract.org/2004/07/System.Globalization")]
+    [System.SerializableAttribute()]
+    public partial class CodePageDataItem : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        private string m_bodyNameField;
+        
+        private int m_dataIndexField;
+        
+        private uint m_flagsField;
+        
+        private string m_headerNameField;
+        
+        private int m_uiFamilyCodePageField;
+        
+        private string m_webNameField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public string m_bodyName {
+            get {
+                return this.m_bodyNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.m_bodyNameField, value) != true)) {
+                    this.m_bodyNameField = value;
+                    this.RaisePropertyChanged("m_bodyName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public int m_dataIndex {
+            get {
+                return this.m_dataIndexField;
+            }
+            set {
+                if ((this.m_dataIndexField.Equals(value) != true)) {
+                    this.m_dataIndexField = value;
+                    this.RaisePropertyChanged("m_dataIndex");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public uint m_flags {
+            get {
+                return this.m_flagsField;
+            }
+            set {
+                if ((this.m_flagsField.Equals(value) != true)) {
+                    this.m_flagsField = value;
+                    this.RaisePropertyChanged("m_flags");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public string m_headerName {
+            get {
+                return this.m_headerNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.m_headerNameField, value) != true)) {
+                    this.m_headerNameField = value;
+                    this.RaisePropertyChanged("m_headerName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public int m_uiFamilyCodePage {
+            get {
+                return this.m_uiFamilyCodePageField;
+            }
+            set {
+                if ((this.m_uiFamilyCodePageField.Equals(value) != true)) {
+                    this.m_uiFamilyCodePageField = value;
+                    this.RaisePropertyChanged("m_uiFamilyCodePage");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public string m_webName {
+            get {
+                return this.m_webNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.m_webNameField, value) != true)) {
+                    this.m_webNameField = value;
+                    this.RaisePropertyChanged("m_webName");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ExportResponse", Namespace="http://schemas.datacontract.org/2004/07/ToDo.Services.Export")]
+    [System.SerializableAttribute()]
+    public partial class ExportResponse : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ZadanieService.IZadanieService")]
     public interface IZadanieService {
@@ -119,6 +267,43 @@ namespace ToDo.ZadanieService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IZadanieService/GetError", ReplyAction="http://tempuri.org/IZadanieService/GetErrorResponse")]
         System.Threading.Tasks.Task<string> GetErrorAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IZadanieService/Export", ReplyAction="http://tempuri.org/IZadanieService/ExportResponse")]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Web.Configuration.AsyncPreloadModeFlags))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Text.Encoding))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Text.DecoderFallback))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Text.EncoderFallback))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.MarshalByRefObject))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Exception[]))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Exception))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ToDo.ZadanieService.Task[]))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ToDo.ZadanieService.Task))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(string[]))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.Dictionary<object, object>))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.Dictionary<string, object>))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(char[]))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ToDo.ZadanieService.CodePageDataItem))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.IO.Stream))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.IO.TextWriter))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Web.Routing.RouteData))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Web.Routing.RouteBase))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ToDo.ZadanieService.ExportResponse))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Web.HttpResponseBase))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(ToDo.ZadanieService.SortFilter))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Web.HttpApplication))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Web.HttpContextBase))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Web.Routing.RequestContext))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Web.HttpRequestBase))]
+        ToDo.ZadanieService.ExportResponse Export(System.Web.HttpRequestBase Request, System.Web.HttpResponseBase Response, string ExportType, string OneSite, string key);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IZadanieService/Export", ReplyAction="http://tempuri.org/IZadanieService/ExportResponse")]
+        System.Threading.Tasks.Task<ToDo.ZadanieService.ExportResponse> ExportAsync(System.Web.HttpRequestBase Request, System.Web.HttpResponseBase Response, string ExportType, string OneSite, string key);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IZadanieService/SetInstances", ReplyAction="http://tempuri.org/IZadanieService/SetInstancesResponse")]
+        void SetInstances(string key);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IZadanieService/SetInstances", ReplyAction="http://tempuri.org/IZadanieService/SetInstancesResponse")]
+        System.Threading.Tasks.Task SetInstancesAsync(string key);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -210,6 +395,22 @@ namespace ToDo.ZadanieService {
         
         public System.Threading.Tasks.Task<string> GetErrorAsync() {
             return base.Channel.GetErrorAsync();
+        }
+        
+        public ToDo.ZadanieService.ExportResponse Export(System.Web.HttpRequestBase Request, System.Web.HttpResponseBase Response, string ExportType, string OneSite, string key) {
+            return base.Channel.Export(Request, Response, ExportType, OneSite, key);
+        }
+        
+        public System.Threading.Tasks.Task<ToDo.ZadanieService.ExportResponse> ExportAsync(System.Web.HttpRequestBase Request, System.Web.HttpResponseBase Response, string ExportType, string OneSite, string key) {
+            return base.Channel.ExportAsync(Request, Response, ExportType, OneSite, key);
+        }
+        
+        public void SetInstances(string key) {
+            base.Channel.SetInstances(key);
+        }
+        
+        public System.Threading.Tasks.Task SetInstancesAsync(string key) {
+            return base.Channel.SetInstancesAsync(key);
         }
     }
 }

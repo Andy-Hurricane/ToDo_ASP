@@ -20,6 +20,8 @@
 
 @{Html.RenderPartial("~/Areas/Zadania/Views/Shared/_PanelView.cshtml");}
 
+@{ Html.RenderPartial("~/Areas/Zadania/Views/Shared/_SearchBar.cshtml", Model.ViewConfig.SearchBar); }
+
 @if (Model.ViewConfig.ActualViewType == ToDo.Services.Zadania.ViewType.LIST)
 {
     Html.RenderPartial("~/Areas/Zadania/Views/Shared/_List.cshtml", Model);
@@ -144,10 +146,6 @@ else
         const value = $('#viewPerSite').val();
 
         location.href = `@Url.Action("ChangeTasksPerSite", "Zadanie")/${value}`;
-    }
-
-    const Description = function (id) {
-        location.href = `@Url.Action("Description", "Zadanie")/${id}`;
     }
 
     const Select = function () {

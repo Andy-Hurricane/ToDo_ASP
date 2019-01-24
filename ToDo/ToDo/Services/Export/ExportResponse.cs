@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Web;
 
 namespace ToDo.Services.Export
 {
+    [DataContract]
     public class ExportResponse
     {
         public ExportResponseType Type { get; private set; }

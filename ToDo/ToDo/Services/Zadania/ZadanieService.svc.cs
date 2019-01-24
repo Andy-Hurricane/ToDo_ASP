@@ -22,13 +22,19 @@ namespace ToDo.Services.Zadania
         private string Error { get; set; }
 
         private SortList SortedList;
+        private ViewConfig vc;
 
         public ZadanieService()
         {
             Context = new ApplicationDbContext();
-            SortedList = SortList.GetInstance();
+        }
 
-            if (SortedList.actualList == null) 
+        public void SetInstances(string key)
+        {
+            SortedList = SortList.GetInstance(key);
+            vc = ViewConfig.GetInstance(key);
+
+            if (SortedList.actualList == null)
                 SortedList.actualList = Context.Tasks.ToList();
         }
 
@@ -44,9 +50,9 @@ namespace ToDo.Services.Zadania
 
         private IEnumerable<Task> GetSectionFromList()
         {
-            ViewConfig vc = ViewConfig.GetInstance();
+            IEnumerable<Task> list = vc.SearchBar.Filter(SortedList.actualList);
             vc.CountAllTasks = SortedList.actualList.Count();
-            return SortedList.actualList.Skip((vc.ActualSite - 1) * vc.TaskPerSite).Take(vc.TaskPerSite);
+            return list.Skip((vc.ActualSite - 1) * vc.TaskPerSite).Take(vc.TaskPerSite);
         }
 
 
@@ -61,7 +67,7 @@ namespace ToDo.Services.Zadania
 
             try
             {
-                ValidateTask.GetInstance().ValidateWithID(newTask, GetTasks());
+                ValidateTask.GetInstance().ValidateWithID(newTask, GetWholeList());
 
                 Context.Tasks.Add(newTask);
 
@@ -225,7 +231,7 @@ namespace ToDo.Services.Zadania
         }
 
 
-        public ExportResponse Export(HttpRequestBase Request, HttpResponseBase Response, string ExportType, string OneSite)
+        public ExportResponse Export(HttpRequestBase Request, HttpResponseBase Response, string ExportType, string OneSite, string key)
         {
             if (Request.HttpMethod == "POST")
             {
@@ -244,9 +250,9 @@ namespace ToDo.Services.Zadania
                     : GetWholeList();
 
                 Dictionary<string, IExport> exporters = new Dictionary<string, IExport> {
-                    { "TXT", new ExportTxt(Response, list) },
-                    { "XLS", new ExportXls(Response, list) },
-                    { "PDF", new ExportPdf(Response, list) }
+                    { "TXT", new ExportTxt(Response, list, key) },
+                    { "XLS", new ExportXls(Response, list, key) },
+                    { "PDF", new ExportPdf(Response, list, key) }
                 };
 
                 IExport exporter = exporters[ExportType];

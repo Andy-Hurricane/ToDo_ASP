@@ -78,6 +78,9 @@ namespace ToDo.Services.Zadania
         string GetError();
 
         [OperationContract]
-        ExportResponse Export(HttpRequestBase Request, HttpResponseBase Response, string ExportType, string OneSite);
+        ExportResponse Export(HttpRequestBase Request, HttpResponseBase Response, string ExportType, string OneSite, string key);
+
+        [OperationContract]
+        void SetInstances(string key);
     }
 }

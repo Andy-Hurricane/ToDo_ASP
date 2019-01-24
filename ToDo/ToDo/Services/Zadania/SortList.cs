@@ -13,7 +13,7 @@ namespace ToDo.Services.Zadania
         public SortFilter ActualFilter { get; set; } = SortFilter.PRIORITY;
         public IEnumerable<Task> actualList;
 
-        private static SortList _Instance;
+        private static Dictionary<string, SortList> _Instance = new Dictionary<string, SortList>();
         private Dictionary<SortFilter, Action> sorterFunctions;
         private IEnumerable<Task> List;
 
@@ -29,9 +29,12 @@ namespace ToDo.Services.Zadania
             };
         }
 
-        public static SortList GetInstance()
+        public static SortList GetInstance(string key)
         {
-            return _Instance ?? (_Instance = new SortList());
+            if (!_Instance.ContainsKey(key))
+                _Instance.Add(key, new SortList());
+
+            return _Instance[key];
         }
 
         public void Sort(SortFilter By, IEnumerable<Task> list)

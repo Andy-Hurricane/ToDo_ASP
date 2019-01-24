@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ZadanieService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ZadanieService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/ToDo.Areas.Zadania.Models" />
       <xsd:import schemaLocation="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/ToDo.Services.Zadania" />
+      <xsd:import schemaLocation="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/System.Web" />
+      <xsd:import schemaLocation="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd5" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/System.Text" />
+      <xsd:import schemaLocation="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/System.Globalization" />
+      <xsd:import schemaLocation="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/System.IO" />
+      <xsd:import schemaLocation="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/System" />
+      <xsd:import schemaLocation="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/System.Web.Routing" />
+      <xsd:import schemaLocation="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd11" namespace="http://schemas.datacontract.org/2004/07/System.Web.Configuration" />
+      <xsd:import schemaLocation="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd12" namespace="http://schemas.datacontract.org/2004/07/ToDo.Services.Export" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IZadanieService_GetTasks_InputMessage">
@@ -56,6 +65,18 @@
   <wsdl:message name="IZadanieService_GetError_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetErrorResponse" />
   </wsdl:message>
+  <wsdl:message name="IZadanieService_Export_InputMessage">
+    <wsdl:part name="parameters" element="tns:Export" />
+  </wsdl:message>
+  <wsdl:message name="IZadanieService_Export_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ExportResponse" />
+  </wsdl:message>
+  <wsdl:message name="IZadanieService_SetInstances_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetInstances" />
+  </wsdl:message>
+  <wsdl:message name="IZadanieService_SetInstances_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetInstancesResponse" />
+  </wsdl:message>
   <wsdl:portType name="IZadanieService">
     <wsdl:operation name="GetTasks">
       <wsdl:input wsaw:Action="http://tempuri.org/IZadanieService/GetTasks" message="tns:IZadanieService_GetTasks_InputMessage" />
@@ -88,6 +109,14 @@
     <wsdl:operation name="GetError">
       <wsdl:input wsaw:Action="http://tempuri.org/IZadanieService/GetError" message="tns:IZadanieService_GetError_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IZadanieService/GetErrorResponse" message="tns:IZadanieService_GetError_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Export">
+      <wsdl:input wsaw:Action="http://tempuri.org/IZadanieService/Export" message="tns:IZadanieService_Export_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IZadanieService/ExportResponse" message="tns:IZadanieService_Export_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetInstances">
+      <wsdl:input wsaw:Action="http://tempuri.org/IZadanieService/SetInstances" message="tns:IZadanieService_SetInstances_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IZadanieService/SetInstancesResponse" message="tns:IZadanieService_SetInstances_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IZadanieService" type="tns:IZadanieService">
@@ -157,6 +186,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetError">
       <soap:operation soapAction="http://tempuri.org/IZadanieService/GetError" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Export">
+      <soap:operation soapAction="http://tempuri.org/IZadanieService/Export" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetInstances">
+      <soap:operation soapAction="http://tempuri.org/IZadanieService/SetInstances" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

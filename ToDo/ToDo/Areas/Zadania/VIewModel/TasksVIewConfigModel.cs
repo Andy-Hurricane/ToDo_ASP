@@ -15,62 +15,77 @@ namespace ToDo.Areas.Zadania.ViewModel
         public string Exception { get; set; }
 
 
-        public static TasksViewConfigModel PrepareForException(IZadanieService Service, ExceptionContext exception)
+        public static TasksViewConfigModel PrepareForException(IZadanieService Service, ExceptionContext exception, string key)
         {
+            CheckSearchBar(key);
             return new TasksViewConfigModel
             {
                 Tasks = Service.GetTasks(),
-                ViewConfig = ViewConfig.GetInstance(),
+                ViewConfig = ViewConfig.GetInstance(key),
                 Exception = exception.Exception.Message
             };
         }
 
-        public static TasksViewConfigModel PrepareForIndex(IZadanieService Service)
+        public static TasksViewConfigModel PrepareForIndex(IZadanieService Service, string key)
         {
+            CheckSearchBar(key);
             return new TasksViewConfigModel
             {
                 Tasks = Service.GetTasks(),
-                ViewConfig = ViewConfig.GetInstance(),
+                ViewConfig = ViewConfig.GetInstance(key),
                 Exception = String.Empty
             };
         }
 
-        public static TasksViewConfigModel PrepareForDescription(IZadanieService Service, int id)
+        public static TasksViewConfigModel PrepareForDescription(IZadanieService Service, int id, string key)
         {
+            CheckSearchBar(key);
             IEnumerable<Task> list = Service.GetTasks();
             bool isInList = (list.FirstOrDefault(t => t.Id == id) != null);
 
-            ViewConfig.SetDescriptionTaskId(id);
+            ViewConfig.SetDescriptionTaskId(id, key);
             ViewConfig.SetVisibleModal( isInList 
                 ? "Description"
-                : String.Empty
+                : String.Empty,
+                key
             );
 
             return new TasksViewConfigModel
             {
                 Tasks = Service.GetTasks(),
-                ViewConfig = ViewConfig.GetInstance(),
+                ViewConfig = ViewConfig.GetInstance(key),
                 Exception = isInList ? String.Empty : "Brak takiego zadania."
             };
         }
 
-        public static TasksViewConfigModel PrepareForEdit(IZadanieService Service, int id)
+        public static TasksViewConfigModel PrepareForEdit(IZadanieService Service, int id, string key)
         {
+            CheckSearchBar(key);
             IEnumerable<Task> list = Service.GetTasks();
             bool isInList = (list.FirstOrDefault(t => t.Id == id) != null);
 
-            ViewConfig.SetEditedTaskId(id);
+            ViewConfig.SetEditedTaskId(id, key);
             ViewConfig.SetVisibleModal(isInList
                 ? "Edit"
-                : String.Empty
+                : String.Empty,
+                key
             );
 
             return new TasksViewConfigModel
             {
                 Tasks = Service.GetTasks(),
-                ViewConfig = ViewConfig.GetInstance(),
+                ViewConfig = ViewConfig.GetInstance(key),
                 Exception = isInList ? String.Empty : "Brak takiego zadania."
             };
+        }
+        
+        private static void CheckSearchBar(string key)
+        {
+            ViewConfig vc = ViewConfig.GetInstance(key);
+            if (vc.HandleSearchBar)
+                vc.HandleSearchBar = false;
+            else
+                vc.SearchBar = new Services.Zadania.SearchBar.Content();
         }
     }
 

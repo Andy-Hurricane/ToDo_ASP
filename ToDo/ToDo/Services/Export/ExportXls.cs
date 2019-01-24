@@ -9,7 +9,7 @@ namespace ToDo.Services.Export
 {
     public class ExportXls : Exporter
     {
-        public ExportXls(HttpResponseBase response, IEnumerable<Task> list) : base(response, list) { }
+        public ExportXls(HttpResponseBase response, IEnumerable<Task> list, string key) : base(response, list, key) { }
 
         protected override void Prepare(bool actualSite)
         {

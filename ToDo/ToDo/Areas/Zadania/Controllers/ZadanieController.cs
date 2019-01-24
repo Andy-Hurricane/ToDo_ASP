@@ -7,6 +7,7 @@ using ToDo.Areas.Zadania.Models;
 using ToDo.Areas.Zadania.ViewModel;
 using ToDo.Services.Export;
 using ToDo.Services.Zadania;
+using ToDo.Services.Zadania.SearchBar;
 
 namespace ToDo.Areas.Zadania.Controllers
 {
@@ -18,11 +19,12 @@ namespace ToDo.Areas.Zadania.Controllers
         public ZadanieController(IZadanieService service)
         {
             Service = service;
+            service.SetInstances(GetKey());
         }
 
         protected override void OnException(ExceptionContext filterContext)
         {
-            var ModelView = TasksViewConfigModel.PrepareForException(Service, filterContext);
+            var ModelView = TasksViewConfigModel.PrepareForException(Service, filterContext, GetKey());
             filterContext.Result = View("Index", ModelView);
             filterContext.ExceptionHandled = true;
         }
@@ -30,9 +32,9 @@ namespace ToDo.Areas.Zadania.Controllers
         // GET: Zadania/Zadanie
         public ActionResult Index()
         {
-            ViewConfig.ClearVisibleModal();
+            ViewConfig.ClearVisibleModal(GetKey());
 
-            var ViewModel = TasksViewConfigModel.PrepareForIndex(Service);
+            var ViewModel = TasksViewConfigModel.PrepareForIndex(Service, GetKey());
 
             return View(ViewModel);
         }
@@ -43,12 +45,12 @@ namespace ToDo.Areas.Zadania.Controllers
         }
         public ActionResult List()
         {
-            ViewConfig.GetInstance().SetListView();
+            ViewConfig.GetInstance(GetKey()).SetListView();
             return RedirectToAction("Index");
         }
         public ActionResult Tails()
         {
-            ViewConfig.GetInstance().SetTailView();
+            ViewConfig.GetInstance(GetKey()).SetTailView(GetKey());
             return RedirectToAction("Index");
         }
 
@@ -60,7 +62,7 @@ namespace ToDo.Areas.Zadania.Controllers
             ViewConfig.SetVisibleModal( isAdd 
                 ? "Add"
                 : "Edit"
-            );
+            , GetKey());
 
             if (ModelState.IsValid)
             {
@@ -70,7 +72,7 @@ namespace ToDo.Areas.Zadania.Controllers
 
                 if (doIt(task))
                 {
-                    ViewConfig.ClearVisibleModal();
+                    ViewConfig.ClearVisibleModal(GetKey());
                     if (isAdd)
                         Service.Sort(SortFilter.NULL);
                     return RedirectToAction("Index");
@@ -79,7 +81,7 @@ namespace ToDo.Areas.Zadania.Controllers
             }
 
 
-            var ViewModel = TasksViewConfigModel.PrepareForIndex(Service);
+            var ViewModel = TasksViewConfigModel.PrepareForIndex(Service, GetKey());
             
             return View("Index", ViewModel);
         }
@@ -93,14 +95,14 @@ namespace ToDo.Areas.Zadania.Controllers
 
         public ActionResult Description(int id)
         {
-            var ViewModel = TasksViewConfigModel.PrepareForDescription(Service, id);
+            var ViewModel = TasksViewConfigModel.PrepareForDescription(Service, id, GetKey());
 
             return View("Index", ViewModel);
         }
 
         public ActionResult Edit(int id)
         {
-            var ViewModel = TasksViewConfigModel.PrepareForEdit(Service, id);
+            var ViewModel = TasksViewConfigModel.PrepareForEdit(Service, id, GetKey());
 
             return View("Index", ViewModel);
         }
@@ -149,20 +151,28 @@ namespace ToDo.Areas.Zadania.Controllers
 
         public ActionResult ChangeTasksPerSite(int id)
         {
-            ViewConfig.GetInstance().MultiplierTaskPerSite = id;
+            ViewConfig.GetInstance(GetKey()).MultiplierTaskPerSite = id;
             return RedirectToAction("Index");
         }
 
         public ActionResult ChangeActualSite(int id)
         {
-            ViewConfig.GetInstance().ActualSite = id;
+            ViewConfig.GetInstance(GetKey()).ActualSite = id;
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult Search(Content content)
+        {
+            ViewConfig.GetInstance(GetKey()).SearchBar = content;
+            ViewConfig.GetInstance(GetKey()).HandleSearchBar = true;
             return RedirectToAction("Index");
         }
 
         [HttpPost]
         public ActionResult Export(string ExportType, string OneSite)
         {
-            ExportResponse respo = Service.Export(Request, Response, ExportType, OneSite);
+            ExportResponse respo = Service.Export(Request, Response, ExportType, OneSite, GetKey());
 
             if (respo.Type == ExportResponseType.FILE)
                 return File(respo.FileArray, respo.ContentType, respo.Name);
@@ -170,5 +180,12 @@ namespace ToDo.Areas.Zadania.Controllers
             return RedirectToAction(respo.Redirect);
         }
 
+        private string GetKey()
+        {
+            if (System.Web.HttpContext.Current.Session["key"] == null)
+                System.Web.HttpContext.Current.Session["key"] = Guid.NewGuid().ToString();
+
+            return System.Web.HttpContext.Current.Session["key"].ToString();
+        }
     }
 }

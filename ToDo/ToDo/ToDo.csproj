@@ -284,6 +284,9 @@
     <Compile Include="Services\Validator\ValidateTask.cs" />
     <Compile Include="Services\Zadania\Errors.cs" />
     <Compile Include="Services\Zadania\IZadanieService.cs" />
+    <Compile Include="Services\Zadania\SearchBar\DataSearch.cs" />
+    <Compile Include="Services\Zadania\SearchBar\NumbersSearch.cs" />
+    <Compile Include="Services\Zadania\SearchBar\Content.cs" />
     <Compile Include="Services\Zadania\SortFilter.cs" />
     <Compile Include="Services\Zadania\SortList.cs" />
     <Compile Include="Services\Zadania\ViewConfig.cs" />
@@ -305,6 +308,7 @@
     <Content Include="Areas\Zadania\Views\Shared\_ExportView.cshtml" />
     <Content Include="Areas\Zadania\Views\Shared\_List.cshtml" />
     <Content Include="Areas\Zadania\Views\Shared\_Tail.cshtml" />
+    <Content Include="Areas\Zadania\Views\Shared\_SearchBar.cshtml" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -315,12 +319,42 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <Content Include="Connected Services\ZadanieService\ToDo.ZadanieService.ExportResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
     <None Include="Connected Services\ZadanieService\ZadanieService.disco" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <None Include="Connected Services\ZadanieService\ZadanieService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ZadanieService\ZadanieService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ZadanieService\ZadanieService41.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ZadanieService\ZadanieService42.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ZadanieService\ZadanieService43.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ZadanieService\ZadanieService44.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ZadanieService\ZadanieService45.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ZadanieService\ZadanieService46.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ZadanieService\ZadanieService47.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ZadanieService\ZadanieService48.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Content\CSS\main.scss" />

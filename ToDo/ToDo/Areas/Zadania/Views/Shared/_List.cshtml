@@ -4,8 +4,9 @@
 @using ToDo.Services.Zadania
 
 @{
+    string sessionKey = Session["key"].ToString();
     Task nameModel = null;
- 
+
     @helper OrderArrow(SortFilter main, SortFilter actual, bool reverse)
     {
         if (main == actual)
@@ -31,23 +32,23 @@
             <td scope="col">@Html.DisplayNameFor(n => nameModel.Action)</td>
             <td scope="col">
                 @Html.ActionLink(@Html.DisplayNameFor(n => nameModel.Topic).ToString(), "SortByTopic")
-                @OrderArrow(Model.ViewConfig.ActualSort, SortFilter.TOPIC, Model.ViewConfig.NormalSort)
+                @OrderArrow(Model.ViewConfig.ActualSort(sessionKey), SortFilter.TOPIC, Model.ViewConfig.NormalSort(sessionKey))
             </td>
             <td scope="col">
                 @Html.ActionLink(@Html.DisplayNameFor(n => nameModel.Start).ToString(), "SortByStart")
-                @OrderArrow(Model.ViewConfig.ActualSort, SortFilter.START, Model.ViewConfig.NormalSort)
+                @OrderArrow(Model.ViewConfig.ActualSort(sessionKey), SortFilter.START, Model.ViewConfig.NormalSort(sessionKey))
             </td>
             <td scope="col">
                 @Html.ActionLink(@Html.DisplayNameFor(n => nameModel.End).ToString(), "SortByEnd")
-                @OrderArrow(Model.ViewConfig.ActualSort, SortFilter.END, Model.ViewConfig.NormalSort)
+                @OrderArrow(Model.ViewConfig.ActualSort(sessionKey), SortFilter.END, Model.ViewConfig.NormalSort(sessionKey))
             </td>
             <td scope="col">
                 @Html.ActionLink(@Html.DisplayNameFor(n => nameModel.Status).ToString(), "SortByStatus")
-                @OrderArrow(Model.ViewConfig.ActualSort, SortFilter.STATUS, Model.ViewConfig.NormalSort)
+                @OrderArrow(Model.ViewConfig.ActualSort(sessionKey), SortFilter.STATUS, Model.ViewConfig.NormalSort(sessionKey))
             </td>
             <td scope="col">
                 @Html.ActionLink(@Html.DisplayNameFor(n => nameModel.Priority).ToString(), "SortByPriority")
-                @OrderArrow(Model.ViewConfig.ActualSort, SortFilter.PRIORITY, Model.ViewConfig.NormalSort)
+                @OrderArrow(Model.ViewConfig.ActualSort(sessionKey), SortFilter.PRIORITY, Model.ViewConfig.NormalSort(sessionKey))
             </td>
             <td scope="col">@Html.DisplayNameFor(n => nameModel.Progress)</td>
             <td scope="col"></td>

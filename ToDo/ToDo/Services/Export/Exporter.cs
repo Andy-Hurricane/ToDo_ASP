@@ -17,11 +17,11 @@ namespace ToDo.Services.Export
         protected IEnumerable<Task> _tasks;
         public MemoryStream _memory { get; protected set; }
 
-        public Exporter(HttpResponseBase response, IEnumerable<Task> list)
+        public Exporter(HttpResponseBase response, IEnumerable<Task> list, string key)
         {
             _response = response;
             _result = "";
-            _viewConfig = ViewConfig.GetInstance();
+            _viewConfig = ViewConfig.GetInstance(key);
             _tasks = list;
         }
 

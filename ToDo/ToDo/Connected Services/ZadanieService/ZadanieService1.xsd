@@ -2,6 +2,8 @@
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/ToDo.Areas.Zadania.Models" />
   <xs:import schemaLocation="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/ToDo.Services.Zadania" />
+  <xs:import schemaLocation="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/System.Web" />
+  <xs:import schemaLocation="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd12" namespace="http://schemas.datacontract.org/2004/07/ToDo.Services.Export" />
   <xs:element name="GetTasks">
     <xs:complexType>
       <xs:sequence />
@@ -106,6 +108,36 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="GetErrorResult" nillable="true" type="xs:string" />
       </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Export">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/System.Web" minOccurs="0" name="Request" nillable="true" type="q5:HttpRequestBase" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/System.Web" minOccurs="0" name="Response" nillable="true" type="q6:HttpResponseBase" />
+        <xs:element minOccurs="0" name="ExportType" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="OneSite" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="key" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ExportResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/ToDo.Services.Export" minOccurs="0" name="ExportResult" nillable="true" type="q7:ExportResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetInstances">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="key" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetInstancesResponse">
+    <xs:complexType>
+      <xs:sequence />
     </xs:complexType>
   </xs:element>
 </xs:schema>

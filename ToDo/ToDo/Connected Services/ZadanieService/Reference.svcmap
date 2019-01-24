@@ -22,12 +22,21 @@
     <MetadataSource Address="http://localhost:52119/Services/Zadania/ZadanieService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="ZadanieService.wsdl" MetadataType="Wsdl" ID="9faa0256-7c27-4a32-ab66-ed975b36edc3" SourceId="1" SourceUrl="http://localhost:52119/Services/Zadania/ZadanieService.svc?wsdl" />
-    <MetadataFile FileName="ZadanieService.xsd" MetadataType="Schema" ID="72249429-9040-40ee-85fa-b53591c500e9" SourceId="1" SourceUrl="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd1" />
+    <MetadataFile FileName="ZadanieService4.xsd" MetadataType="Schema" ID="1cfd3bd4-2d7e-4626-8964-8d3a6b4ceb69" SourceId="1" SourceUrl="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd11" />
+    <MetadataFile FileName="ZadanieService41.xsd" MetadataType="Schema" ID="a9fe605a-3b52-431e-bce3-cb3a6c7db042" SourceId="1" SourceUrl="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd6" />
     <MetadataFile FileName="ZadanieService1.xsd" MetadataType="Schema" ID="1b60995a-1de0-492d-83b4-05d676ec27e7" SourceId="1" SourceUrl="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd0" />
-    <MetadataFile FileName="ZadanieService.disco" MetadataType="Disco" ID="842fdc98-f199-4105-8a25-2521f18b7ce5" SourceId="1" SourceUrl="http://localhost:52119/Services/Zadania/ZadanieService.svc?disco" />
-    <MetadataFile FileName="ZadanieService3.xsd" MetadataType="Schema" ID="63c11556-02cb-4539-8745-96e46a3701ab" SourceId="1" SourceUrl="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd3" />
+    <MetadataFile FileName="ZadanieService42.xsd" MetadataType="Schema" ID="d31f216a-3cd8-4a7b-9567-c14a7ccfeacf" SourceId="1" SourceUrl="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd9" />
     <MetadataFile FileName="ZadanieService2.xsd" MetadataType="Schema" ID="2ed333aa-5400-46ed-be44-97358d298321" SourceId="1" SourceUrl="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd2" />
+    <MetadataFile FileName="ZadanieService43.xsd" MetadataType="Schema" ID="13364609-ab9e-4be6-8a51-13425bb372e2" SourceId="1" SourceUrl="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd5" />
+    <MetadataFile FileName="ZadanieService44.xsd" MetadataType="Schema" ID="2e90eac3-0a86-4ab6-8eff-8b542b534420" SourceId="1" SourceUrl="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd7" />
+    <MetadataFile FileName="ZadanieService.wsdl" MetadataType="Wsdl" ID="9faa0256-7c27-4a32-ab66-ed975b36edc3" SourceId="1" SourceUrl="http://localhost:52119/Services/Zadania/ZadanieService.svc?wsdl" />
+    <MetadataFile FileName="ZadanieService.disco" MetadataType="Disco" ID="842fdc98-f199-4105-8a25-2521f18b7ce5" SourceId="1" SourceUrl="http://localhost:52119/Services/Zadania/ZadanieService.svc?disco" />
+    <MetadataFile FileName="ZadanieService45.xsd" MetadataType="Schema" ID="3a1887fe-2c5a-4e2b-89a3-0f16888588ac" SourceId="1" SourceUrl="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd8" />
+    <MetadataFile FileName="ZadanieService.xsd" MetadataType="Schema" ID="72249429-9040-40ee-85fa-b53591c500e9" SourceId="1" SourceUrl="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd1" />
+    <MetadataFile FileName="ZadanieService46.xsd" MetadataType="Schema" ID="69d47779-bc92-45d2-9d62-1e09b18b22d5" SourceId="1" SourceUrl="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd10" />
+    <MetadataFile FileName="ZadanieService47.xsd" MetadataType="Schema" ID="c315334b-7bc7-45c4-8631-f494926904ed" SourceId="1" SourceUrl="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd12" />
+    <MetadataFile FileName="ZadanieService48.xsd" MetadataType="Schema" ID="a7e009a9-7d70-4bed-b998-4d496f489bc1" SourceId="1" SourceUrl="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd4" />
+    <MetadataFile FileName="ZadanieService3.xsd" MetadataType="Schema" ID="63c11556-02cb-4539-8745-96e46a3701ab" SourceId="1" SourceUrl="http://localhost:52119/Services/Zadania/ZadanieService.svc?xsd=xsd3" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
