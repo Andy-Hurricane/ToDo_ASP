@@ -21,14 +21,7 @@ namespace ToDo.Services.Zadania
         /// <returns>Zwraca wszystkie zadania.</returns>
         [OperationContract]
         IEnumerable<Task> GetTasks();
-
-        /// <summary>
-        /// Sortuje listę danych.
-        /// </summary>
-        /// <param name="By">Filtr sortowania.</param>
-        [OperationContract]
-        void Sort(SortFilter By);
-
+        
         /// <summary>
         /// Dodaj zadanie.
         /// </summary>
@@ -55,32 +48,11 @@ namespace ToDo.Services.Zadania
         bool Remove(int id);
 
         /// <summary>
-        /// Zamień kolejność wybranego zadania z następnym.
-        /// </summary>
-        /// <param name="swapMe">Id wybranego zadania do zamiany kolejności.</param>
-        /// <returns>Prawdę dla powodzenia akcji, w przeciwnym wypadku zapisuje błąd, który można odczytać z GetError().</returns>
-        [OperationContract]
-        bool SwapNext(int swapMe);
-
-        /// <summary>
-        /// Zamień kolejność wybranego zadania z poprzednim.
-        /// </summary>
-        /// <param name="swapMe">Id wybranego zadania do zamiany kolejności.</param>
-        /// <returns>Prawdę dla powodzenia akcji, w przeciwnym wypadku zapisuje błąd, który można odczytać z GetError().</returns>
-        [OperationContract]
-        bool SwapPrevious(int swapMe);
-
-        /// <summary>
         /// Pobierz komunikat błędu.
         /// </summary>
         /// <returns>Zwraca komunikat błędu, jaki wystąpił.</returns>
         [OperationContract]
         string GetError();
-
-        [OperationContract]
-        ExportResponse Export(HttpRequestBase Request, HttpResponseBase Response, string ExportType, string OneSite, string key);
-
-        [OperationContract]
-        void SetInstances(string key);
+        
     }
 }

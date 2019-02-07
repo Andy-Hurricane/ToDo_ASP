@@ -15,50 +15,25 @@ namespace ToDo.Services.Zadania
 {
     // UWAGA: możesz użyć polecenia „Zmień nazwę” w menu „Refaktoryzuj”, aby zmienić nazwę klasy „ZadanieService2” w kodzie, usłudze i pliku konfiguracji.
     // UWAGA: aby uruchomić klienta testowego WCF w celu przetestowania tej usługi, wybierz plik ZadanieService2.svc lub ZadanieService2.svc.cs w eksploratorze rozwiązań i rozpocznij debugowanie.
+    /// <summary>
+    /// Ta usługa służy jedynie do komunikacji z bazą danych.
+    /// </summary>
     public class ZadanieService : IZadanieService, IDisposable
     {
         private ApplicationDbContext Context { get; set; }
 
         private string Error { get; set; }
 
-        private SortList SortedList;
-        private ViewConfig vc;
-
         public ZadanieService()
         {
-            Context = new ApplicationDbContext();
+            Context = new ApplicationDbContext();             
         }
 
-        public void SetInstances(string key)
-        {
-            SortedList = SortList.GetInstance(key);
-            vc = ViewConfig.GetInstance(key);
-
-            if (SortedList.actualList == null)
-                SortedList.actualList = Context.Tasks.ToList();
-        }
-
-        public void Sort(SortFilter By)
-        {
-            SortedList.Sort(By, Context.Tasks.ToList());
-        }
-
-        private IEnumerable<Task> GetWholeList()
-        {
-            return SortedList.actualList;
-        }
-
-        private IEnumerable<Task> GetSectionFromList()
-        {
-            IEnumerable<Task> list = vc.SearchBar.Filter(SortedList.actualList);
-            vc.CountAllTasks = SortedList.actualList.Count();
-            return list.Skip((vc.ActualSite - 1) * vc.TaskPerSite).Take(vc.TaskPerSite);
-        }
 
 
         public IEnumerable<Task> GetTasks()
         {
-            return GetSectionFromList();
+            return Context.Tasks;
         }
 
         public bool Add(Task newTask)
@@ -67,7 +42,7 @@ namespace ToDo.Services.Zadania
 
             try
             {
-                ValidateTask.GetInstance().ValidateWithID(newTask, GetWholeList());
+                ValidateTask.GetInstance().ValidateWithID(newTask, Context.Tasks);
 
                 Context.Tasks.Add(newTask);
 
@@ -91,10 +66,16 @@ namespace ToDo.Services.Zadania
 
             try
             {
+                if (Context.Tasks == null)
+                    throw new Exception("Lista jest pusta.");
+
+                if (newTask == null)
+                    throw new Exception(Errors.EditFromEmptyTask);
+
                 Task task = Context.Tasks.FirstOrDefault(el => el.Id == newTask.Id);
 
                 if (task == null)
-                    SetError(Errors.EditFromEmptyTask, out result);
+                    throw new Exception(Errors.EditToEmptyTask);
 
                 ValidateTask.GetInstance().ValidateWithoutID(newTask, Context.Tasks);
 
@@ -110,7 +91,7 @@ namespace ToDo.Services.Zadania
 
                 Context.SaveChanges();
             }
-            catch (EntityException ex)
+            catch (Exception ex)
             {
                 SetError(ex.Message, out result);
             }
@@ -126,11 +107,14 @@ namespace ToDo.Services.Zadania
         {
             bool result;
 
-            if (id < 0)
-                SetError(Errors.IdBelowZero, out result);
-
             try
             {
+                if (id < 0)
+                    throw new Exception(Errors.IdBelowZero);
+
+                if (Context.Tasks == null)
+                    throw new Exception("Lista jest pusta.");
+
                 Task task = Context.Tasks.FirstOrDefault(el => el.Id == id);
 
                 if (task == null)
@@ -140,7 +124,6 @@ namespace ToDo.Services.Zadania
 
                 Context.SaveChanges();
             }
-
             catch (EntityException ex)
             {
                 SetError(ex.Message, out result);
@@ -153,63 +136,6 @@ namespace ToDo.Services.Zadania
             return result;
         }
 
-        public bool SwapNext(int swapMe)
-        {
-            bool result;
-
-            try
-            {
-                if (swapMe >= SortedList.actualList.Count() - 1)
-                    SetError(Errors.SwapWithEmptyTask, out result);
-
-                List<Task> test = SortedList.actualList.ToList();
-
-                Task tmp = test[swapMe];
-                test[swapMe] = test[swapMe + 1];
-                test[swapMe + 1] = tmp;
-
-                SortedList.actualList = test;
-            }
-            catch (EntityException ex)
-            {
-                SetError(ex.Message, out result);
-            }
-            finally
-            {
-                result = true;
-            }
-
-            return result;
-        }
-
-        public bool SwapPrevious(int swapMe)
-        {
-            bool result;
-
-            try
-            {
-                if (swapMe <= 0)
-                    SetError(Errors.SwapWithEmptyTask, out result);
-
-                List<Task> test = SortedList.actualList.ToList();
-
-                Task tmp = test[swapMe];
-                test[swapMe] = test[swapMe - 1];
-                test[swapMe - 1] = tmp;
-
-                SortedList.actualList = test;
-            }
-            catch (EntityException ex)
-            {
-                SetError(ex.Message, out result);
-            }
-            finally
-            {
-                result = true;
-            }
-
-            return result;
-        }
 
         public string GetError()
         {
@@ -222,50 +148,11 @@ namespace ToDo.Services.Zadania
         {
             Context.Dispose();
         }
-
-
+        
         private void SetError(string communicat, out bool result)
         {
             Error = communicat;
             result = false;
-        }
-
-
-        public ExportResponse Export(HttpRequestBase Request, HttpResponseBase Response, string ExportType, string OneSite, string key)
-        {
-            if (Request.HttpMethod == "POST")
-            {
-                bool onlyOneSite;
-                try
-                {
-                    onlyOneSite = OneSite.Equals("on");
-                }
-                catch (NullReferenceException)
-                {
-                    onlyOneSite = false;
-                }
-
-                IEnumerable<Task> list = onlyOneSite
-                    ? GetSectionFromList()
-                    : GetWholeList();
-
-                Dictionary<string, IExport> exporters = new Dictionary<string, IExport> {
-                    { "TXT", new ExportTxt(Response, list, key) },
-                    { "XLS", new ExportXls(Response, list, key) },
-                    { "PDF", new ExportPdf(Response, list, key) }
-                };
-
-                IExport exporter = exporters[ExportType];
-
-                exporter.PrepareData(onlyOneSite);
-
-                exporter.Export();
-                
-                if (ExportType.Equals("PDF"))
-                    return new ExportResponse($"{exporter.GetName}.{exporter.Extension}", exporter.ContentType, (exporter as ExportPdf)._memory);
-            }
-
-            return new ExportResponse("Index");
         }
     }
 }

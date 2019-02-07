@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using ToDo.Areas.Zadania.Models;
+using ToDo.Services.Zadania.SearchBar;
 
 namespace ToDo.Services.Zadania
 {
@@ -12,12 +13,18 @@ namespace ToDo.Services.Zadania
         public bool NormalSort { get; set; } = true;
         public SortFilter ActualFilter { get; set; } = SortFilter.PRIORITY;
         public IEnumerable<Task> actualList;
+        public int CountAllTasks { get; set; }
+        public Content SearchBar { get; set; }
+        public bool HandleSearchBar { get; set; }
+        private string Error { get; set; }
 
-        private static Dictionary<string, SortList> _Instance = new Dictionary<string, SortList>();
         private Dictionary<SortFilter, Action> sorterFunctions;
         private IEnumerable<Task> List;
 
-        private SortList() {
+
+        public SortList()
+        {
+            SearchBar = new Content();
             sorterFunctions = new Dictionary<SortFilter, Action>
             {
                 { SortFilter.ID, SortByID },
@@ -29,17 +36,8 @@ namespace ToDo.Services.Zadania
             };
         }
 
-        public static SortList GetInstance(string key)
+        public void Sort(SortFilter By)
         {
-            if (!_Instance.ContainsKey(key))
-                _Instance.Add(key, new SortList());
-
-            return _Instance[key];
-        }
-
-        public void Sort(SortFilter By, IEnumerable<Task> list)
-        {
-            List = list;
 
             if (By != SortFilter.NULL)
             {
@@ -96,5 +94,123 @@ namespace ToDo.Services.Zadania
                 : List.OrderByDescending(t => t.Status).ToList();
         }
 
+        public void SetTailView()
+        {
+            NormalSort = true;
+            ActualFilter = SortFilter.PRIORITY;
+        }
+
+        public IEnumerable<Task> GetWholeList()
+        {
+            return actualList;
+        }
+
+        public IEnumerable<Task> GetSectionFromList(int actualSite, int taskPerSite)
+        {
+            IEnumerable<Task> list = SearchBar.Filter(actualList);
+            CountAllTasks = actualList.Count();
+            return list.Skip((actualSite - 1) * taskPerSite).Take(taskPerSite);
+        }
+
+
+        public bool SwapNext(int swapMe)
+        {
+            bool result;
+
+            try
+            {
+                if (swapMe >= actualList.Count() - 1)
+                    throw new Exception(Errors.SwapWithEmptyTask);
+
+                List<Task> test = actualList.ToList();
+
+                Task tmp = test[swapMe];
+                test[swapMe] = test[swapMe + 1];
+                test[swapMe + 1] = tmp;
+
+                actualList = test;
+            }
+            catch (Exception ex)
+            {
+                SetError(ex.Message, out result);
+            }
+            finally
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
+        public bool SwapPrevious(int swapMe)
+        {
+            bool result;
+
+            try
+            {
+                if (swapMe <= 0)
+                    throw new Exception(Errors.SwapWithEmptyTask);
+
+                List<Task> test = actualList.ToList();
+
+                Task tmp = test[swapMe];
+                test[swapMe] = test[swapMe - 1];
+                test[swapMe - 1] = tmp;
+
+                actualList = test;
+            }
+            catch (Exception ex)
+            {
+                SetError(ex.Message, out result);
+            }
+            finally
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
+        private void SetError(string communicat, out bool result)
+        {
+            Error = communicat;
+            result = false;
+        }
+
+        public void TryUpdate(IEnumerable<Task> task)
+        {
+            if (task != null)
+            {
+                if (List != null)
+                {
+                    IEnumerable<Task> restFromMyList = List.Except(task);
+                    IEnumerable<Task> restFromUpdated = task.Except(List);
+                    if (restFromMyList.Count() == restFromUpdated.Count() && restFromMyList.Count() == 0)
+                        List = task;
+                }
+
+
+                if (List == null)
+                {
+                    List = task;
+                }
+                if (actualList == null)
+                    Sort(SortFilter.NULL);
+            }
+        }
+
+        public void Update(IEnumerable<Task> list, Task myTask)
+        {
+            List = list;
+            int myIdx = 0;
+
+            var task = actualList.ToArray();
+            for (int iter = 0; iter < task.Count(); iter++)
+                if (task[iter].Id == myTask.Id)
+                    myIdx = iter;
+
+            task[myIdx] = myTask;
+            actualList = task;
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace ToDo.Services.Export
 {
     public class ExportPdf : Exporter
     {
-        public ExportPdf(HttpResponseBase response, IEnumerable<Task> list, string key) : base(response, list, key) { }
+        public ExportPdf(HttpResponseBase response, IEnumerable<Task> list) : base(response, list) { }
 
 
         public override void Export()

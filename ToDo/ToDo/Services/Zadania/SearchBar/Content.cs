@@ -17,11 +17,11 @@ namespace ToDo.Services.Zadania.SearchBar
         [Display(Name = "Akcja")]
         public string Action { get; set; }
 
-        public DataSearch? Start { get; set; }
-        public DataSearch? End { get; set; }
-        public NumbersSearch? Priority { get; set; }
-        public NumbersSearch? Progress { get; set; }
-        public NumbersSearch? Status { get; set; }
+        public DataSearch? StartSearch { get; set; }
+        public DataSearch? EndSearch { get; set; }
+        public NumbersSearch? PrioritySearch { get; set; }
+        public NumbersSearch? ProgressSearch { get; set; }
+        public NumbersSearch? StatusSearch { get; set; }
 
         public IEnumerable<Task> Filter(IEnumerable<Task> list)
         {
@@ -51,9 +51,9 @@ namespace ToDo.Services.Zadania.SearchBar
         {
             IEnumerable<Task> result = ByTopic(list);
 
-            if (Start != null)
+            if (StartSearch != null)
             {
-                switch (Start)
+                switch (StartSearch)
                 {
                     case DataSearch.Today:
                         result = list.Where(t => t.Start.Date.CompareTo(DateTime.Now.Date) == 0);
@@ -71,9 +71,9 @@ namespace ToDo.Services.Zadania.SearchBar
         {
             IEnumerable<Task> result = ByTopic(list);
 
-            if (End != null)
+            if (EndSearch != null)
             {
-                switch (End)
+                switch (EndSearch)
                 {
                     case DataSearch.Today:
                         result = list.Where(t => t.End.Date.CompareTo(DateTime.Now.Date) == 0);
@@ -89,9 +89,9 @@ namespace ToDo.Services.Zadania.SearchBar
         private IEnumerable<Task> ByPriority(IEnumerable<Task> list)
         {
             IEnumerable<Task> result = ByTopic(list);
-            if (Priority != null)
+            if (PrioritySearch != null)
             {
-                switch (Priority)
+                switch (PrioritySearch)
                 {
                     case NumbersSearch.AZ:
                         result = list.OrderBy(t => t.Priority).ToList<Task>();
@@ -106,9 +106,9 @@ namespace ToDo.Services.Zadania.SearchBar
         private IEnumerable<Task> ByProgress(IEnumerable<Task> list)
         {
             IEnumerable<Task> result = ByTopic(list);
-            if (Progress != null)
+            if (ProgressSearch != null)
             {
-                switch (Progress)
+                switch (ProgressSearch)
                 {
                     case NumbersSearch.AZ:
                         result = list.OrderBy(t => t.Progress).ToList<Task>();
@@ -123,9 +123,9 @@ namespace ToDo.Services.Zadania.SearchBar
         private IEnumerable<Task> ByStatus(IEnumerable<Task> list)
         {
             IEnumerable<Task> result = ByTopic(list);
-            if (Priority != null)
+            if (PrioritySearch != null)
             {
-                switch (Status)
+                switch (StatusSearch)
                 {
                     case NumbersSearch.AZ:
                         result = list.OrderBy(t => t.Status).ToList<Task>();

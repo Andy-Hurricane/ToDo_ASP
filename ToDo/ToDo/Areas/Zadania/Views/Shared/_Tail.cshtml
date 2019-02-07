@@ -12,36 +12,43 @@
  
 
 <div class="row">
-    @foreach (var task in Model.Tasks)
-        {
-        <div class="@Col(4)">
-            <div class="card">
-                <div class="row">
-                    <div class="@Col(2)" id="priority">
-                        @Html.DisplayFor(n => task.Priority)
-                    </div>
-                    <div class="@Col(2) @Offset(8)" id="status">
-                        @Html.DisplayFor(n => task.Status)
-                    </div>
-                </div>
-                <div class="row text-center" id="action">
-                    @Html.DisplayFor(n => task.Action)
-                </div> 
-                <div class="row text-center" id="topic"> 
-                    @Html.DisplayFor(n => task.Topic)
-                </div>
-                <div class="row">
-                    <div class="@Col(8)">
-                        @Html.DisplayFor(n => task.Start) - @Html.DisplayFor(n => task.End)
-                    </div>
-                    <div class="@Col(2) @Offset(2)">@Html.DisplayFor(n => task.Progress)</div>
-                </div>
-                <div class="row text-center">
 
-                    @Html.ActionLink("Podgląd", "Description", "Zadanie", new { id = task.Id }, new { @class = "btn btn-info" })
+    @if (Model.SortList.actualList != null)
+    {
+        foreach (var task in Model.SortList.GetSectionFromList(Model.ViewConfig.ActualSite, Model.ViewConfig.TaskPerSite))
+        {
+            <div class="@Col(4)">
+                <div class="card">
+                    <div class="row">
+                        <div class="@Col(2)" id="priority">
+                            @Html.DisplayFor(n => task.Priority)
+                        </div>
+                        <div class="@Col(2) @Offset(8)" id="status">
+                            @Html.DisplayFor(n => task.Status)
+                        </div>
+                    </div>
+                    <div class="row text-center" id="action">
+                        @Html.DisplayFor(n => task.Action)
+                    </div>
+                    <div class="row text-center" id="topic">
+                        @Html.DisplayFor(n => task.Topic)
+                    </div>
+                    <div class="row">
+                        <div class="@Col(8)">
+                            @Html.DisplayFor(n => task.Start) - @Html.DisplayFor(n => task.End)
+                        </div>
+                        <div class="@Col(2) @Offset(2)">@Html.DisplayFor(n => task.Progress)</div>
+                    </div>
+                    <div class="row text-center">
+
+                        @Html.ActionLink("Podgląd", "Description", "Zadanie", new { id = task.Id }, new { @class = "btn btn-info" })
+                    </div>
                 </div>
             </div>
-        </div>
 
         }
+    } else
+    {
+        <h2>BRAK DANYCH.</h2>
+    }
     </div>

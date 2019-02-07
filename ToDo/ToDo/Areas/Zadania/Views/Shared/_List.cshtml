@@ -4,7 +4,6 @@
 @using ToDo.Services.Zadania
 
 @{
-    string sessionKey = Session["key"].ToString();
     Task nameModel = null;
 
     @helper OrderArrow(SortFilter main, SortFilter actual, bool reverse)
@@ -32,65 +31,70 @@
             <td scope="col">@Html.DisplayNameFor(n => nameModel.Action)</td>
             <td scope="col">
                 @Html.ActionLink(@Html.DisplayNameFor(n => nameModel.Topic).ToString(), "SortByTopic")
-                @OrderArrow(Model.ViewConfig.ActualSort(sessionKey), SortFilter.TOPIC, Model.ViewConfig.NormalSort(sessionKey))
+                @OrderArrow(Model.SortList.ActualFilter, SortFilter.TOPIC, Model.SortList.NormalSort)
             </td>
             <td scope="col">
                 @Html.ActionLink(@Html.DisplayNameFor(n => nameModel.Start).ToString(), "SortByStart")
-                @OrderArrow(Model.ViewConfig.ActualSort(sessionKey), SortFilter.START, Model.ViewConfig.NormalSort(sessionKey))
+                @OrderArrow(Model.SortList.ActualFilter, SortFilter.START, Model.SortList.NormalSort)
             </td>
             <td scope="col">
                 @Html.ActionLink(@Html.DisplayNameFor(n => nameModel.End).ToString(), "SortByEnd")
-                @OrderArrow(Model.ViewConfig.ActualSort(sessionKey), SortFilter.END, Model.ViewConfig.NormalSort(sessionKey))
+                @OrderArrow(Model.SortList.ActualFilter, SortFilter.END, Model.SortList.NormalSort)
             </td>
             <td scope="col">
                 @Html.ActionLink(@Html.DisplayNameFor(n => nameModel.Status).ToString(), "SortByStatus")
-                @OrderArrow(Model.ViewConfig.ActualSort(sessionKey), SortFilter.STATUS, Model.ViewConfig.NormalSort(sessionKey))
+                @OrderArrow(Model.SortList.ActualFilter, SortFilter.STATUS, Model.SortList.NormalSort)
             </td>
             <td scope="col">
                 @Html.ActionLink(@Html.DisplayNameFor(n => nameModel.Priority).ToString(), "SortByPriority")
-                @OrderArrow(Model.ViewConfig.ActualSort(sessionKey), SortFilter.PRIORITY, Model.ViewConfig.NormalSort(sessionKey))
+                @OrderArrow(Model.SortList.ActualFilter, SortFilter.PRIORITY, Model.SortList.NormalSort)
             </td>
             <td scope="col">@Html.DisplayNameFor(n => nameModel.Progress)</td>
             <td scope="col"></td>
         </tr>
     </thead>
     <tbody>
-        @foreach (var task in Model.Tasks)
+        @if (Model.SortList.actualList != null)
         {
-            <tr>
+            foreach (var task in Model.SortList.GetSectionFromList(Model.ViewConfig.ActualSite, Model.ViewConfig.TaskPerSite) )
+            {
+                <tr>
 
-                <td scope="col">@Html.DisplayFor(n => task.Action)</td>
-                <td scope="col">@Html.DisplayFor(n => task.Topic)</td>
-                <td scope="col">@Html.DisplayFor(n => task.Start)</td>
-                <td scope="col">@Html.DisplayFor(n => task.End)</td>
-                <td scope="col">@Html.DisplayFor(n => task.Status)</td>
-                <td scope="col">@Html.DisplayFor(n => task.Priority)</td>
-                <td scope="col">@Html.DisplayFor(n => task.Progress)</td>
-                <td scope="col">
-                    <input type="checkbox" class="EditCheckboxes" id="selected_@task.Id" onclick="Select()">
-                    <a href="@Url.Action("Description", new { id = @task.Id })" class="link-with-icon"><i class="fab fa-wpforms text-primary small-icon"></i></a>
-                    @if (Model.Tasks.First() == task)
-                    {
-                        <i class="fas fa-angle-up text-primary small-icon-disabled"></i>
+                    <td scope="col">@Html.DisplayFor(n => task.Action)</td>
+                    <td scope="col">@Html.DisplayFor(n => task.Topic)</td>
+                    <td scope="col">@Html.DisplayFor(n => task.Start)</td>
+                    <td scope="col">@Html.DisplayFor(n => task.End)</td>
+                    <td scope="col">@Html.DisplayFor(n => task.Status)</td>
+                    <td scope="col">@Html.DisplayFor(n => task.Priority)</td>
+                    <td scope="col">@Html.DisplayFor(n => task.Progress)</td>
+                    <td scope="col">
+                        <input type="checkbox" class="EditCheckboxes" id="selected_@task.Id" onclick="Select()">
+                        <a href="@Url.Action("Description", new { id = @task.Id })" class="link-with-icon"><i class="fab fa-wpforms text-primary small-icon"></i></a>
+                        @if (Model.SortList.actualList.FirstOrDefault() == task)
+                        {
+                            <i class="fas fa-angle-up text-primary small-icon-disabled"></i>
+                        }
+                        else
+                        {
+                            <a href='@Url.Action("SwapPrevious", new { id = swapIndex })'><i class="fas fa-angle-up text-primary small-icon"></i></a>
+                        }
+                        @if (Model.SortList.CountAllTasks == swapIndex)
+                        {
+                            <i class="fas fa-angle-down text-primary small-icon-disabled"></i>
+                        }
+                        else
+                        {
+                            <a href='@Url.Action("SwapNext", new { id = swapIndex })'><i class="fas fa-angle-down text-primary small-icon"></i></a>
+                        }
+                        <i class="fas fa-plus fa-rotate-45 text-danger small-icon" onclick="Delete(@task.Id)"></i>
+                    </td>
+                    @{
+                        swapIndex++;
                     }
-                    else
-                    {
-                        <a href='@Url.Action("SwapPrevious", new { id = swapIndex })'><i class="fas fa-angle-up text-primary small-icon"></i></a>
-                    }
-                    @if (Model.ViewConfig.CountAllTasks == swapIndex)
-                    {
-                        <i class="fas fa-angle-down text-primary small-icon-disabled"></i>
-                    }
-                    else
-                    {
-                        <a href='@Url.Action("SwapNext", new { id = swapIndex })'><i class="fas fa-angle-down text-primary small-icon"></i></a>
-                    }
-                    <i class="fas fa-plus fa-rotate-45 text-danger small-icon" onclick="Delete(@task.Id)"></i>
-                </td>
-                @{
-                    swapIndex++;
-                }
-            </tr>
+                </tr>
+            }
+        } else  {
+            <h2>BRAK DANYCH.</h2>
         }
     </tbody>
 </table>

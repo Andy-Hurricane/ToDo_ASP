@@ -10,82 +10,56 @@ namespace ToDo.Areas.Zadania.ViewModel
 {
     public class TasksViewConfigModel
     {
-        public IEnumerable<Task> Tasks { get; set; }
+        public SortList SortList { get; set; }
         public ViewConfig ViewConfig { get; set; }
         public string Exception { get; set; }
 
-
-        public static TasksViewConfigModel PrepareForException(IZadanieService Service, ExceptionContext exception, string key)
+        public void PrepareForException(ExceptionContext exception)
         {
-            CheckSearchBar(key);
-            return new TasksViewConfigModel
-            {
-                Tasks = Service.GetTasks(),
-                ViewConfig = ViewConfig.GetInstance(key),
-                Exception = exception.Exception.Message
-            };
+            CheckSearchBar();
+            Exception = exception.Exception.Message;
         }
 
-        public static TasksViewConfigModel PrepareForIndex(IZadanieService Service, string key)
+        public void PrepareForIndex()
         {
-            CheckSearchBar(key);
-            return new TasksViewConfigModel
-            {
-                Tasks = Service.GetTasks(),
-                ViewConfig = ViewConfig.GetInstance(key),
-                Exception = String.Empty
-            };
+            CheckSearchBar();
+
+            Exception = String.Empty;
         }
 
-        public static TasksViewConfigModel PrepareForDescription(IZadanieService Service, int id, string key)
+        public void PrepareForDescription(int id)
         {
-            CheckSearchBar(key);
-            IEnumerable<Task> list = Service.GetTasks();
-            bool isInList = (list.FirstOrDefault(t => t.Id == id) != null);
+            CheckSearchBar();
+            bool isInList = (SortList.actualList.FirstOrDefault(t => t.Id == id) != null);
 
-            ViewConfig.SetDescriptionTaskId(id, key);
+            ViewConfig.SetDescriptionTaskId(id);
             ViewConfig.SetVisibleModal( isInList 
                 ? "Description"
-                : String.Empty,
-                key
+                : String.Empty
             );
-
-            return new TasksViewConfigModel
-            {
-                Tasks = Service.GetTasks(),
-                ViewConfig = ViewConfig.GetInstance(key),
-                Exception = isInList ? String.Empty : "Brak takiego zadania."
-            };
+            Exception = isInList ? String.Empty : "Brak takiego zadania.";
         }
 
-        public static TasksViewConfigModel PrepareForEdit(IZadanieService Service, int id, string key)
+        public void PrepareForEdit(int id)
         {
-            CheckSearchBar(key);
-            IEnumerable<Task> list = Service.GetTasks();
-            bool isInList = (list.FirstOrDefault(t => t.Id == id) != null);
+            CheckSearchBar();
+            bool isInList = (SortList.actualList.FirstOrDefault(t => t.Id == id) != null);
 
-            ViewConfig.SetEditedTaskId(id, key);
+            ViewConfig.SetEditedTaskId(id);
             ViewConfig.SetVisibleModal(isInList
                 ? "Edit"
-                : String.Empty,
-                key
+                : String.Empty
             );
 
-            return new TasksViewConfigModel
-            {
-                Tasks = Service.GetTasks(),
-                ViewConfig = ViewConfig.GetInstance(key),
-                Exception = isInList ? String.Empty : "Brak takiego zadania."
-            };
+            Exception = isInList ? String.Empty : "Brak takiego zadania.";
         }
         
-        private static void CheckSearchBar(string key)
+        private void CheckSearchBar()
         {
-            ViewConfig vc = ViewConfig.GetInstance(key);
-            if (vc.HandleSearchBar)
-                vc.HandleSearchBar = false;
+            if (SortList.HandleSearchBar)
+                SortList.HandleSearchBar = false;
             else
-                vc.SearchBar = new Services.Zadania.SearchBar.Content();
+                SortList.SearchBar = new Services.Zadania.SearchBar.Content();
         }
     }
 

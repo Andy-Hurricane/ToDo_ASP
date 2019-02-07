@@ -13,15 +13,13 @@ namespace ToDo.Services.Export
         protected HttpResponseBase _response;
         protected string _result;
         protected byte[] _resultByte;
-        protected ViewConfig _viewConfig;
         protected IEnumerable<Task> _tasks;
         public MemoryStream _memory { get; protected set; }
 
-        public Exporter(HttpResponseBase response, IEnumerable<Task> list, string key)
+        public Exporter(HttpResponseBase response, IEnumerable<Task> list)
         {
             _response = response;
             _result = "";
-            _viewConfig = ViewConfig.GetInstance(key);
             _tasks = list;
         }
 

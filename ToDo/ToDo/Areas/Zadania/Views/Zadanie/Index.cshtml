@@ -3,24 +3,34 @@
 @using ToDo.Areas.Zadania.Models
 
 @{
-    Task nameModel = null;
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     var availableSite = Model.ViewConfig.MultiplierTaskPerSite != 0
-        ? Math.Ceiling((decimal)(Model.ViewConfig.CountAllTasks) / Model.ViewConfig.TaskPerSite)
+        ? Math.Ceiling((decimal)(Model.SortList.CountAllTasks) / Model.ViewConfig.TaskPerSite)
         : 1;
+    if (Model.SortList != null)
+    {
+        if (Model.SortList.actualList.Count() > 0)
+        {
+            var test = Model.ViewConfig.DescriptionTaskId;
+        }
+    }
+    var descriptionModel = (Model.SortList != null && Model.SortList.actualList.Count() > 0)
+        ? Model.SortList.actualList.FirstOrDefault(t => t.Id == Model.ViewConfig.DescriptionTaskId)
+        : null;
 
-    var descriptionModel = Model.Tasks.FirstOrDefault(t => t.Id == Model.ViewConfig.DescriptionTaskId);
     var descriptionVisibleStyle = descriptionModel == null ? "none" : "inherit";
 
-    var editedTask = Model.Tasks.FirstOrDefault(t => t.Id == Model.ViewConfig.EditedTaskId);
+    var editedTask = Model.SortList != null
+        ? Model.SortList.actualList.FirstOrDefault(t => t.Id == Model.ViewConfig.EditedTaskId)
+        : null;
     var editedVisibleStyle = editedTask == null ? "none" : "inherit";
 
 }
 
 @{Html.RenderPartial("~/Areas/Zadania/Views/Shared/_PanelView.cshtml");}
 
-@{ Html.RenderPartial("~/Areas/Zadania/Views/Shared/_SearchBar.cshtml", Model.ViewConfig.SearchBar); }
+@{ Html.RenderPartial("~/Areas/Zadania/Views/Shared/_SearchBar.cshtml", Model.SortList.SearchBar); }
 
 @if (Model.ViewConfig.ActualViewType == ToDo.Services.Zadania.ViewType.LIST)
 {

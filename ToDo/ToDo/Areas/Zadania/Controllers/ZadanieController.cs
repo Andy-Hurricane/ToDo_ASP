@@ -19,12 +19,20 @@ namespace ToDo.Areas.Zadania.Controllers
         public ZadanieController(IZadanieService service)
         {
             Service = service;
-            service.SetInstances(GetKey());
+            
         }
 
         protected override void OnException(ExceptionContext filterContext)
         {
-            var ModelView = TasksViewConfigModel.PrepareForException(Service, filterContext, GetKey());
+            
+            TasksViewConfigModel ModelView = new TasksViewConfigModel()
+            {
+                SortList = SessionElement<SortList>(),
+                ViewConfig = SessionElement<ViewConfig>()
+            };
+
+            ModelView.PrepareForException(filterContext);
+
             filterContext.Result = View("Index", ModelView);
             filterContext.ExceptionHandled = true;
         }
@@ -32,37 +40,56 @@ namespace ToDo.Areas.Zadania.Controllers
         // GET: Zadania/Zadanie
         public ActionResult Index()
         {
-            ViewConfig.ClearVisibleModal(GetKey());
+            SessionElement<ViewConfig>().ClearVisibleModal();
 
-            var ViewModel = TasksViewConfigModel.PrepareForIndex(Service, GetKey());
 
-            return View(ViewModel);
+            TasksViewConfigModel ModelView = new TasksViewConfigModel()
+            {
+                SortList = SessionElement<SortList>(),
+                ViewConfig = SessionElement<ViewConfig>()
+            };
+
+            ModelView.PrepareForIndex();
+            return View(ModelView);
         }
 
         public ActionResult Exit()
         {
             return View();
         }
+
         public ActionResult List()
         {
-            ViewConfig.GetInstance(GetKey()).SetListView();
-            return RedirectToAction("Index");
-        }
-        public ActionResult Tails()
-        {
-            ViewConfig.GetInstance(GetKey()).SetTailView(GetKey());
+            SessionElement<ViewConfig>().SetView(Services.Zadania.ViewType.LIST);
+            TasksViewConfigModel ModelView = new TasksViewConfigModel()
+            {
+                SortList = SessionElement<SortList>(),
+                ViewConfig = SessionElement<ViewConfig>()
+            };
             return RedirectToAction("Index");
         }
 
-        [HttpPost]
+        public ActionResult Tails()
+        {
+            SessionElement<ViewConfig>().SetView(Services.Zadania.ViewType.TAIL);
+            SessionElement<SortList>().SetTailView();
+
+            TasksViewConfigModel ModelView = new TasksViewConfigModel()
+            {
+                SortList = SessionElement<SortList>(),
+                ViewConfig = SessionElement<ViewConfig>()
+            };
+            return RedirectToAction("Index");
+        }
+
         public ActionResult Create(Task task)
         {
             bool isAdd = (task.Id == 0);
 
-            ViewConfig.SetVisibleModal( isAdd 
+            SessionElement<ViewConfig>().SetVisibleModal( isAdd 
                 ? "Add"
                 : "Edit"
-            , GetKey());
+            );
 
             if (ModelState.IsValid)
             {
@@ -72,107 +99,170 @@ namespace ToDo.Areas.Zadania.Controllers
 
                 if (doIt(task))
                 {
-                    ViewConfig.ClearVisibleModal(GetKey());
+                    SessionElement<ViewConfig>().ClearVisibleModal();
                     if (isAdd)
-                        Service.Sort(SortFilter.NULL);
+                        SessionElement<SortList>().Sort(SortFilter.NULL);
+                    else
+                        SessionElement<SortList>().Update(Service.GetTasks(), task);
                     return RedirectToAction("Index");
                 }
                 else return HttpNotFound("Błąd: " + Service.GetError());
             }
 
 
-            var ViewModel = TasksViewConfigModel.PrepareForIndex(Service, GetKey());
-            
-            return View("Index", ViewModel);
+            TasksViewConfigModel ModelView = new TasksViewConfigModel()
+            {
+                SortList = SessionElement<SortList>(),
+                ViewConfig = SessionElement<ViewConfig>()
+            };
+
+            ModelView.PrepareForIndex();
+
+            return View("Index", ModelView);
         }
 
         public ActionResult Delete(int id)
         {
-            Service.Remove(id);
-            Service.Sort(SortFilter.NULL);
+            if (!Service.Remove(id))
+                HttpNotFound("Błąd: " + Service.GetError());
+
+            SessionElement<SortList>().Sort(SortFilter.NULL);
             return RedirectToAction("Index");
         }
 
         public ActionResult Description(int id)
         {
-            var ViewModel = TasksViewConfigModel.PrepareForDescription(Service, id, GetKey());
+            TasksViewConfigModel ModelView = new TasksViewConfigModel()
+            {
+                SortList = SessionElement<SortList>(),
+                ViewConfig = SessionElement<ViewConfig>()
+            };
+            ModelView.PrepareForDescription(id);
 
-            return View("Index", ViewModel);
+            return View("Index", ModelView);
         }
 
         public ActionResult Edit(int id)
         {
-            var ViewModel = TasksViewConfigModel.PrepareForEdit(Service, id, GetKey());
+            TasksViewConfigModel ModelView = new TasksViewConfigModel()
+            {
+                SortList = SessionElement<SortList>(),
+                ViewConfig = SessionElement<ViewConfig>()
+            };
+            ModelView.PrepareForEdit(id);
 
-            return View("Index", ViewModel);
+            return View("Index", ModelView);
         }
 
         public ActionResult SortByTopic()
         {
-            Service.Sort(SortFilter.TOPIC);
+            SessionElement<SortList>().Sort(SortFilter.TOPIC);
             return RedirectToAction("Index");
         }
 
         public ActionResult SortByEnd()
         {
-            Service.Sort(SortFilter.END);
+            SessionElement<SortList>().Sort(SortFilter.END);
             return RedirectToAction("Index");
         }
 
         public ActionResult SortByPriority()
         {
-            Service.Sort(SortFilter.PRIORITY);
+            SessionElement<SortList>().Sort(SortFilter.PRIORITY);
             return RedirectToAction("Index");
         }
 
         public ActionResult SortByStart()
         {
-            Service.Sort(SortFilter.START);
+            SessionElement<SortList>().Sort(SortFilter.START);
             return RedirectToAction("Index");
         }
 
         public ActionResult SortByStatus()
         {
-            Service.Sort(SortFilter.STATUS);
+            SessionElement<SortList>().Sort(SortFilter.STATUS);
             return RedirectToAction("Index");
         }
 
         public ActionResult SwapPrevious(int id)
         {
-            Service.SwapPrevious(id);
+            SessionElement<SortList>().SwapPrevious(id);
             return RedirectToAction("Index");
         }
 
         public ActionResult SwapNext(int id)
         {
-            Service.SwapNext(id);
+            SessionElement<SortList>().SwapNext(id);
             return RedirectToAction("Index");
         }
 
         public ActionResult ChangeTasksPerSite(int id)
         {
-            ViewConfig.GetInstance(GetKey()).MultiplierTaskPerSite = id;
+
+            SessionElement<ViewConfig>().MultiplierTaskPerSite = id;
             return RedirectToAction("Index");
         }
 
         public ActionResult ChangeActualSite(int id)
         {
-            ViewConfig.GetInstance(GetKey()).ActualSite = id;
+
+            SessionElement<ViewConfig>().ActualSite = id;
             return RedirectToAction("Index");
         }
+
 
         [HttpPost]
         public ActionResult Search(Content content)
         {
-            ViewConfig.GetInstance(GetKey()).SearchBar = content;
-            ViewConfig.GetInstance(GetKey()).HandleSearchBar = true;
+            SessionElement<SortList>().SearchBar = content;
+            SessionElement<SortList>().HandleSearchBar = true;
             return RedirectToAction("Index");
         }
 
         [HttpPost]
         public ActionResult Export(string ExportType, string OneSite)
         {
-            ExportResponse respo = Service.Export(Request, Response, ExportType, OneSite, GetKey());
+            ExportResponse respo;
+            if (Request.HttpMethod == "POST")
+            {
+                bool onlyOneSite;
+                try
+                {
+                    onlyOneSite = OneSite.Equals("on");
+                }
+                catch (NullReferenceException)
+                {
+                    onlyOneSite = false;
+                }
+
+                int actualPage = SessionElement<ViewConfig>().ActualSite;
+                int perSite = SessionElement<ViewConfig>().TaskPerSite;
+
+                IEnumerable<Task> list = onlyOneSite
+                    ? SessionElement<SortList>().GetSectionFromList(actualPage, perSite)
+                    : SessionElement<SortList>().GetWholeList();
+                
+                if (list == null)
+                {
+                    throw new Exception("Nie można eksportować pustej listy.");
+                }
+                Dictionary<string, IExport> exporters = new Dictionary<string, IExport> {
+                    { "TXT", new ExportTxt(Response, list) },
+                    { "XLS", new ExportXls(Response, list) },
+                    { "PDF", new ExportPdf(Response, list) }
+                };
+
+                IExport exporter = exporters[ExportType];
+
+                exporter.PrepareData(onlyOneSite);
+
+                exporter.Export();
+
+                if (ExportType.Equals("PDF"))
+                    respo = new ExportResponse($"{exporter.GetName}.{exporter.Extension}", exporter.ContentType, (exporter as ExportPdf)._memory);
+            }
+
+            respo = new ExportResponse("Index");
 
             if (respo.Type == ExportResponseType.FILE)
                 return File(respo.FileArray, respo.ContentType, respo.Name);
@@ -180,12 +270,27 @@ namespace ToDo.Areas.Zadania.Controllers
             return RedirectToAction(respo.Redirect);
         }
 
-        private string GetKey()
-        {
-            if (System.Web.HttpContext.Current.Session["key"] == null)
-                System.Web.HttpContext.Current.Session["key"] = Guid.NewGuid().ToString();
+        private T SessionElement<T>() where T : class, new() {
+            Dictionary<Type, string> names = new Dictionary<Type, string>
+            {
+                { typeof(ViewConfig), "ViewConfig" },
+                { typeof(SortList), "SortList" }
+            };
 
-            return System.Web.HttpContext.Current.Session["key"].ToString();
+            if (!names.ContainsKey(typeof(T)))
+                throw new Exception("Sesja nie obsługuje obiektu tego typu.");
+
+            string name = names[typeof(T)];
+
+            T result =((Session[name] as T == null)
+                ? Session[name] = new T()
+                : Session[name]
+            ) as T;
+
+            if (typeof(T) == typeof(SortList))
+                (result as SortList).TryUpdate(Service.GetTasks());
+
+            return result;
         }
     }
 }
