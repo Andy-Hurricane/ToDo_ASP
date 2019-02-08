@@ -36,14 +36,20 @@ namespace ToDo.Services.Zadania
             return Context.Tasks;
         }
 
-        public bool Add(Task newTask)
+        public bool Add(Task newTask, HttpPostedFileBase File)
         {
             bool result;
 
             try
             {
                 ValidateTask.GetInstance().ValidateWithID(newTask, Context.Tasks);
-
+                if (File != null && File.ContentLength > 0)
+                {
+                    newTask.File = File.FileName;
+                    newTask.FileType = File.ContentType;
+                    using (var reader = new System.IO.BinaryReader(File.InputStream))
+                        newTask.ImageContent = reader.ReadBytes(File.ContentLength);
+                }
                 Context.Tasks.Add(newTask);
 
                 Context.SaveChanges();
@@ -60,7 +66,7 @@ namespace ToDo.Services.Zadania
             return result;
         }
 
-        public bool Edit(Task newTask)
+        public bool Edit(Task newTask, HttpPostedFileBase File)
         {
             bool result;
 
@@ -88,6 +94,17 @@ namespace ToDo.Services.Zadania
                 task.Start = newTask.Start;
                 task.Status = newTask.Status;
                 task.Topic = newTask.Topic;
+
+                task.File = newTask.File;
+                task.FileType = newTask.FileType;
+                task.ImageContent = newTask.ImageContent;
+
+                if (newTask.ClearImage)
+                {
+                    task.File = string.Empty;
+                    task.FileType = string.Empty;
+                    task.ImageContent = null;
+                }
 
                 Context.SaveChanges();
             }

@@ -14,7 +14,7 @@ namespace ToDo.Areas.Zadania.Controllers
     public class ZadanieController : Controller
     {
         private IZadanieService Service { get; set; }
-        private delegate bool CreateAction(Task myTask);
+        private delegate bool CreateAction(Task myTask, HttpPostedFileBase File);
 
         public ZadanieController(IZadanieService service)
         {
@@ -82,10 +82,12 @@ namespace ToDo.Areas.Zadania.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Create(Task task)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Task task, HttpPostedFileBase File)
         {
             bool isAdd = (task.Id == 0);
-
+             
             SessionElement<ViewConfig>().SetVisibleModal( isAdd 
                 ? "Add"
                 : "Edit"
@@ -97,7 +99,7 @@ namespace ToDo.Areas.Zadania.Controllers
                     ? new CreateAction(Service.Add)
                     : new CreateAction(Service.Edit);
 
-                if (doIt(task))
+                if (doIt(task, File))
                 {
                     SessionElement<ViewConfig>().ClearVisibleModal();
                     if (isAdd)
@@ -120,7 +122,15 @@ namespace ToDo.Areas.Zadania.Controllers
 
             return View("Index", ModelView);
         }
+        [HttpGet]
+        public ActionResult Image(int id)
+        {
+            Task t = SessionElement<SortList>().GetTask(id);
 
+            return (t == null)
+                ? null
+                : File(t.ImageContent, t.FileType);
+        }
         public ActionResult Delete(int id)
         {
             if (!Service.Remove(id))

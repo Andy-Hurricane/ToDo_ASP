@@ -21,23 +21,24 @@ namespace ToDo.Services.Zadania
         /// <returns>Zwraca wszystkie zadania.</returns>
         [OperationContract]
         IEnumerable<Task> GetTasks();
-        
+
         /// <summary>
         /// Dodaj zadanie.
         /// </summary>
         /// <param name="newTask">Zadanie, które ma być dodane.</param>
+        /// <param name="File">Plik, który ma zostać dodany.</param>
         /// <returns>Prawdę dla powodzenia akcji, w przeciwnym wypadku zapisuje błąd, który można odczytać z GetError().</returns>
         [OperationContract]
-        bool Add(Task newTask);
+        bool Add(Task newTask, HttpPostedFileBase File);
 
         /// <summary>
         /// Edytuj zadanie.
         /// </summary>
         /// <param name="idOld">Id edytowanego zadania.</param>
-        /// <param name="newTask">Nowe wartości zadania.</param>
+        /// <param name="File">Plik, który ma zostać zedytowany.</param>
         /// <returns>Prawdę dla powodzenia akcji, w przeciwnym wypadku zapisuje błąd, który można odczytać z GetError().</returns>
         [OperationContract]
-        bool Edit(Task newTask);
+        bool Edit(Task newTask, HttpPostedFileBase File);
 
         /// <summary>
         /// Usuń zadanie.

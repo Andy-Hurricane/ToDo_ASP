@@ -34,8 +34,17 @@
             <td>@Html.ValueFor(n => Model.Description)</td>
         </tr>
         <tr>
-            <th>@Html.DisplayNameFor(n => Model.File)</th>
-            <td>@Html.ValueFor(n => Model.File)</td>
+            <th>Obrazek:</th>
+            <td>
+                @if (Html.ValueFor(n => Model.File) == null || @Html.ValueFor(n => Model.File).ToString() == string.Empty)
+                {
+                    <p>Brak obrazka.</p>
+                }
+                else
+                {
+                    <img src="@Url.Action("Image")?id=@Model.Id" alt="@Model.File" style="width: 150px; height: 150px;"/>
+                }
+            </td>
         </tr>
     </tbody>
 </table>

@@ -1,6 +1,6 @@
 ﻿@model ToDo.Areas.Zadania.Models.Task
 
-@using (Html.BeginForm("Create", "Zadanie", FormMethod.Post))
+@using (Html.BeginForm("Create", "Zadanie", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -59,15 +59,28 @@
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(t => Model.File)
-        @Html.TextBoxFor(t => Model.File, new { @class = "form-control", placeholder = Html.DisplayNameFor(t => Model.File) })
+        @Html.TextBoxFor(t => Model.File, new { type = "file", @class = "form-control", accept = "image/*" })
         @Html.ValidationMessageFor(t => Model.File, "", new { @class = "text-danger" })
     </div>
+    if (Html.ValueFor(n => Model.File) == null || Html.ValueFor(n => Model.File).ToString() != string.Empty)
+    {
+        <div class="form-row">
+            <img src="@Url.Action("Image")?id=@Model.Id" alt="@Model.File" style="width: 150px; height: 150px;" />
+            @if (Model.Id != 0)
+            {   
+                <text>
+                    @Html.CheckBoxFor(t => Model.ClearImage) @Html.LabelFor(t => Model.ClearImage) Wyczyść obrazek
+                </text>
+            }
+        </div>
+    }
+
     <div class="form-row">
         <div class="text-center">
             <button type="submit" class="btn btn-primary mb-2">@(Model.Id != 0 ? "Uaktualnij zadanie" : "Dodaj zadanie")</button>
         </div>
     </div>
+
 }
 
 

@@ -12,7 +12,7 @@ namespace ToDo.Services.Zadania
     {
         public bool NormalSort { get; set; } = true;
         public SortFilter ActualFilter { get; set; } = SortFilter.PRIORITY;
-        public IEnumerable<Task> actualList;
+        public IEnumerable<Task> actualList { get; set; }
         public int CountAllTasks { get; set; }
         public Content SearchBar { get; set; }
         public bool HandleSearchBar { get; set; }
@@ -50,6 +50,11 @@ namespace ToDo.Services.Zadania
             if (sorterFunctions.ContainsKey(ActualFilter))
                 sorterFunctions[ActualFilter]();
             else throw new Exception("Nie ma jeszcze takiego sortowania");
+        }
+
+        public Task GetTask(int id)
+        {
+            return List.FirstOrDefault(t => t.Id == id);
         }
 
         private void SortByID()

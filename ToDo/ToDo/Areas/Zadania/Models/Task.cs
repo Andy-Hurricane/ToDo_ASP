@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 using System.Runtime.Serialization;
+using System.Web;
 
 namespace ToDo.Areas.Zadania.Models
 {
@@ -84,7 +85,12 @@ namespace ToDo.Areas.Zadania.Models
         /// <summary>
         /// Ścieżka do pliku dla zadania.
         /// </summary>
-        [DisplayName("Ścieżka do pliku")]
+        [DisplayName("Nazwa pliku")]
         public string File { get; set; }
+        
+        public byte[] ImageContent { get; set; }
+        public string FileType { get; set; }
+        [DisplayName("Wyczyść obrazek")]
+        public bool ClearImage { get; set; } = false;
     }
 }
