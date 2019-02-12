@@ -14,7 +14,6 @@ namespace ToDo.Areas.Zadania.Controllers
     public class ZadanieController : Controller
     {
         private IZadanieService Service { get; set; }
-        private delegate bool CreateAction(Task myTask, HttpPostedFileBase File);
 
         public ZadanieController(IZadanieService service)
         {
