@@ -53,14 +53,11 @@ namespace ToDo.Services.Zadania
                 Context.Tasks.Add(newTask);
 
                 Context.SaveChanges();
+                result = true;
             }
             catch (EntityException ex)
             {
                 SetError(ex.Message, out result);
-            }
-            finally
-            {
-                result = true;
             }
 
             return result;
@@ -107,14 +104,11 @@ namespace ToDo.Services.Zadania
                 }
 
                 Context.SaveChanges();
+                result = true;
             }
             catch (Exception ex)
             {
                 SetError(ex.Message, out result);
-            }
-            finally
-            {
-                result = true;
             }
 
             return result;
@@ -140,14 +134,11 @@ namespace ToDo.Services.Zadania
                 Context.Tasks.Remove(task);
 
                 Context.SaveChanges();
+                result = true;
             }
             catch (EntityException ex)
             {
                 SetError(ex.Message, out result);
-            }
-            finally
-            {
-                result = true;
             }
 
             return result;

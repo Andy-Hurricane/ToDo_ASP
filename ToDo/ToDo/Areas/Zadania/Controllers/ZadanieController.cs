@@ -43,11 +43,7 @@ namespace ToDo.Areas.Zadania.Controllers
             SessionElement<ViewConfig>().ClearVisibleModal();
 
 
-            TasksViewConfigModel ModelView = new TasksViewConfigModel()
-            {
-                SortList = SessionElement<SortList>(),
-                ViewConfig = SessionElement<ViewConfig>()
-            };
+            TasksViewConfigModel ModelView = GetStandardModelState();
 
             ModelView.PrepareForIndex();
             return View(ModelView);
@@ -61,11 +57,7 @@ namespace ToDo.Areas.Zadania.Controllers
         public ActionResult List()
         {
             SessionElement<ViewConfig>().SetView(Services.Zadania.ViewType.LIST);
-            TasksViewConfigModel ModelView = new TasksViewConfigModel()
-            {
-                SortList = SessionElement<SortList>(),
-                ViewConfig = SessionElement<ViewConfig>()
-            };
+            TasksViewConfigModel ModelView = GetStandardModelState();
             return RedirectToAction("Index");
         }
 
@@ -74,54 +66,60 @@ namespace ToDo.Areas.Zadania.Controllers
             SessionElement<ViewConfig>().SetView(Services.Zadania.ViewType.TAIL);
             SessionElement<SortList>().SetTailView();
 
-            TasksViewConfigModel ModelView = new TasksViewConfigModel()
-            {
-                SortList = SessionElement<SortList>(),
-                ViewConfig = SessionElement<ViewConfig>()
-            };
+            TasksViewConfigModel ModelView = GetStandardModelState();
             return RedirectToAction("Index");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Task task, HttpPostedFileBase File)
+        public ActionResult Add(Task task, HttpPostedFileBase File)
         {
-            bool isAdd = (task.Id == 0);
-             
-            SessionElement<ViewConfig>().SetVisibleModal( isAdd 
-                ? "Add"
-                : "Edit"
-            );
+            SessionElement<ViewConfig>().SetVisibleModal("Add");
 
             if (ModelState.IsValid)
             {
-                CreateAction doIt = isAdd
-                    ? new CreateAction(Service.Add)
-                    : new CreateAction(Service.Edit);
-
-                if (doIt(task, File))
+                if (Service.Add(task, File))
                 {
                     SessionElement<ViewConfig>().ClearVisibleModal();
-                    if (isAdd)
-                        SessionElement<SortList>().Sort(SortFilter.NULL);
-                    else
-                        SessionElement<SortList>().Update(Service.GetTasks(), task);
+                    SessionElement<SortList>().Sort(SortFilter.NULL);
+
                     return RedirectToAction("Index");
                 }
                 else return HttpNotFound("Błąd: " + Service.GetError());
             }
 
 
-            TasksViewConfigModel ModelView = new TasksViewConfigModel()
-            {
-                SortList = SessionElement<SortList>(),
-                ViewConfig = SessionElement<ViewConfig>()
-            };
+            TasksViewConfigModel ModelView = GetStandardModelState();
 
             ModelView.PrepareForIndex();
 
             return View("Index", ModelView);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Task task, HttpPostedFileBase File)
+        {
+            SessionElement<ViewConfig>().SetVisibleModal("Edit");
+
+            if (ModelState.IsValid)
+            {
+                if (Service.Edit(task, File))
+                {
+                    SessionElement<ViewConfig>().ClearVisibleModal();
+                    SessionElement<SortList>().Update(Service.GetTasks(), task);
+
+                    return RedirectToAction("Index");
+                }
+                else return HttpNotFound("Błąd: " + Service.GetError());
+            }
+
+            TasksViewConfigModel ModelView = GetStandardModelState();
+            ModelView.PrepareForIndex();
+
+            return View("Index", ModelView);
+        }
+
         [HttpGet]
         public ActionResult Image(int id)
         {
@@ -142,11 +140,8 @@ namespace ToDo.Areas.Zadania.Controllers
 
         public ActionResult Description(int id)
         {
-            TasksViewConfigModel ModelView = new TasksViewConfigModel()
-            {
-                SortList = SessionElement<SortList>(),
-                ViewConfig = SessionElement<ViewConfig>()
-            };
+            TasksViewConfigModel ModelView = GetStandardModelState();
+
             ModelView.PrepareForDescription(id);
 
             return View("Index", ModelView);
@@ -154,11 +149,7 @@ namespace ToDo.Areas.Zadania.Controllers
 
         public ActionResult Edit(int id)
         {
-            TasksViewConfigModel ModelView = new TasksViewConfigModel()
-            {
-                SortList = SessionElement<SortList>(),
-                ViewConfig = SessionElement<ViewConfig>()
-            };
+            TasksViewConfigModel ModelView = GetStandardModelState();
             ModelView.PrepareForEdit(id);
 
             return View("Index", ModelView);
@@ -301,6 +292,15 @@ namespace ToDo.Areas.Zadania.Controllers
                 (result as SortList).TryUpdate(Service.GetTasks());
 
             return result;
+        }
+
+        private TasksViewConfigModel GetStandardModelState()
+        {
+            return new TasksViewConfigModel()
+            {
+                SortList = SessionElement<SortList>(),
+                ViewConfig = SessionElement<ViewConfig>()
+            };
         }
     }
 }
